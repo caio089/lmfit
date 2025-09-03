@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMFIT - Roupas Fitness Femininas</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts - Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        'preto': '#000000',
+                        'branco': '#FFFFFF',
+                        'cinza-claro': '#F5F5F5',
+                        'cinza-escuro': '#1F1F1F',
+                        'rosa': '#FF4C8B',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(255,76,139,0.3)), url('{% load static %}{% static "LMFIT.jpg" %}');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .btn-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .btn-hover:hover {
+            transform: scale(1.05);
+        }
+        
+        .cart-badge {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body class="bg-branco text-preto font-poppins">
+    
+    <!-- Header Fixo -->
+    <header class="fixed top-0 left-0 right-0 bg-branco shadow-lg z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-preto">LMFIT</h1>
+                    <span class="text-rosa ml-2 text-sm font-medium">FITNESS</span>
+                </div>
+                
+                <!-- Menu Desktop -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-preto hover:text-rosa transition-colors font-medium">Início</a>
+                    <a href="#categorias" class="text-preto hover:text-rosa transition-colors font-medium">Categorias</a>
+                    <a href="#produtos" class="text-preto hover:text-rosa transition-colors font-medium">Produtos</a>
+                    <a href="#sobre" class="text-preto hover:text-rosa transition-colors font-medium">Sobre</a>
+                    <a href="#contato" class="text-preto hover:text-rosa transition-colors font-medium">Contato</a>
+                </nav>
+                
+                <!-- Carrinho e Menu Mobile -->
+                <div class="flex items-center space-x-4">
+                    <!-- Carrinho -->
+                    <button id="cart-btn" class="relative p-2 text-preto hover:text-rosa transition-colors">
+                        <i class="fas fa-shopping-bag text-xl"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-rosa text-branco text-xs rounded-full h-5 w-5 flex items-center justify-center cart-badge hidden">0</span>
+                    </button>
+                    
+                    <!-- Menu Mobile -->
+                    <button id="mobile-menu-btn" class="md:hidden p-2 text-preto">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Menu Mobile -->
+            <div id="mobile-menu" class="md:hidden hidden bg-branco border-t border-cinza-claro">
+                <nav class="py-4 space-y-2">
+                    <a href="#home" class="block px-4 py-2 text-preto hover:text-rosa transition-colors">Início</a>
+                    <a href="#categorias" class="block px-4 py-2 text-preto hover:text-rosa transition-colors">Categorias</a>
+                    <a href="#produtos" class="block px-4 py-2 text-preto hover:text-rosa transition-colors">Produtos</a>
+                    <a href="#sobre" class="block px-4 py-2 text-preto hover:text-rosa transition-colors">Sobre</a>
+                    <a href="#contato" class="block px-4 py-2 text-preto hover:text-rosa transition-colors">Contato</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg min-h-screen flex items-center justify-center text-center text-branco relative">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                    LMFIT
+                    <span class="text-rosa block">FITNESS</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 font-light">
+                    Transforme sua rotina fitness com peças que combinam tecnologia, conforto e estilo único. 
+                    Descubra a coleção que vai elevar seu treino ao próximo nível.
+                </p>
+                <button class="bg-rosa hover:bg-pink-600 text-branco px-8 py-4 rounded-full text-lg font-semibold btn-hover">
+                    DESCUBRA LMFIT
+                </button>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-2xl text-branco"></i>
+        </div>
+    </section>
+    
+    <!-- Seção de Categorias -->
+    <section id="categorias" class="py-20 bg-cinza-claro">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-preto mb-4">CATEGORIAS</h2>
+                <p class="text-xl text-cinza-escuro">Encontre a peça perfeita para cada momento</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Tops -->
+                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer">
+                    <div class="h-64 bg-gradient-to-br from-rosa to-pink-400 flex items-center justify-center">
+                        <i class="fas fa-tshirt text-6xl text-branco"></i>
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-2xl font-bold text-preto mb-2">TOPS</h3>
+                        <p class="text-cinza-escuro">Conforto e estilo para seus treinos</p>
+                    </div>
+                </div>
+                
+                <!-- Leggings -->
+                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer">
+                    <div class="h-64 bg-gradient-to-br from-preto to-cinza-escuro flex items-center justify-center">
+                        <i class="fas fa-running text-6xl text-branco"></i>
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-2xl font-bold text-preto mb-2">LEGGINGS</h3>
+                        <p class="text-cinza-escuro">Liberdade de movimento garantida</p>
+                    </div>
+                </div>
+                
+                <!-- Conjuntos -->
+                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer">
+                    <div class="h-64 bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                        <i class="fas fa-user text-6xl text-branco"></i>
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-2xl font-bold text-preto mb-2">CONJUNTOS</h3>
+                        <p class="text-cinza-escuro">Looks completos e coordenados</p>
+                    </div>
+                </div>
+                
+                <!-- Acessórios -->
+                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer">
+                    <div class="h-64 bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center">
+                        <i class="fas fa-gem text-6xl text-branco"></i>
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-2xl font-bold text-preto mb-2">ACESSÓRIOS</h3>
+                        <p class="text-cinza-escuro">Detalhes que fazem a diferença</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Seção de Produtos -->
+    <section id="produtos" class="py-20 bg-branco">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-preto mb-4">PRODUTOS EM DESTAQUE</h2>
+                <p class="text-xl text-cinza-escuro">Peças selecionadas especialmente para você</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Produto 1 -->
+                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover">
+                    <div class="h-80 bg-gradient-to-br from-rosa to-pink-400 flex items-center justify-center">
+                        <i class="fas fa-tshirt text-8xl text-branco"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-preto mb-2">Top Fitness Rosa</h3>
+                        <p class="text-cinza-escuro mb-4">Top de alta performance com tecnologia dry-fit</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-2xl font-bold text-rosa">R$ 89,90</span>
+                            <select class="border border-cinza-claro rounded px-3 py-1 text-sm">
+                                <option>P</option>
+                                <option>M</option>
+                                <option>G</option>
+                            </select>
+                        </div>
+                        <button class="w-full bg-rosa hover:bg-pink-600 text-branco py-3 rounded-lg font-semibold btn-hover" onclick="addToCart('Top Fitness Rosa', 89.90, 'M')">
+                            Adicionar ao Carrinho
+                        </button>
+                        <button class="w-full mt-2 bg-green-500 hover:bg-green-600 text-branco py-3 rounded-lg font-semibold btn-hover" onclick="buyOnWhatsApp('Top Fitness Rosa', 89.90, 'M')">
+                            <i class="fab fa-whatsapp mr-2"></i>Comprar no WhatsApp
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Produto 2 -->
+                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover">
+                    <div class="h-80 bg-gradient-to-br from-preto to-cinza-escuro flex items-center justify-center">
+                        <i class="fas fa-running text-8xl text-branco"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-preto mb-2">Legging Preta Premium</h3>
+                        <p class="text-cinza-escuro mb-4">Legging com cintura alta e tecnologia compressiva</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-2xl font-bold text-rosa">R$ 129,90</span>
+                            <select class="border border-cinza-claro rounded px-3 py-1 text-sm">
+                                <option>P</option>
+                                <option>M</option>
+                                <option>G</option>
+                            </select>
+                        </div>
+                        <button class="w-full bg-rosa hover:bg-pink-600 text-branco py-3 rounded-lg font-semibold btn-hover" onclick="addToCart('Legging Preta Premium', 129.90, 'M')">
+                            Adicionar ao Carrinho
+                        </button>
+                        <button class="w-full mt-2 bg-green-500 hover:bg-green-600 text-branco py-3 rounded-lg font-semibold btn-hover" onclick="buyOnWhatsApp('Legging Preta Premium', 129.90, 'M')">
+                            <i class="fab fa-whatsapp mr-2"></i>Comprar no WhatsApp
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Produto 3 -->
+                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover">
+                    <div class="h-80 bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                        <i class="fas fa-user text-8xl text-branco"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-preto mb-2">Conjunto Fitness</h3>
+                        <p class="text-cinza-escuro mb-4">Conjunto completo com top e short coordenados</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-2xl font-bold text-rosa">R$ 199,90</span>
+                            <select class="border border-cinza-claro rounded px-3 py-1 text-sm">
+                                <option>P</option>
+                                <option>M</option>
+                                <option>G</option>
+                            </select>
+                        </div>
+                        <button class="w-full bg-rosa hover:bg-pink-600 text-branco py-3 rounded-lg font-semibold btn-hover" onclick="addToCart('Conjunto Fitness', 199.90, 'M')">
+                            Adicionar ao Carrinho
+                        </button>
+                        <button class="w-full mt-2 bg-green-500 hover:bg-green-600 text-branco py-3 rounded-lg font-semibold btn-hover" onclick="buyOnWhatsApp('Conjunto Fitness', 199.90, 'M')">
+                            <i class="fab fa-whatsapp mr-2"></i>Comprar no WhatsApp
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Produto 4 -->
+                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover">
+                    <div class="h-80 bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center">
+                        <i class="fas fa-gem text-8xl text-branco"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-preto mb-2">Top Esportivo</h3>
+                        <p class="text-cinza-escuro mb-4">Top com suporte e tecnologia respirável</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-2xl font-bold text-rosa">R$ 79,90</span>
+                            <select class="border border-cinza-claro rounded px-3 py-1 text-sm">
+                                <option>P</option>
+                                <option>M</option>
+                                <option>G</option>
+                            </select>
+                        </div>
+                        <button class="w-full bg-rosa hover:bg-pink-600 text-branco py-3 rounded-lg font-semibold btn-hover" onclick="addToCart('Top Esportivo', 79.90, 'M')">
+                            Adicionar ao Carrinho
+                        </button>
+                        <button class="w-full mt-2 bg-green-500 hover:bg-green-600 text-branco py-3 rounded-lg font-semibold btn-hover" onclick="buyOnWhatsApp('Top Esportivo', 79.90, 'M')">
+                            <i class="fab fa-whatsapp mr-2"></i>Comprar no WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Seção Sobre -->
+    <section id="sobre" class="py-20 bg-cinza-claro">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl md:text-5xl font-bold text-preto mb-8">QUEM SOMOS</h2>
+                <p class="text-xl text-cinza-escuro leading-relaxed mb-8">
+                    A LMFIT nasceu da paixão por fitness e moda. Somos uma marca especializada em roupas fitness femininas 
+                    que combina tecnologia, conforto e estilo. Nossa missão é empoderar mulheres através de peças que 
+                    realçam sua beleza natural e potencializam sua performance nos treinos.
+                </p>
+                <p class="text-xl text-cinza-escuro leading-relaxed mb-8">
+                    Utilizamos tecidos de alta qualidade, tecnologia dry-fit e designs exclusivos para garantir que 
+                    cada peça seja perfeita para sua rotina fitness. Nossas roupas são desenvolvidas pensando no 
+                    conforto, durabilidade e estilo que toda mulher ativa merece.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                    <div class="text-center">
+                        <div class="bg-rosa text-branco w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-heart text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-preto mb-2">PASSION</h3>
+                        <p class="text-cinza-escuro">Paixão por fitness e moda</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-rosa text-branco w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-star text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-preto mb-2">QUALIDADE</h3>
+                        <p class="text-cinza-escuro">Materiais premium e durabilidade</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-rosa text-branco w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-users text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-preto mb-2">COMUNIDADE</h3>
+                        <p class="text-cinza-escuro">Conectando mulheres ativas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Rodapé -->
+    <footer id="contato" class="bg-preto text-branco py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Logo e Descrição -->
+                <div class="md:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <h3 class="text-2xl font-bold text-branco">LMFIT</h3>
+                        <span class="text-rosa ml-2 text-sm font-medium">FITNESS</span>
+                    </div>
+                    <p class="text-cinza-claro mb-6 max-w-md">
+                        Roupas fitness femininas que combinam estilo, conforto e performance. 
+                        Empoderando mulheres através da moda esportiva.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="bg-rosa hover:bg-pink-600 text-branco w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="bg-rosa hover:bg-pink-600 text-branco w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="bg-rosa hover:bg-pink-600 text-branco w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="bg-rosa hover:bg-pink-600 text-branco w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Links Rápidos -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Links Rápidos</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-cinza-claro hover:text-rosa transition-colors">Início</a></li>
+                        <li><a href="#categorias" class="text-cinza-claro hover:text-rosa transition-colors">Categorias</a></li>
+                        <li><a href="#produtos" class="text-cinza-claro hover:text-rosa transition-colors">Produtos</a></li>
+                        <li><a href="#sobre" class="text-cinza-claro hover:text-rosa transition-colors">Sobre</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contato -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Contato</h4>
+                    <ul class="space-y-2 text-cinza-claro">
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-2 text-rosa"></i>
+                            (11) 99999-9999
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2 text-rosa"></i>
+                            contato@lmfit.com.br
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-2 text-rosa"></i>
+                            São Paulo, SP
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-cinza-escuro mt-12 pt-8 text-center text-cinza-claro">
+                <p>&copy; 2024 LMFIT. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Modal do Carrinho -->
+    <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-branco rounded-2xl max-w-md w-full max-h-96 overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-2xl font-bold text-preto">Carrinho</h3>
+                        <button id="close-cart" class="text-cinza-escuro hover:text-rosa">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div id="cart-items" class="space-y-4 mb-6">
+                        <!-- Itens do carrinho serão inseridos aqui via JavaScript -->
+                    </div>
+                    
+                    <div class="border-t border-cinza-claro pt-4">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xl font-bold text-preto">Total:</span>
+                            <span id="cart-total" class="text-2xl font-bold text-rosa">R$ 0,00</span>
+                        </div>
+                        <button id="checkout-whatsapp" class="w-full bg-green-500 hover:bg-green-600 text-branco py-3 rounded-lg font-semibold btn-hover">
+                            <i class="fab fa-whatsapp mr-2"></i>Finalizar no WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script>
+        // Configurações
+        const WHATSAPP_NUMBER = "5511999999999"; // Configure seu número aqui
+        
+        // Carrinho de compras
+        let cart = [];
+        
+        // Elementos DOM
+        const cartBtn = document.getElementById('cart-btn');
+        const cartModal = document.getElementById('cart-modal');
+        const closeCart = document.getElementById('close-cart');
+        const cartCount = document.getElementById('cart-count');
+        const cartItems = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        const checkoutBtn = document.getElementById('checkout-whatsapp');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        // Função para adicionar ao carrinho
+        function addToCart(productName, price, size) {
+            const existingItem = cart.find(item => item.name === productName && item.size === size);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    name: productName,
+                    price: price,
+                    size: size,
+                    quantity: 1
+                });
+            }
+            
+            updateCartDisplay();
+            showCartNotification();
+        }
+        
+        // Função para remover do carrinho
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartDisplay();
+        }
+        
+        // Função para atualizar quantidade
+        function updateQuantity(index, change) {
+            cart[index].quantity += change;
+            if (cart[index].quantity <= 0) {
+                removeFromCart(index);
+            } else {
+                updateCartDisplay();
+            }
+        }
+        
+        // Função para atualizar exibição do carrinho
+        function updateCartDisplay() {
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            cartCount.textContent = cart.length;
+            cartCount.classList.toggle('hidden', cart.length === 0);
+            cartTotal.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+            
+            cartItems.innerHTML = '';
+            cart.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'flex items-center justify-between p-3 bg-cinza-claro rounded-lg';
+                itemElement.innerHTML = `
+                    <div class="flex-1">
+                        <h4 class="font-semibold text-preto">${item.name}</h4>
+                        <p class="text-sm text-cinza-escuro">Tamanho: ${item.size}</p>
+                        <p class="text-rosa font-bold">R$ ${item.price.toFixed(2).replace('.', ',')}</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="updateQuantity(${index}, -1)" class="bg-rosa text-branco w-8 h-8 rounded-full flex items-center justify-center hover:bg-pink-600">
+                            <i class="fas fa-minus text-xs"></i>
+                        </button>
+                        <span class="w-8 text-center font-semibold">${item.quantity}</span>
+                        <button onclick="updateQuantity(${index}, 1)" class="bg-rosa text-branco w-8 h-8 rounded-full flex items-center justify-center hover:bg-pink-600">
+                            <i class="fas fa-plus text-xs"></i>
+                        </button>
+                        <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700 ml-2">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                cartItems.appendChild(itemElement);
+            });
+        }
+        
+        // Função para mostrar notificação do carrinho
+        function showCartNotification() {
+            cartCount.classList.add('cart-badge');
+            setTimeout(() => {
+                cartCount.classList.remove('cart-badge');
+            }, 2000);
+        }
+        
+        // Função para comprar no WhatsApp (produto individual)
+        function buyOnWhatsApp(productName, price, size) {
+            const message = `Olá, gostei do produto ${productName}, tamanho ${size}, valor R$ ${price.toFixed(2).replace('.', ',')}. Gostaria de finalizar a compra.`;
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+        
+        // Função para finalizar carrinho no WhatsApp
+        function checkoutCart() {
+            if (cart.length === 0) return;
+            
+            let message = "Olá, gostaria de finalizar a compra dos seguintes produtos:\n\n";
+            let total = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                message += `• ${item.name} - Tamanho: ${item.size} - Qtd: ${item.quantity} - R$ ${itemTotal.toFixed(2).replace('.', ',')}\n`;
+            });
+            
+            message += `\nTotal: R$ ${total.toFixed(2).replace('.', ',')}`;
+            
+            const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+        
+        // Event Listeners
+        cartBtn.addEventListener('click', () => {
+            cartModal.classList.remove('hidden');
+        });
+        
+        closeCart.addEventListener('click', () => {
+            cartModal.classList.add('hidden');
+        });
+        
+        checkoutBtn.addEventListener('click', checkoutCart);
+        
+        // Fechar modal clicando fora
+        cartModal.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                cartModal.classList.add('hidden');
+            }
+        });
+        
+        // Menu mobile
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Smooth scroll para links de navegação
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Fechar menu mobile se estiver aberto
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+        
+        // Scroll suave para o topo
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('shadow-xl');
+            } else {
+                header.classList.remove('shadow-xl');
+            }
+        });
+        
+        // Inicializar carrinho
+        updateCartDisplay();
+    </script>
+</body>
+</html>
