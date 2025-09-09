@@ -1,5 +1,5 @@
   // Configurações do WhatsApp
-const WHATSAPP_NUMBER = "5589994077754"; // ⚠️ ALTERE ESTE NÚMERO PARA O SEU WHATSAPP REAL!
+const WHATSAPP_NUMBER = "5589994729022"; // Número: (89) 99472-9022 - Isaias Coelho, PI
 
 // Variáveis globais
 let cart = [];
@@ -134,7 +134,8 @@ window.addToCart = function(productName, price, size) {
 
 window.buyOnWhatsApp = function(productName, price, size) {
     const message = `Olá! Gostei do produto *${productName}*, tamanho *${size}*, valor *R$ ${price.toFixed(2).replace('.', ',')}*. Gostaria de finalizar a compra.`;
-    const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`;
+    const whatsappNumber = "5589994729022"; // (89) 99472-9022
+    const url = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
 };
 
@@ -156,7 +157,13 @@ window.finalizarCompraWhatsApp = function() {
     
     message += `\n*Total: R$ ${total.toFixed(2).replace('.', ',')}*`;
     
-    const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`;
+    // Forçar o número correto do WhatsApp
+    const whatsappNumber = "5589994729022"; // (89) 99472-9022
+    const url = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
+    
+    console.log('Finalizando compra para WhatsApp:', whatsappNumber);
+    console.log('URL:', url);
+    
     window.open(url, '_blank');
 };
 

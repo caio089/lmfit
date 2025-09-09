@@ -45,17 +45,17 @@
     
     <!-- Header Fixo -->
     <header class="fixed top-0 left-0 right-0 bg-branco shadow-lg z-50">
-        <div class="container mx-auto px-4 py-4">
+        <div class="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
             <div class="flex items-center justify-between">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <img src="{% load static %}{% static 'LMFIT.jpg' %}" alt="LMFIT Logo" class="w-10 h-10 rounded-full object-cover border-2 border-rosa mr-3">
-                    <h1 class="text-3xl font-bold text-preto">LMFIT</h1>
-                    <span class="text-rosa ml-2 text-lg font-medium">FITWEAR</span>
+                    <img src="{% load static %}{% static 'LMFIT.jpg' %}" alt="LMFIT Logo" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover border-2 border-rosa mr-2 sm:mr-3">
+                    <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-preto">LMFIT</h1>
+                    <span class="text-rosa ml-1 sm:ml-2 text-sm sm:text-lg font-medium hidden sm:inline">FITWEAR</span>
                 </div>
                 
                 <!-- Menu Desktop -->
-                <nav class="hidden md:flex items-center space-x-8">
+                <nav class="hidden lg:flex items-center space-x-6 xl:space-x-8">
                     <a href="#home" class="text-preto hover:text-rosa transition-colors font-medium">Início</a>
                     <a href="#categorias" class="text-preto hover:text-rosa transition-colors font-medium">Categorias</a>
                     <a href="#produtos" class="text-preto hover:text-rosa transition-colors font-medium">Produtos</a>
@@ -64,145 +64,142 @@
                 </nav>
                 
                 <!-- Carrinho e Menu Mobile -->
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-2 sm:space-x-4">
                     <!-- Carrinho -->
                     <button id="cart-btn" class="relative p-2 text-preto hover:text-rosa transition-colors">
-                        <i class="fas fa-shopping-bag text-xl"></i>
-                        <span id="cart-count" class="absolute -top-1 -right-1 bg-rosa text-branco text-xs rounded-full h-5 w-5 flex items-center justify-center cart-badge hidden">0</span>
+                        <i class="fas fa-shopping-bag text-lg sm:text-xl"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-rosa text-branco text-xs rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center cart-badge hidden">0</span>
                     </button>
                     
                     <!-- Menu Mobile -->
-                    <button id="mobile-menu-btn" class="md:hidden p-2 text-preto">
-                        <i class="fas fa-bars text-xl"></i>
+                    <button id="mobile-menu-btn" class="lg:hidden p-2 text-preto">
+                        <i class="fas fa-bars text-lg sm:text-xl"></i>
                     </button>
                 </div>
             </div>
             
             <!-- Menu Mobile -->
-            <div id="mobile-menu" class="md:hidden hidden bg-branco border-t border-cinza-claro">
-                <nav class="py-4 space-y-2">
-                    <a href="#home" class="block px-4 py-2 text-preto hover:text-rosa transition-colors">Início</a>
-                    <a href="#categorias" class="block px-4 py-2 text-preto hover:text-rosa transition-colors">Categorias</a>
-                    <a href="#produtos" class="block px-4 py-2 text-preto hover:text-rosa transition-colors">Produtos</a>
-                    <a href="#sobre" class="block px-4 py-2 text-preto hover:text-rosa transition-colors">Sobre</a>
-                    <a href="#contato" class="block px-4 py-2 text-preto hover:text-rosa transition-colors">Contato</a>
+            <div id="mobile-menu" class="lg:hidden hidden bg-branco border-t border-cinza-claro">
+                <nav class="py-3 space-y-1">
+                    <a href="#home" class="block px-3 py-2 text-preto hover:text-rosa transition-colors font-medium">Início</a>
+                    <a href="#categorias" class="block px-3 py-2 text-preto hover:text-rosa transition-colors font-medium">Categorias</a>
+                    <a href="#produtos" class="block px-3 py-2 text-preto hover:text-rosa transition-colors font-medium">Produtos</a>
+                    <a href="#sobre" class="block px-3 py-2 text-preto hover:text-rosa transition-colors font-medium">Sobre</a>
+                    <a href="#contato" class="block px-3 py-2 text-preto hover:text-rosa transition-colors font-medium">Contato</a>
                 </nav>
             </div>
         </div>
     </header>
     
     <!-- Hero Section -->
-    <section id="home" class="hero-bg min-h-screen flex items-center justify-center text-center text-branco relative">
-        <div class="container mx-auto px-4">
+    <section id="home" class="hero-bg min-h-screen flex items-center justify-center text-center text-branco relative pt-16 sm:pt-20">
+        <div class="container mx-auto px-3 sm:px-4">
             <div class="max-w-4xl mx-auto">
-                <div class="flex items-center justify-center mb-6">
-                    <img src="{% load static %}{% static 'LMFIT.jpg' %}" alt="LMFIT Logo" class="hero-logo mr-4">
-                    <h1 class="text-5xl md:text-7xl font-bold leading-tight font-badoni">
+                <div class="flex flex-col sm:flex-row items-center justify-center mb-4 sm:mb-6">
+                    <img src="{% load static %}{% static 'LMFIT.jpg' %}" alt="LMFIT Logo" class="hero-logo mr-0 sm:mr-4 mb-4 sm:mb-0 w-16 h-16 sm:w-20 sm:h-20">
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight font-badoni">
                         LMFIT
                         <span class="text-rosa block">FITWEAR</span>
                     </h1>
                 </div>
-                <p class="text-xl md:text-2xl mb-8 font-light font-badoni typing-effect">
+                <p class="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 font-light font-badoni typing-effect px-2">
                     Transforme sua rotina fitness com peças que combinam tecnologia, conforto e estilo único. 
-                  
                 </p>
-                <a href="#sobre" class="bg-rosa hover:bg-rosa-escuro text-branco px-8 py-4 rounded-full text-lg font-semibold btn-hover font-badoni inline-block">
+                <a href="#sobre" class="bg-rosa hover:bg-rosa-escuro text-branco px-6 sm:px-8 py-3 sm:py-4 rounded-full text-sm sm:text-base lg:text-lg font-semibold btn-hover font-badoni inline-block">
                     DESCUBRA LMFIT
                 </a>
             </div>
         </div>
         
         <!-- Scroll Indicator -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <i class="fas fa-chevron-down text-2xl text-branco"></i>
+        <div class="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-xl sm:text-2xl text-branco"></i>
         </div>
     </section>
     
     <!-- Seção de Categorias -->
-    <section id="categorias" class="py-20 bg-cinza-claro">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-preto mb-4 font-badoni">CATEGORIAS</h2>
-                <p class="text-xl text-cinza-escuro font-badoni">Encontre a peça perfeita para cada momento</p>
+    <section id="categorias" class="py-12 sm:py-16 lg:py-20 bg-cinza-claro">
+        <div class="container mx-auto px-3 sm:px-4">
+            <div class="text-center mb-8 sm:mb-12 lg:mb-16">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-preto mb-2 sm:mb-4 font-badoni">CATEGORIAS</h2>
+                <p class="text-base sm:text-lg lg:text-xl text-cinza-escuro font-badoni px-2">Encontre a peça perfeita para cada momento</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
                 <!-- Tops -->
-                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('tops')">
-                    <div class="h-64 bg-gradient-to-br from-rosa to-rosa-claro flex items-center justify-center">
-                        <i class="fas fa-tshirt text-6xl text-branco"></i>
+                <div class="bg-branco rounded-xl sm:rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('tops')">
+                    <div class="h-32 sm:h-48 md:h-56 lg:h-64 bg-gradient-to-br from-rosa to-rosa-claro flex items-center justify-center">
+                        <i class="fas fa-tshirt text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-branco"></i>
                     </div>
-                    <div class="p-6 text-center">
-                        <h3 class="text-2xl font-bold text-preto mb-2 font-badoni">TOPS</h3>
-                        <p class="text-cinza-escuro">Conforto e estilo para seus treinos</p>
+                    <div class="p-3 sm:p-4 md:p-6 text-center">
+                        <h3 class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-preto mb-1 sm:mb-2 font-badoni">TOPS</h3>
+                        <p class="text-xs sm:text-sm md:text-base text-cinza-escuro">Conforto e estilo para seus treinos</p>
                     </div>
                 </div>
                 
                 <!-- Leggings -->
-                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('leggings')">
-                    <div class="h-64 bg-gradient-to-br from-preto to-cinza-escuro flex items-center justify-center">
-                        <i class="fas fa-running text-6xl text-branco"></i>
+                <div class="bg-branco rounded-xl sm:rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('leggings')">
+                    <div class="h-32 sm:h-48 md:h-56 lg:h-64 bg-gradient-to-br from-preto to-cinza-escuro flex items-center justify-center">
+                        <i class="fas fa-running text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-branco"></i>
                     </div>
-                    <div class="p-6 text-center">
-                        <h3 class="text-2xl font-bold text-preto mb-2 font-badoni">LEGGINGS</h3>
-                        <p class="text-cinza-escuro">Liberdade de movimento garantida</p>
+                    <div class="p-3 sm:p-4 md:p-6 text-center">
+                        <h3 class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-preto mb-1 sm:mb-2 font-badoni">LEGGINGS</h3>
+                        <p class="text-xs sm:text-sm md:text-base text-cinza-escuro">Liberdade de movimento garantida</p>
                     </div>
                 </div>
                 
                 <!-- Conjuntos -->
-                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('conjuntos')">
-                    <div class="h-64 bg-gradient-to-br from-rosa-escuro to-rosa flex items-center justify-center">
-                        <i class="fas fa-user text-6xl text-branco"></i>
+                <div class="bg-branco rounded-xl sm:rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('conjuntos')">
+                    <div class="h-32 sm:h-48 md:h-56 lg:h-64 bg-gradient-to-br from-rosa-escuro to-rosa flex items-center justify-center">
+                        <i class="fas fa-user text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-branco"></i>
                     </div>
-                    <div class="p-6 text-center">
-                        <h3 class="text-2xl font-bold text-preto mb-2 font-badoni">CONJUNTOS</h3>
-                        <p class="text-cinza-escuro">Looks completos e coordenados</p>
+                    <div class="p-3 sm:p-4 md:p-6 text-center">
+                        <h3 class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-preto mb-1 sm:mb-2 font-badoni">CONJUNTOS</h3>
+                        <p class="text-xs sm:text-sm md:text-base text-cinza-escuro">Looks completos e coordenados</p>
                     </div>
                 </div>
                 
                 <!-- Acessórios -->
-                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('acessorios')">
-                    <div class="h-64 bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center">
-                        <i class="fas fa-gem text-6xl text-branco"></i>
+                <div class="bg-branco rounded-xl sm:rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('acessorios')">
+                    <div class="h-32 sm:h-48 md:h-56 lg:h-64 bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center">
+                        <i class="fas fa-gem text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-branco"></i>
                     </div>
-                    <div class="p-6 text-center">
-                        <h3 class="text-2xl font-bold text-preto mb-2 font-badoni">ACESSÓRIOS</h3>
-                        <p class="text-cinza-escuro">Detalhes que fazem a diferença</p>
+                    <div class="p-3 sm:p-4 md:p-6 text-center">
+                        <h3 class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-preto mb-1 sm:mb-2 font-badoni">ACESSÓRIOS</h3>
+                        <p class="text-xs sm:text-sm md:text-base text-cinza-escuro">Detalhes que fazem a diferença</p>
                     </div>
                 </div>
                 
                 <!-- Blusas -->
-                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('blusas')">
-                    <div class="h-64 bg-gradient-to-br from-rosa-claro to-rosa flex items-center justify-center">
-                        <i class="fas fa-tshirt text-6xl text-branco"></i>
+                <div class="bg-branco rounded-xl sm:rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('blusas')">
+                    <div class="h-32 sm:h-48 md:h-56 lg:h-64 bg-gradient-to-br from-rosa-claro to-rosa flex items-center justify-center">
+                        <i class="fas fa-tshirt text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-branco"></i>
                     </div>
-                    <div class="p-6 text-center">
-                        <h3 class="text-2xl font-bold text-preto mb-2 font-badoni">BLUSAS</h3>
-                        <p class="text-cinza-escuro">Estilo e conforto para o dia a dia</p>
+                    <div class="p-3 sm:p-4 md:p-6 text-center">
+                        <h3 class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-preto mb-1 sm:mb-2 font-badoni">BLUSAS</h3>
+                        <p class="text-xs sm:text-sm md:text-base text-cinza-escuro">Estilo e conforto para o dia a dia</p>
                     </div>
                 </div>
                 
-
-                
                 <!-- Calcinha Sem Costura -->
-                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('calcinha-sem-costura')">
-                    <div class="h-64 bg-gradient-to-br from-rosa-escuro to-rosa flex items-center justify-center">
-                        <i class="fas fa-heart text-6xl text-branco"></i>
+                <div class="bg-branco rounded-xl sm:rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('calcinha-sem-costura')">
+                    <div class="h-32 sm:h-48 md:h-56 lg:h-64 bg-gradient-to-br from-rosa-escuro to-rosa flex items-center justify-center">
+                        <i class="fas fa-heart text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-branco"></i>
                     </div>
-                    <div class="p-6 text-center">
-                        <h3 class="text-2xl font-bold text-preto mb-2 font-badoni">CALCINHA SEM COSTURA</h3>
-                        <p class="text-cinza-escuro">Conforto e invisibilidade</p>
+                    <div class="p-3 sm:p-4 md:p-6 text-center">
+                        <h3 class="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-bold text-preto mb-1 sm:mb-2 font-badoni">CALCINHA SEM COSTURA</h3>
+                        <p class="text-xs sm:text-sm md:text-base text-cinza-escuro">Conforto e invisibilidade</p>
                     </div>
                 </div>
                 
                 <!-- Meias -->
-                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('meias')">
-                    <div class="h-64 bg-gradient-to-br from-rosa-claro to-rosa flex items-center justify-center">
-                        <i class="fas fa-socks text-6xl text-branco"></i>
+                <div class="bg-branco rounded-xl sm:rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('meias')">
+                    <div class="h-32 sm:h-48 md:h-56 lg:h-64 bg-gradient-to-br from-rosa-claro to-rosa flex items-center justify-center">
+                        <i class="fas fa-socks text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-branco"></i>
                     </div>
-                    <div class="p-6 text-center">
-                        <h3 class="text-2xl font-bold text-preto mb-2 font-badoni">MEIAS</h3>
-                        <p class="text-cinza-escuro">Proteção e conforto para os pés</p>
+                    <div class="p-3 sm:p-4 md:p-6 text-center">
+                        <h3 class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-preto mb-1 sm:mb-2 font-badoni">MEIAS</h3>
+                        <p class="text-xs sm:text-sm md:text-base text-cinza-escuro">Proteção e conforto para os pés</p>
                     </div>
                 </div>
             </div>
@@ -210,34 +207,32 @@
     </section>
     
     <!-- Seção de Produtos -->
-    <section id="produtos" class="py-20 bg-branco">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-preto mb-4 font-badoni">PRODUTOS EM DESTAQUE</h2>
-                <p class="text-xl text-cinza-escuro font-badoni">Peças selecionadas especialmente para você</p>
+    <section id="produtos" class="py-12 sm:py-16 lg:py-20 bg-branco">
+        <div class="container mx-auto px-3 sm:px-4">
+            <div class="text-center mb-8 sm:mb-12 lg:mb-16">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-preto mb-2 sm:mb-4 font-badoni">PRODUTOS EM DESTAQUE</h2>
+                <p class="text-base sm:text-lg lg:text-xl text-cinza-escuro font-badoni px-2">Peças selecionadas especialmente para você</p>
             </div>
             
             <!-- Barra de Pesquisa e Filtro -->
-            <div class="bg-preto p-6 rounded-2xl mb-12 shadow-lg">
-                <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
-                    <div class="relative flex-1 max-w-md">
+            <div class="bg-preto p-4 sm:p-6 rounded-xl sm:rounded-2xl mb-8 sm:mb-12 shadow-lg">
+                <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
+                    <div class="relative flex-1 max-w-md w-full">
                         <input type="text" id="search-input" placeholder="Pesquisar produtos..." 
-                               class="w-full px-4 py-3 pl-12 border-2 border-rosa rounded-lg focus:outline-none focus:border-rosa-escuro transition-colors bg-branco shadow-md">
-                        <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-rosa"></i>
+                               class="w-full px-3 sm:px-4 py-2 sm:py-3 pl-10 sm:pl-12 border-2 border-rosa rounded-lg focus:outline-none focus:border-rosa-escuro transition-colors bg-branco shadow-md text-sm sm:text-base">
+                        <i class="fas fa-search absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-rosa text-sm sm:text-base"></i>
                     </div>
-                    <div class="flex gap-2">
-                        <select id="category-filter" class="px-4 py-3 border-2 border-rosa rounded-lg focus:outline-none focus:border-rosa-escuro transition-colors bg-branco shadow-md font-medium">
+                    <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+                        <select id="category-filter" class="px-3 sm:px-4 py-2 sm:py-3 border-2 border-rosa rounded-lg focus:outline-none focus:border-rosa-escuro transition-colors bg-branco shadow-md font-medium text-sm sm:text-base">
                             <option value="">Todas as Categorias</option>
                             <option value="blusas">Blusas</option>
-                            <option value="conjuntos-shorts">Conjuntos de Shorts</option>
-                            <option value="conjuntos-calca">Conjuntos de Calça</option>
+                            <option value="conjuntos">Conjuntos</option>
                             <option value="tops">Tops</option>
                             <option value="calcinha-sem-costura">Calcinha Sem Costura</option>
                             <option value="meias">Meias</option>
-                            <option value="tops">Tops</option>
                             <option value="leggings">Leggings</option>
                         </select>
-                        <select id="price-filter" class="px-4 py-3 border-2 border-rosa rounded-lg focus:outline-none focus:border-rosa-escuro transition-colors bg-branco shadow-md font-medium">
+                        <select id="price-filter" class="px-3 sm:px-4 py-2 sm:py-3 border-2 border-rosa rounded-lg focus:outline-none focus:border-rosa-escuro transition-colors bg-branco shadow-md font-medium text-sm sm:text-base">
                             <option value="">Todos os Preços</option>
                             <option value="0-100">Até R$ 100</option>
                             <option value="100-150">R$ 100 - R$ 150</option>
@@ -248,12 +243,12 @@
                 </div>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
                 {% if roupas %}
                     {% for roupa in roupas %}
-                        <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover product-card" data-category="{{ roupa.categoria }}" data-price="{{ roupa.preco|floatformat:2 }}" data-name="{{ roupa.nome }}" data-roupa-id="{{ roupa.id }}">
+                        <div class="bg-branco rounded-xl sm:rounded-2xl overflow-hidden shadow-lg card-hover product-card" data-category="{{ roupa.categoria }}" data-price="{{ roupa.preco|floatformat:2 }}" data-name="{{ roupa.nome }}" data-roupa-id="{{ roupa.id }}">
                     <!-- Área de Fotos -->
-                    <div class="relative h-80 bg-gray-100">
+                    <div class="relative h-48 sm:h-64 md:h-72 lg:h-80 bg-gray-100">
                         <!-- Foto Principal -->
                                 {% if roupa.foto_principal %}
                                     <img src="{{ roupa.foto_principal.url }}" 
@@ -267,52 +262,52 @@
                                 {% endif %}
                         
                         <!-- Miniaturas das Fotos -->
-                        <div class="absolute bottom-2 left-2 right-2 flex space-x-2 justify-center">
+                        <div class="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 right-2 sm:right-4 flex space-x-1 sm:space-x-2 justify-center">
                                     {% if roupa.foto_principal %}
                                         <img src="{{ roupa.foto_principal.url }}" 
                                              alt="{{ roupa.nome }} - Foto 1" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
+                                 class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
                                  onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
                                     {% endif %}
                                     {% if roupa.foto_2 %}
                                         <img src="{{ roupa.foto_2.url }}" 
                                              alt="{{ roupa.nome }} - Foto 2" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
+                                 class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
                                  onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
                                     {% endif %}
                                     {% if roupa.foto_3 %}
                                         <img src="{{ roupa.foto_3.url }}" 
                                              alt="{{ roupa.nome }} - Foto 3" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
+                                 class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
                                  onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
                                     {% endif %}
                         </div>
                         
                         <!-- Indicador de Múltiplas Fotos -->
                                 {% if roupa.foto_2 or roupa.foto_3 %}
-                        <div class="absolute top-2 right-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded-full text-xs">
+                        <div class="absolute top-2 right-2 bg-black bg-opacity-50 text-white px-1 sm:px-2 py-1 rounded-full text-xs">
                                         <i class="fas fa-images mr-1"></i>
                                         {% if roupa.foto_2 and roupa.foto_3 %}3{% elif roupa.foto_2 or roupa.foto_3 %}2{% else %}1{% endif %} fotos
                         </div>
                                 {% endif %}
                     </div>
                     
-                    <div class="p-6">
-                                <h3 class="text-xl font-bold text-preto mb-2 font-badoni">{{ roupa.nome }}</h3>
-                                <p class="text-cinza-escuro mb-4">{{ roupa.descricao|truncatechars:60 }}</p>
-                        <div class="flex items-center justify-between mb-4">
-                                    <span class="text-2xl font-bold text-rosa">R$ {{ roupa.preco|floatformat:2 }}</span>
-                                    <select id="size-{{ roupa.id }}" class="border border-cinza-claro rounded px-3 py-1 text-sm">
+                    <div class="p-3 sm:p-4 md:p-6">
+                                <h3 class="text-base sm:text-lg md:text-xl font-bold text-preto mb-1 sm:mb-2 font-badoni">{{ roupa.nome }}</h3>
+                                <p class="text-xs sm:text-sm md:text-base text-cinza-escuro mb-3 sm:mb-4 line-clamp-2">{{ roupa.descricao|truncatechars:60 }}</p>
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-3 sm:mb-4 gap-2 sm:gap-0">
+                                    <span class="text-lg sm:text-xl md:text-2xl font-bold text-rosa">R$ {{ roupa.preco|floatformat:2 }}</span>
+                                    <select id="size-{{ roupa.id }}" class="border border-cinza-claro rounded px-2 sm:px-3 py-1 text-xs sm:text-sm">
                                         {% for tamanho in roupa.get_tamanhos_list %}
                                             <option value="{{ tamanho }}" {% if forloop.first %}selected{% endif %}>{{ tamanho }}</option>
                                         {% endfor %}
                             </select>
                         </div>
-                                <button class="w-full bg-rosa hover:bg-rosa-escuro text-branco py-3 rounded-lg font-semibold btn-hover" onclick="addToCartFromCard(this)">
+                                <button class="w-full bg-rosa hover:bg-rosa-escuro text-branco py-2 sm:py-3 rounded-lg font-semibold btn-hover text-sm sm:text-base" onclick="addToCartFromCard(this)">
                             Adicionar ao Carrinho
                         </button>
-                                <button class="w-full mt-2 bg-green-500 hover:bg-green-600 text-branco py-3 rounded-lg font-semibold btn-hover" onclick="buyOnWhatsAppFromCard(this)">
-                            <i class="fab fa-whatsapp mr-2"></i>Comprar no WhatsApp
+                                <button class="w-full mt-2 bg-green-500 hover:bg-green-600 text-branco py-2 sm:py-3 rounded-lg font-semibold btn-hover text-sm sm:text-base" onclick="buyOnWhatsAppFromCard(this)">
+                            <i class="fab fa-whatsapp mr-1 sm:mr-2"></i>Comprar no WhatsApp
                         </button>
                     </div>
                         </div>
@@ -335,41 +330,41 @@
     </section>
     
     <!-- Seção Sobre -->
-    <section id="sobre" class="py-20 bg-cinza-claro">
-        <div class="container mx-auto px-4">
+    <section id="sobre" class="py-12 sm:py-16 lg:py-20 bg-cinza-claro">
+        <div class="container mx-auto px-3 sm:px-4">
             <div class="max-w-4xl mx-auto text-center">
-                <h2 class="text-4xl md:text-5xl font-bold text-preto mb-8 font-badoni">QUEM SOMOS</h2>
-                <p class="text-xl text-cinza-escuro leading-relaxed mb-8">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-preto mb-6 sm:mb-8 font-badoni">QUEM SOMOS</h2>
+                <p class="text-base sm:text-lg md:text-xl text-cinza-escuro leading-relaxed mb-6 sm:mb-8 px-2">
                     A LMFIT nasceu da paixão por fitness e moda. Somos uma marca especializada em roupas fitness femininas 
                     que combina tecnologia, conforto e estilo. Nossa missão é empoderar mulheres através de peças que 
                     realçam sua beleza natural e potencializam sua performance nos treinos.
                 </p>
-                <p class="text-xl text-cinza-escuro leading-relaxed mb-8">
+                <p class="text-base sm:text-lg md:text-xl text-cinza-escuro leading-relaxed mb-6 sm:mb-8 px-2">
                     Utilizamos tecidos de alta qualidade, tecnologia dry-fit e designs exclusivos para garantir que 
                     cada peça seja perfeita para sua rotina fitness. Nossas roupas são desenvolvidas pensando no 
                     conforto, durabilidade e estilo que toda mulher ativa merece.
                 </p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 mt-8 sm:mt-12">
                     <div class="text-center">
-                        <div class="bg-rosa text-branco w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-heart text-2xl"></i>
+                        <div class="bg-rosa text-branco w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                            <i class="fas fa-heart text-lg sm:text-xl md:text-2xl"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-preto mb-2">PASSION</h3>
-                        <p class="text-cinza-escuro">Paixão por fitness e moda</p>
+                        <h3 class="text-base sm:text-lg md:text-xl font-bold text-preto mb-1 sm:mb-2">PASSION</h3>
+                        <p class="text-sm sm:text-base text-cinza-escuro">Paixão por fitness e moda</p>
                     </div>
                     <div class="text-center">
-                        <div class="bg-rosa text-branco w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-star text-2xl"></i>
+                        <div class="bg-rosa text-branco w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                            <i class="fas fa-star text-lg sm:text-xl md:text-2xl"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-preto mb-2">QUALIDADE</h3>
-                        <p class="text-cinza-escuro">Materiais premium e durabilidade</p>
+                        <h3 class="text-base sm:text-lg md:text-xl font-bold text-preto mb-1 sm:mb-2">QUALIDADE</h3>
+                        <p class="text-sm sm:text-base text-cinza-escuro">Materiais premium e durabilidade</p>
                     </div>
-                    <div class="text-center">
-                        <div class="bg-rosa text-branco w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-users text-2xl"></i>
+                    <div class="text-center sm:col-span-2 md:col-span-1">
+                        <div class="bg-rosa text-branco w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                            <i class="fas fa-users text-lg sm:text-xl md:text-2xl"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-preto mb-2">COMUNIDADE</h3>
-                        <p class="text-cinza-escuro">Conectando mulheres ativas</p>
+                        <h3 class="text-base sm:text-lg md:text-xl font-bold text-preto mb-1 sm:mb-2">COMUNIDADE</h3>
+                        <p class="text-sm sm:text-base text-cinza-escuro">Conectando mulheres ativas</p>
                     </div>
                 </div>
             </div>
@@ -377,81 +372,81 @@
     </section>
     
     <!-- Rodapé -->
-    <footer id="contato" class="bg-preto text-branco py-16">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer id="contato" class="bg-preto text-branco py-12 sm:py-16">
+        <div class="container mx-auto px-3 sm:px-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                 <!-- Logo e Descrição -->
-                <div class="md:col-span-2">
-                    <div class="flex items-center mb-4">
-                        <h3 class="text-2xl font-bold text-branco">LMFIT</h3>
-                        <span class="text-rosa ml-2 text-sm font-medium">FITNESS</span>
+                <div class="sm:col-span-2 lg:col-span-2">
+                    <div class="flex items-center mb-3 sm:mb-4">
+                        <h3 class="text-xl sm:text-2xl font-bold text-branco">LMFIT</h3>
+                        <span class="text-rosa ml-2 text-xs sm:text-sm font-medium">FITNESS</span>
                     </div>
-                    <p class="text-cinza-claro mb-6 max-w-md">
+                    <p class="text-sm sm:text-base text-cinza-claro mb-4 sm:mb-6 max-w-md">
                         Roupas fitness femininas que combinam estilo, conforto e performance. 
                         Empoderando mulheres através da moda esportiva.
                     </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="bg-rosa hover:bg-rosa-escuro text-branco w-10 h-10 rounded-full flex items-center justify-center transition-colors">
-                            <i class="fab fa-instagram"></i>
+                    <div class="flex space-x-3 sm:space-x-4">
+                        <a href="#" class="bg-rosa hover:bg-rosa-escuro text-branco w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-colors">
+                            <i class="fab fa-instagram text-sm sm:text-base"></i>
                         </a>
-                        <a href="#" class="bg-rosa hover:bg-rosa-escuro text-branco w-10 h-10 rounded-full flex items-center justify-center transition-colors">
-                            <i class="fab fa-facebook"></i>
+                        <a href="#" class="bg-rosa hover:bg-rosa-escuro text-branco w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-colors">
+                            <i class="fab fa-facebook text-sm sm:text-base"></i>
                         </a>
-                        <a href="#" class="bg-rosa hover:bg-rosa-escuro text-branco w-10 h-10 rounded-full flex items-center justify-center transition-colors">
-                            <i class="fab fa-whatsapp"></i>
+                        <a href="#" class="bg-rosa hover:bg-rosa-escuro text-branco w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-colors">
+                            <i class="fab fa-whatsapp text-sm sm:text-base"></i>
                         </a>
-                        <a href="#" class="bg-rosa hover:bg-rosa-escuro text-branco w-10 h-10 rounded-full flex items-center justify-center transition-colors">
-                            <i class="fab fa-tiktok"></i>
+                        <a href="#" class="bg-rosa hover:bg-rosa-escuro text-branco w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-colors">
+                            <i class="fab fa-tiktok text-sm sm:text-base"></i>
                         </a>
                     </div>
                 </div>
                 
                 <!-- Links Rápidos -->
                 <div>
-                    <h4 class="text-xl font-bold mb-4">Links Rápidos</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#home" class="text-cinza-claro hover:text-rosa transition-colors">Início</a></li>
-                        <li><a href="#categorias" class="text-cinza-claro hover:text-rosa transition-colors">Categorias</a></li>
-                        <li><a href="#produtos" class="text-cinza-claro hover:text-rosa transition-colors">Produtos</a></li>
-                        <li><a href="#sobre" class="text-cinza-claro hover:text-rosa transition-colors">Sobre</a></li>
+                    <h4 class="text-lg sm:text-xl font-bold mb-3 sm:mb-4">Links Rápidos</h4>
+                    <ul class="space-y-1 sm:space-y-2">
+                        <li><a href="#home" class="text-sm sm:text-base text-cinza-claro hover:text-rosa transition-colors">Início</a></li>
+                        <li><a href="#categorias" class="text-sm sm:text-base text-cinza-claro hover:text-rosa transition-colors">Categorias</a></li>
+                        <li><a href="#produtos" class="text-sm sm:text-base text-cinza-claro hover:text-rosa transition-colors">Produtos</a></li>
+                        <li><a href="#sobre" class="text-sm sm:text-base text-cinza-claro hover:text-rosa transition-colors">Sobre</a></li>
                     </ul>
                 </div>
                 
                 <!-- Contato -->
                 <div>
-                    <h4 class="text-xl font-bold mb-4">Contato</h4>
-                    <ul class="space-y-2 text-cinza-claro">
+                    <h4 class="text-lg sm:text-xl font-bold mb-3 sm:mb-4">Contato</h4>
+                    <ul class="space-y-1 sm:space-y-2 text-cinza-claro">
                         <li class="flex items-center">
-                            <i class="fas fa-phone mr-2 text-rosa"></i>
-                            (11) 99999-9999
+                            <i class="fas fa-phone mr-2 text-rosa text-sm"></i>
+                            <span class="text-sm sm:text-base">(89) 99472-9022</span>
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-envelope mr-2 text-rosa"></i>
-                            contato@lmfit.com.br
+                            <i class="fas fa-envelope mr-2 text-rosa text-sm"></i>
+                            <span class="text-sm sm:text-base">luaracarvalho10@icloud.com</span>
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-map-marker-alt mr-2 text-rosa"></i>
-                            Isaias Coelho, PI
+                            <i class="fas fa-map-marker-alt mr-2 text-rosa text-sm"></i>
+                            <span class="text-sm sm:text-base">Isaias Coelho - PI</span>
                         </li>
                     </ul>
                 </div>
             </div>
             
-            <div class="border-t border-cinza-escuro mt-12 pt-8 text-center text-cinza-claro">
-                <p>&copy; 2025 LMFIT. Todos os direitos reservados.</p>
+            <div class="border-t border-cinza-escuro mt-8 sm:mt-12 pt-6 sm:pt-8 text-center text-cinza-claro">
+                <p class="text-xs sm:text-sm">&copy; 2025 LMFIT. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
     
     <!-- Modal do Carrinho -->
     <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
-        <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="bg-branco rounded-2xl max-w-md w-full max-h-96 overflow-y-auto">
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-2xl font-bold text-preto">Carrinho</h3>
+        <div class="flex items-center justify-center min-h-screen p-2 sm:p-4">
+            <div class="bg-branco rounded-xl sm:rounded-2xl max-w-md w-full max-h-96 overflow-y-auto">
+                <div class="p-4 sm:p-6">
+                    <div class="flex items-center justify-between mb-4 sm:mb-6">
+                        <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-preto">Carrinho</h3>
                         <button id="close-cart" class="text-cinza-escuro hover:text-rosa">
-                            <i class="fas fa-times text-xl"></i>
+                            <i class="fas fa-times text-lg sm:text-xl"></i>
                         </button>
                     </div>
                     
@@ -474,26 +469,26 @@
     </div>
     <!-- Modal de Confirmação de Carrinho -->
     <div id="cart-confirmation-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
-        <div class="bg-branco rounded-2xl p-6 max-w-md w-full mx-4 shadow-2xl">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="text-xl font-bold text-preto font-badoni">Confirmar Adição ao Carrinho</h3>
-                <button onclick="closeCartConfirmationModal()" class="text-cinza-escuro hover:text-rosa text-xl">
+        <div class="bg-branco rounded-xl sm:rounded-2xl p-4 sm:p-6 max-w-md w-full mx-2 sm:mx-4 shadow-2xl">
+            <div class="flex items-center justify-between mb-3 sm:mb-4">
+                <h3 class="text-lg sm:text-xl font-bold text-preto font-badoni">Confirmar Adição ao Carrinho</h3>
+                <button onclick="closeCartConfirmationModal()" class="text-cinza-escuro hover:text-rosa text-lg sm:text-xl">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             
-            <div class="mb-6">
-                <div class="flex items-center space-x-4 mb-4">
-                    <img id="confirmation-product-image" src="" alt="Produto" class="w-16 h-16 object-cover rounded-lg">
+            <div class="mb-4 sm:mb-6">
+                <div class="flex items-center space-x-3 sm:space-x-4 mb-3 sm:mb-4">
+                    <img id="confirmation-product-image" src="" alt="Produto" class="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded-lg">
                     <div class="flex-1">
-                        <h4 id="confirmation-product-name" class="font-semibold text-preto font-badoni"></h4>
-                        <p id="confirmation-product-price" class="text-rosa font-bold"></p>
+                        <h4 id="confirmation-product-name" class="text-sm sm:text-base font-semibold text-preto font-badoni"></h4>
+                        <p id="confirmation-product-price" class="text-sm sm:text-base text-rosa font-bold"></p>
                     </div>
                 </div>
                 
-                <div class="bg-cinza-claro p-4 rounded-lg">
-                    <label class="block text-sm font-medium text-cinza-escuro mb-2">Tamanho Selecionado:</label>
-                    <select id="confirmation-size-select" class="w-full px-3 py-2 border border-cinza-claro rounded-lg focus:outline-none focus:border-rosa">
+                <div class="bg-cinza-claro p-3 sm:p-4 rounded-lg">
+                    <label class="block text-xs sm:text-sm font-medium text-cinza-escuro mb-2">Tamanho Selecionado:</label>
+                    <select id="confirmation-size-select" class="w-full px-2 sm:px-3 py-2 border border-cinza-claro rounded-lg focus:outline-none focus:border-rosa text-sm sm:text-base">
                         <option value="P">P</option>
                         <option value="M" selected>M</option>
                         <option value="G">G</option>
@@ -501,12 +496,12 @@
                 </div>
             </div>
             
-            <div class="flex space-x-3">
-                <button onclick="closeCartConfirmationModal()" class="flex-1 bg-cinza-claro hover:bg-cinza-escuro text-preto py-3 rounded-lg font-semibold transition-colors">
+            <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
+                <button onclick="closeCartConfirmationModal()" class="flex-1 bg-cinza-claro hover:bg-cinza-escuro text-preto py-2 sm:py-3 rounded-lg font-semibold transition-colors text-sm sm:text-base">
                     Cancelar
                 </button>
-                <button onclick="confirmAddToCart()" class="flex-1 bg-rosa hover:bg-rosa-escuro text-branco py-3 rounded-lg font-semibold transition-colors">
-                    <i class="fas fa-shopping-cart mr-2"></i>Confirmar
+                <button onclick="confirmAddToCart()" class="flex-1 bg-rosa hover:bg-rosa-escuro text-branco py-2 sm:py-3 rounded-lg font-semibold transition-colors text-sm sm:text-base">
+                    <i class="fas fa-shopping-cart mr-1 sm:mr-2"></i>Confirmar
                 </button>
             </div>
         </div>
@@ -514,8 +509,8 @@
 
     <!-- Modal de Visualização de Imagem -->
     <div id="image-modal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden flex items-center justify-center">
-        <div class="relative max-w-4xl max-h-full p-4">
-            <button onclick="closeImageModal()" class="absolute top-4 right-4 text-white text-2xl hover:text-rosa transition-colors z-10">
+        <div class="relative max-w-4xl max-h-full p-2 sm:p-4">
+            <button onclick="closeImageModal()" class="absolute top-2 right-2 sm:top-4 sm:right-4 text-white text-xl sm:text-2xl hover:text-rosa transition-colors z-10">
                 <i class="fas fa-times"></i>
             </button>
             <img id="modal-image" src="" alt="Imagem do produto" class="max-w-full max-h-full object-contain rounded-lg">
@@ -523,7 +518,7 @@
     </div>
     
     <!-- JavaScript -->
-    <script src="{% static 'loja/js/scripts.js' %}"></script>
+    <script src="{% static 'loja/js/scripts.js' %}?v=20250109"></script>
     
     <script>
         // Funções para trabalhar com os cards dinâmicos
@@ -546,6 +541,24 @@
             
             buyOnWhatsAppWithSize(nome, preco, sizeSelect.id);
         }
+        
+        // Função de teste para verificar o número do WhatsApp
+        function testWhatsApp() {
+            const whatsappNumber = "5589994729022";
+            const message = "Teste - Número correto: (89) 99472-9022";
+            const url = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
+            console.log('Teste WhatsApp - URL:', url);
+            window.open(url, '_blank');
+        }
+        
+        // Adicionar botão de teste temporário (remover depois)
+        document.addEventListener('DOMContentLoaded', function() {
+            const testBtn = document.createElement('button');
+            testBtn.textContent = 'Teste WhatsApp';
+            testBtn.style.cssText = 'position: fixed; top: 10px; right: 10px; z-index: 9999; background: red; color: white; padding: 10px; border: none; border-radius: 5px;';
+            testBtn.onclick = testWhatsApp;
+            document.body.appendChild(testBtn);
+        });
     </script>
 </body>
 </html>
