@@ -249,569 +249,87 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                <!-- Produto 1 -->
-                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover product-card" data-category="tops" data-price="89.90" data-name="Top Fitness Rosa">
+                {% if roupas %}
+                    {% for roupa in roupas %}
+                        <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover product-card" data-category="{{ roupa.categoria }}" data-price="{{ roupa.preco|floatformat:2 }}" data-name="{{ roupa.nome }}" data-roupa-id="{{ roupa.id }}">
                     <!-- Área de Fotos -->
                     <div class="relative h-80 bg-gray-100">
                         <!-- Foto Principal -->
-                        <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                             alt="Top Fitness Rosa" 
+                                {% if roupa.foto_principal %}
+                                    <img src="{{ roupa.foto_principal.url }}" 
+                                         alt="{{ roupa.nome }}" 
                              class="w-full h-full object-cover product-main-image cursor-pointer"
                              onclick="openImageModal(this.src)">
+                                {% else %}
+                                    <div class="w-full h-full flex items-center justify-center">
+                                        <i class="fas fa-image text-4xl text-cinza-claro"></i>
+                                    </div>
+                                {% endif %}
                         
                         <!-- Miniaturas das Fotos -->
                         <div class="absolute bottom-2 left-2 right-2 flex space-x-2 justify-center">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Top Fitness Rosa - Foto 1" 
+                                    {% if roupa.foto_principal %}
+                                        <img src="{{ roupa.foto_principal.url }}" 
+                                             alt="{{ roupa.nome }} - Foto 1" 
                                  class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
                                  onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Top Fitness Rosa - Foto 2" 
+                                    {% endif %}
+                                    {% if roupa.foto_2 %}
+                                        <img src="{{ roupa.foto_2.url }}" 
+                                             alt="{{ roupa.nome }} - Foto 2" 
                                  class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
                                  onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Top Fitness Rosa - Foto 3" 
+                                    {% endif %}
+                                    {% if roupa.foto_3 %}
+                                        <img src="{{ roupa.foto_3.url }}" 
+                                             alt="{{ roupa.nome }} - Foto 3" 
                                  class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
                                  onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
+                                    {% endif %}
                         </div>
                         
                         <!-- Indicador de Múltiplas Fotos -->
+                                {% if roupa.foto_2 or roupa.foto_3 %}
                         <div class="absolute top-2 right-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded-full text-xs">
-                            <i class="fas fa-images mr-1"></i>3 fotos
+                                        <i class="fas fa-images mr-1"></i>
+                                        {% if roupa.foto_2 and roupa.foto_3 %}3{% elif roupa.foto_2 or roupa.foto_3 %}2{% else %}1{% endif %} fotos
                         </div>
+                                {% endif %}
                     </div>
                     
                     <div class="p-6">
-                        <h3 class="text-xl font-bold text-preto mb-2 font-badoni">Top Fitness Rosa</h3>
-                        <p class="text-cinza-escuro mb-4">Top de alta performance com tecnologia dry-fit</p>
+                                <h3 class="text-xl font-bold text-preto mb-2 font-badoni">{{ roupa.nome }}</h3>
+                                <p class="text-cinza-escuro mb-4">{{ roupa.descricao|truncatechars:60 }}</p>
                         <div class="flex items-center justify-between mb-4">
-                            <span class="text-2xl font-bold text-rosa">R$ 89,90</span>
-                            <select id="size-top-fitness-rosa" class="border border-cinza-claro rounded px-3 py-1 text-sm">
-                                <option value="P">P</option>
-                                <option value="M" selected>M</option>
-                                <option value="G">G</option>
+                                    <span class="text-2xl font-bold text-rosa">R$ {{ roupa.preco|floatformat:2 }}</span>
+                                    <select id="size-{{ roupa.id }}" class="border border-cinza-claro rounded px-3 py-1 text-sm">
+                                        {% for tamanho in roupa.get_tamanhos_list %}
+                                            <option value="{{ tamanho }}" {% if forloop.first %}selected{% endif %}>{{ tamanho }}</option>
+                                        {% endfor %}
                             </select>
                         </div>
-                        <button class="w-full bg-rosa hover:bg-rosa-escuro text-branco py-3 rounded-lg font-semibold btn-hover" onclick="addToCartWithSize('Top Fitness Rosa', 89.90, 'size-top-fitness-rosa')">
+                                <button class="w-full bg-rosa hover:bg-rosa-escuro text-branco py-3 rounded-lg font-semibold btn-hover" onclick="addToCartFromCard(this)">
                             Adicionar ao Carrinho
                         </button>
-                        <button class="w-full mt-2 bg-green-500 hover:bg-green-600 text-branco py-3 rounded-lg font-semibold btn-hover" onclick="buyOnWhatsAppWithSize('Top Fitness Rosa', 89.90, 'size-top-fitness-rosa')">
+                                <button class="w-full mt-2 bg-green-500 hover:bg-green-600 text-branco py-3 rounded-lg font-semibold btn-hover" onclick="buyOnWhatsAppFromCard(this)">
                             <i class="fab fa-whatsapp mr-2"></i>Comprar no WhatsApp
                         </button>
                     </div>
-                </div>
-                
-                <!-- Produto 2 -->
-                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover product-card" data-category="leggings" data-price="129.90" data-name="Legging Preta Premium">
-                    <!-- Área de Fotos -->
-                    <div class="relative h-80 bg-gray-100">
-                        <!-- Foto Principal -->
-                        <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                             alt="Legging Preta Premium" 
-                             class="w-full h-full object-cover product-main-image cursor-pointer"
-                             onclick="openImageModal(this.src)">
-                        
-                        <!-- Miniaturas das Fotos -->
-                        <div class="absolute bottom-2 left-2 right-2 flex space-x-2 justify-center">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Legging Preta Premium - Foto 1" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Legging Preta Premium - Foto 2" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Legging Preta Premium - Foto 3" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
                         </div>
-                        
-                        <!-- Indicador de Múltiplas Fotos -->
-                        <div class="absolute top-2 right-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded-full text-xs">
-                            <i class="fas fa-images mr-1"></i>3 fotos
+                    {% endfor %}
+                {% else %}
+                    <!-- Estado vazio quando não há roupas -->
+                    <div class="col-span-full text-center py-16">
+                        <div class="bg-branco rounded-xl shadow-lg p-12 max-w-md mx-auto">
+                            <i class="fas fa-tshirt text-6xl text-cinza-claro mb-4"></i>
+                            <h3 class="text-xl font-bold text-preto mb-2">Nenhuma Roupa Disponível</h3>
+                            <p class="text-cinza-escuro mb-6">Em breve teremos novidades incríveis para você!</p>
+                            <a href="#contato" class="bg-rosa hover:bg-rosa-escuro text-branco px-6 py-3 rounded-lg font-semibold transition-colors">
+                                <i class="fas fa-envelope mr-2"></i>Entre em Contato
+                            </a>
                         </div>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-preto mb-2 font-badoni">Legging Preta Premium</h3>
-                        <p class="text-cinza-escuro mb-4">Legging com cintura alta e tecnologia compressiva</p>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-2xl font-bold text-rosa">R$ 129,90</span>
-                            <select id="size-legging-preta-premium" class="border border-cinza-claro rounded px-3 py-1 text-sm">
-                                <option value="P">P</option>
-                                <option value="M" selected>M</option>
-                                <option value="G">G</option>
-                            </select>
-                        </div>
-                        <button class="w-full bg-rosa hover:bg-rosa-escuro text-branco py-3 rounded-lg font-semibold btn-hover" onclick="addToCartWithSize('Legging Preta Premium', 129.90, 'size-legging-preta-premium')">
-                            Adicionar ao Carrinho
-                        </button>
-                        <button class="w-full mt-2 bg-green-500 hover:bg-green-600 text-branco py-3 rounded-lg font-semibold btn-hover" onclick="buyOnWhatsAppWithSize('Legging Preta Premium', 129.90, 'size-legging-preta-premium')">
-                            <i class="fab fa-whatsapp mr-2"></i>Comprar no WhatsApp
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Produto 3 -->
-                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover product-card" data-category="conjuntos" data-price="199.90" data-name="Conjunto Fitness">
-                    <!-- Área de Fotos -->
-                    <div class="relative h-80 bg-gray-100">
-                        <!-- Foto Principal -->
-                        <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                             alt="Conjunto Fitness" 
-                             class="w-full h-full object-cover product-main-image cursor-pointer"
-                             onclick="openImageModal(this.src)">
-                        
-                        <!-- Miniaturas das Fotos -->
-                        <div class="absolute bottom-2 left-2 right-2 flex space-x-2 justify-center">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Conjunto Fitness - Foto 1" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Conjunto Fitness - Foto 2" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Conjunto Fitness - Foto 3" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                        </div>
-                        
-                        <!-- Indicador de Múltiplas Fotos -->
-                        <div class="absolute top-2 right-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded-full text-xs">
-                            <i class="fas fa-images mr-1"></i>3 fotos
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-preto mb-2 font-badoni">Conjunto Fitness</h3>
-                        <p class="text-cinza-escuro mb-4">Conjunto completo com top e short coordenados</p>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-2xl font-bold text-rosa">R$ 199,90</span>
-                            <select id="size-conjunto-fitness" class="border border-cinza-claro rounded px-3 py-1 text-sm">
-                                <option value="P">P</option>
-                                <option value="M" selected>M</option>
-                                <option value="G">G</option>
-                            </select>
-                        </div>
-                        <button class="w-full bg-rosa hover:bg-rosa-escuro text-branco py-3 rounded-lg font-semibold btn-hover" onclick="addToCartWithSize('Conjunto Fitness', 199.90, 'size-conjunto-fitness')">
-                            Adicionar ao Carrinho
-                        </button>
-                        <button class="w-full mt-2 bg-green-500 hover:bg-green-600 text-branco py-3 rounded-lg font-semibold btn-hover" onclick="buyOnWhatsAppWithSize('Conjunto Fitness', 199.90, 'size-conjunto-fitness')">
-                            <i class="fab fa-whatsapp mr-2"></i>Comprar no WhatsApp
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Produto 4 -->
-                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover product-card" data-category="tops" data-price="79.90" data-name="Top Esportivo">
-                    <!-- Área de Fotos -->
-                    <div class="relative h-80 bg-gray-100">
-                        <!-- Foto Principal -->
-                        <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                             alt="Top Esportivo" 
-                             class="w-full h-full object-cover product-main-image cursor-pointer"
-                             onclick="openImageModal(this.src)">
-                        
-                        <!-- Miniaturas das Fotos -->
-                        <div class="absolute bottom-2 left-2 right-2 flex space-x-2 justify-center">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Top Esportivo - Foto 1" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Top Esportivo - Foto 2" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Top Esportivo - Foto 3" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                        </div>
-                        
-                        <!-- Indicador de Múltiplas Fotos -->
-                        <div class="absolute top-2 right-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded-full text-xs">
-                            <i class="fas fa-images mr-1"></i>3 fotos
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-preto mb-2 font-badoni">Top Esportivo</h3>
-                        <p class="text-cinza-escuro mb-4">Top com suporte e tecnologia respirável</p>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-2xl font-bold text-rosa">R$ 79,90</span>
-                            <select id="size-top-esportivo" class="border border-cinza-claro rounded px-3 py-1 text-sm">
-                                <option value="P">P</option>
-                                <option value="M" selected>M</option>
-                                <option value="G">G</option>
-                            </select>
-                        </div>
-                        <button class="w-full bg-rosa hover:bg-rosa-escuro text-branco py-3 rounded-lg font-semibold btn-hover" onclick="addToCartWithSize('Top Esportivo', 79.90, 'size-top-esportivo')">
-                            Adicionar ao Carrinho
-                        </button>
-                        <button class="w-full mt-2 bg-green-500 hover:bg-green-600 text-branco py-3 rounded-lg font-semibold btn-hover" onclick="buyOnWhatsAppWithSize('Top Esportivo', 79.90, 'size-top-esportivo')">
-                            <i class="fab fa-whatsapp mr-2"></i>Comprar no WhatsApp
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Produto 5 -->
-                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover product-card" data-category="tops" data-price="95.90" data-name="Top Cropped">
-                    <!-- Área de Fotos -->
-                    <div class="relative h-80 bg-gray-100">
-                        <!-- Foto Principal -->
-                        <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                             alt="Top Cropped" 
-                             class="w-full h-full object-cover product-main-image cursor-pointer"
-                             onclick="openImageModal(this.src)">
-                        
-                        <!-- Miniaturas das Fotos -->
-                        <div class="absolute bottom-2 left-2 right-2 flex space-x-2 justify-center">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Top Cropped - Foto 1" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Top Cropped - Foto 2" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Top Cropped - Foto 3" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                        </div>
-                        
-                        <!-- Indicador de Múltiplas Fotos -->
-                        <div class="absolute top-2 right-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded-full text-xs">
-                            <i class="fas fa-images mr-1"></i>3 fotos
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-preto mb-2 font-badoni">Top Cropped</h3>
-                        <p class="text-cinza-escuro mb-4">Top cropped com tecnologia dry-fit e modelagem perfeita</p>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-2xl font-bold text-rosa">R$ 95,90</span>
-                            <select id="size-top-cropped" class="border border-cinza-claro rounded px-3 py-1 text-sm">
-                                <option value="P">P</option>
-                                <option value="M" selected>M</option>
-                                <option value="G">G</option>
-                            </select>
-                        </div>
-                        <button class="w-full bg-rosa hover:bg-rosa-escuro text-branco py-3 rounded-lg font-semibold btn-hover" onclick="addToCartWithSize('Top Cropped', 95.90, 'size-top-cropped')">
-                            Adicionar ao Carrinho
-                        </button>
-                        <button class="w-full mt-2 bg-green-500 hover:bg-green-600 text-branco py-3 rounded-lg font-semibold btn-hover" onclick="buyOnWhatsAppWithSize('Top Cropped', 95.90, 'size-top-cropped')">
-                            <i class="fab fa-whatsapp mr-2"></i>Comprar no WhatsApp
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Produto 6 -->
-                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover product-card" data-category="leggings" data-price="149.90" data-name="Legging High Waist">
-                    <!-- Área de Fotos -->
-                    <div class="relative h-80 bg-gray-100">
-                        <!-- Foto Principal -->
-                        <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                             alt="Legging High Waist" 
-                             class="w-full h-full object-cover product-main-image cursor-pointer"
-                             onclick="openImageModal(this.src)">
-                        
-                        <!-- Miniaturas das Fotos -->
-                        <div class="absolute bottom-2 left-2 right-2 flex space-x-2 justify-center">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Legging High Waist - Foto 1" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Legging High Waist - Foto 2" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Legging High Waist - Foto 3" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                        </div>
-                        
-                        <!-- Indicador de Múltiplas Fotos -->
-                        <div class="absolute top-2 right-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded-full text-xs">
-                            <i class="fas fa-images mr-1"></i>3 fotos
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-preto mb-2 font-badoni">Legging High Waist</h3>
-                        <p class="text-cinza-escuro mb-4">Legging com cintura alta e tecnologia compressiva</p>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-2xl font-bold text-rosa">R$ 149,90</span>
-                            <select id="size-legging-high-waist" class="border border-cinza-claro rounded px-3 py-1 text-sm">
-                                <option value="P">P</option>
-                                <option value="M" selected>M</option>
-                                <option value="G">G</option>
-                            </select>
-                        </div>
-                        <button class="w-full bg-rosa hover:bg-rosa-escuro text-branco py-3 rounded-lg font-semibold btn-hover" onclick="addToCartWithSize('Legging High Waist', 149.90, 'size-legging-high-waist')">
-                            Adicionar ao Carrinho
-                        </button>
-                        <button class="w-full mt-2 bg-green-500 hover:bg-green-600 text-branco py-3 rounded-lg font-semibold btn-hover" onclick="buyOnWhatsAppWithSize('Legging High Waist', 149.90, 'size-legging-high-waist')">
-                            <i class="fab fa-whatsapp mr-2"></i>Comprar no WhatsApp
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Produto 7 -->
-                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover product-card" data-category="conjuntos" data-price="229.90" data-name="Conjunto Premium">
-                    <!-- Área de Fotos -->
-                    <div class="relative h-80 bg-gray-100">
-                        <!-- Foto Principal -->
-                        <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                             alt="Conjunto Premium" 
-                             class="w-full h-full object-cover product-main-image cursor-pointer"
-                             onclick="openImageModal(this.src)">
-                        
-                        <!-- Miniaturas das Fotos -->
-                        <div class="absolute bottom-2 left-2 right-2 flex space-x-2 justify-center">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Conjunto Premium - Foto 1" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Conjunto Premium - Foto 2" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Conjunto Premium - Foto 3" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                        </div>
-                        
-                        <!-- Indicador de Múltiplas Fotos -->
-                        <div class="absolute top-2 right-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded-full text-xs">
-                            <i class="fas fa-images mr-1"></i>3 fotos
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-preto mb-2 font-badoni">Conjunto Premium</h3>
-                        <p class="text-cinza-escuro mb-4">Conjunto premium com top e legging coordenados</p>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-2xl font-bold text-rosa">R$ 229,90</span>
-                            <select id="size-conjunto-premium" class="border border-cinza-claro rounded px-3 py-1 text-sm">
-                                <option value="P">P</option>
-                                <option value="M" selected>M</option>
-                                <option value="G">G</option>
-                            </select>
-                        </div>
-                        <button class="w-full bg-rosa hover:bg-rosa-escuro text-branco py-3 rounded-lg font-semibold btn-hover" onclick="addToCartWithSize('Conjunto Premium', 229.90, 'size-conjunto-premium')">
-                            Adicionar ao Carrinho
-                        </button>
-                        <button class="w-full mt-2 bg-green-500 hover:bg-green-600 text-branco py-3 rounded-lg font-semibold btn-hover" onclick="buyOnWhatsAppWithSize('Conjunto Premium', 229.90, 'size-conjunto-premium')">
-                            <i class="fab fa-whatsapp mr-2"></i>Comprar no WhatsApp
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Produto 8 -->
-                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover product-card" data-category="tops" data-price="109.90" data-name="Top Longline">
-                    <!-- Área de Fotos -->
-                    <div class="relative h-80 bg-gray-100">
-                        <!-- Foto Principal -->
-                        <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                             alt="Top Longline" 
-                             class="w-full h-full object-cover product-main-image cursor-pointer"
-                             onclick="openImageModal(this.src)">
-                        
-                        <!-- Miniaturas das Fotos -->
-                        <div class="absolute bottom-2 left-2 right-2 flex space-x-2 justify-center">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Top Longline - Foto 1" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Top Longline - Foto 2" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Top Longline - Foto 3" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                        </div>
-                        
-                        <!-- Indicador de Múltiplas Fotos -->
-                        <div class="absolute top-2 right-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded-full text-xs">
-                            <i class="fas fa-images mr-1"></i>3 fotos
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-preto mb-2 font-badoni">Top Longline</h3>
-                        <p class="text-cinza-escuro mb-4">Top longline com tecnologia respirável e suporte</p>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-2xl font-bold text-rosa">R$ 109,90</span>
-                            <select id="size-top-longline" class="border border-cinza-claro rounded px-3 py-1 text-sm">
-                                <option value="P">P</option>
-                                <option value="M" selected>M</option>
-                                <option value="G">G</option>
-                            </select>
-                        </div>
-                        <button class="w-full bg-rosa hover:bg-rosa-escuro text-branco py-3 rounded-lg font-semibold btn-hover" onclick="addToCartWithSize('Top Longline', 109.90, 'size-top-longline')">
-                            Adicionar ao Carrinho
-                        </button>
-                        <button class="w-full mt-2 bg-green-500 hover:bg-green-600 text-branco py-3 rounded-lg font-semibold btn-hover" onclick="buyOnWhatsAppWithSize('Top Longline', 109.90, 'size-top-longline')">
-                            <i class="fab fa-whatsapp mr-2"></i>Comprar no WhatsApp
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Produto 9 - Blusa -->
-                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover product-card" data-category="blusas" data-price="69.90" data-name="Blusa Básica">
-                    <!-- Área de Fotos -->
-                    <div class="relative h-80 bg-gray-100">
-                        <!-- Foto Principal -->
-                        <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                             alt="Blusa Básica" 
-                             class="w-full h-full object-cover product-main-image cursor-pointer"
-                             onclick="openImageModal(this.src)">
-                        
-                        <!-- Miniaturas das Fotos -->
-                        <div class="absolute bottom-2 left-2 right-2 flex space-x-2 justify-center">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Blusa Básica - Foto 1" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Blusa Básica - Foto 2" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Blusa Básica - Foto 3" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                        </div>
-                        
-                        <!-- Indicador de Múltiplas Fotos -->
-                        <div class="absolute top-2 right-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded-full text-xs">
-                            <i class="fas fa-images mr-1"></i>3 fotos
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-preto mb-2 font-badoni">Blusa Básica</h3>
-                        <p class="text-cinza-escuro mb-4">Blusa básica com tecido macio e confortável</p>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-2xl font-bold text-rosa">R$ 69,90</span>
-                            <select id="size-blusa-basica" class="border border-cinza-claro rounded px-3 py-1 text-sm">
-                                <option value="P">P</option>
-                                <option value="M" selected>M</option>
-                                <option value="G">G</option>
-                            </select>
-                        </div>
-                        <button class="w-full bg-rosa hover:bg-rosa-escuro text-branco py-3 rounded-lg font-semibold btn-hover" onclick="addToCartWithSize('Blusa Básica', 69.90, 'size-blusa-basica')">
-                            Adicionar ao Carrinho
-                        </button>
-                        <button class="w-full mt-2 bg-green-500 hover:bg-green-600 text-branco py-3 rounded-lg font-semibold btn-hover" onclick="buyOnWhatsAppWithSize('Blusa Básica', 69.90, 'size-blusa-basica')">
-                            <i class="fab fa-whatsapp mr-2"></i>Comprar no WhatsApp
-                        </button>
-                    </div>
-                </div>
-                
-
-                
-                <!-- Produto 11 - Calcinha Sem Costura -->
-                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover product-card" data-category="calcinha-sem-costura" data-price="29.90" data-name="Calcinha Sem Costura">
-                    <!-- Área de Fotos -->
-                    <div class="relative h-80 bg-gray-100">
-                        <!-- Foto Principal -->
-                        <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                             alt="Calcinha Sem Costura" 
-                             class="w-full h-full object-cover product-main-image cursor-pointer"
-                             onclick="openImageModal(this.src)">
-                        
-                        <!-- Miniaturas das Fotos -->
-                        <div class="absolute bottom-2 left-2 right-2 flex space-x-2 justify-center">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Calcinha Sem Costura - Foto 1" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Calcinha Sem Costura - Foto 2" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Calcinha Sem Costura - Foto 3" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                        </div>
-                        
-                        <!-- Indicador de Múltiplas Fotos -->
-                        <div class="absolute top-2 right-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded-full text-xs">
-                            <i class="fas fa-images mr-1"></i>3 fotos
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-preto mb-2 font-badoni">Calcinha Sem Costura</h3>
-                        <p class="text-cinza-escuro mb-4">Calcinha sem costura para máximo conforto</p>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-2xl font-bold text-rosa">R$ 29,90</span>
-                            <select id="size-calcinha-sem-costura" class="border border-cinza-claro rounded px-3 py-1 text-sm">
-                                <option value="P">P</option>
-                                <option value="M" selected>M</option>
-                                <option value="G">G</option>
-                            </select>
-                        </div>
-                        <button class="w-full bg-rosa hover:bg-rosa-escuro text-branco py-3 rounded-lg font-semibold btn-hover" onclick="addToCartWithSize('Calcinha Sem Costura', 29.90, 'size-calcinha-sem-costura')">
-                            Adicionar ao Carrinho
-                        </button>
-                        <button class="w-full mt-2 bg-green-500 hover:bg-green-600 text-branco py-3 rounded-lg font-semibold btn-hover" onclick="buyOnWhatsAppWithSize('Calcinha Sem Costura', 29.90, 'size-calcinha-sem-costura')">
-                            <i class="fab fa-whatsapp mr-2"></i>Comprar no WhatsApp
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Produto 12 - Meias -->
-                <div class="bg-branco rounded-2xl overflow-hidden shadow-lg card-hover product-card" data-category="meias" data-price="19.90" data-name="Meias Esportivas">
-                    <!-- Área de Fotos -->
-                    <div class="relative h-80 bg-gray-100">
-                        <!-- Foto Principal -->
-                        <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                             alt="Meias Esportivas" 
-                             class="w-full h-full object-cover product-main-image cursor-pointer"
-                             onclick="openImageModal(this.src)">
-                        
-                        <!-- Miniaturas das Fotos -->
-                        <div class="absolute bottom-2 left-2 right-2 flex space-x-2 justify-center">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Meias Esportivas - Foto 1" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Meias Esportivas - Foto 2" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                            <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" 
-                                 alt="Meias Esportivas - Foto 3" 
-                                 class="w-12 h-12 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
-                                 onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
-                        </div>
-                        
-                        <!-- Indicador de Múltiplas Fotos -->
-                        <div class="absolute top-2 right-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded-full text-xs">
-                            <i class="fas fa-images mr-1"></i>3 fotos
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-preto mb-2 font-badoni">Meias Esportivas</h3>
-                        <p class="text-cinza-escuro mb-4">Meias esportivas com tecnologia dry-fit</p>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-2xl font-bold text-rosa">R$ 19,90</span>
-                            <select id="size-meias-esportivas" class="border border-cinza-claro rounded px-3 py-1 text-sm">
-                                <option value="P">P</option>
-                                <option value="M" selected>M</option>
-                                <option value="G">G</option>
-                            </select>
-                        </div>
-                        <button class="w-full bg-rosa hover:bg-rosa-escuro text-branco py-3 rounded-lg font-semibold btn-hover" onclick="addToCartWithSize('Meias Esportivas', 19.90, 'size-meias-esportivas')">
-                            Adicionar ao Carrinho
-                        </button>
-                        <button class="w-full mt-2 bg-green-500 hover:bg-green-600 text-branco py-3 rounded-lg font-semibold btn-hover" onclick="buyOnWhatsAppWithSize('Meias Esportivas', 19.90, 'size-meias-esportivas')">
-                            <i class="fab fa-whatsapp mr-2"></i>Comprar no WhatsApp
-                        </button>
-                    </div>
-                </div>
+                {% endif %}
             </div>
         </div>
     </section>
@@ -1006,5 +524,28 @@
     
     <!-- JavaScript -->
     <script src="{% static 'loja/js/scripts.js' %}"></script>
+    
+    <script>
+        // Funções para trabalhar com os cards dinâmicos
+        function addToCartFromCard(button) {
+            const card = button.closest('.product-card');
+            const nome = card.dataset.name;
+            const preco = parseFloat(card.dataset.price);
+            const sizeSelect = card.querySelector('select');
+            const tamanho = sizeSelect ? sizeSelect.value : 'M';
+            
+            addToCartWithSize(nome, preco, sizeSelect.id);
+        }
+        
+        function buyOnWhatsAppFromCard(button) {
+            const card = button.closest('.product-card');
+            const nome = card.dataset.name;
+            const preco = parseFloat(card.dataset.price);
+            const sizeSelect = card.querySelector('select');
+            const tamanho = sizeSelect ? sizeSelect.value : 'M';
+            
+            buyOnWhatsAppWithSize(nome, preco, sizeSelect.id);
+        }
+    </script>
 </body>
 </html>

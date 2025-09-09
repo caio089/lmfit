@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Administração LMFIT</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        'preto': '#000000',
+                        'branco': '#FFFFFF',
+                        'cinza-claro': '#F5F5F5',
+                        'cinza-escuro': '#1F1F1F',
+                        'rosa': '#a86972',
+                        'rosa-claro': '#c49ba1',
+                        'rosa-escuro': '#8a5a61',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-cinza-claro font-poppins min-h-screen flex items-center justify-center">
+    <div class="max-w-md w-full mx-4">
+        <!-- Logo e Título -->
+        <div class="text-center mb-8">
+            <div class="flex items-center justify-center mb-4">
+                <img src="{% static 'LMFIT.jpg' %}" alt="LMFIT Logo" class="w-16 h-16 rounded-full object-cover border-4 border-rosa">
+            </div>
+            <h1 class="text-3xl font-bold text-preto">LMFIT</h1>
+            <p class="text-rosa text-lg font-medium">Área Administrativa</p>
+        </div>
+
+        <!-- Card de Login -->
+        <div class="bg-branco rounded-2xl shadow-xl p-8">
+            <h2 class="text-2xl font-bold text-preto mb-6 text-center">Fazer Login</h2>
+            
+            <!-- Messages -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="{% if message.tags == 'error' %}bg-red-100 border-red-400 text-red-700{% elif message.tags == 'success' %}bg-green-100 border-green-400 text-green-700{% elif message.tags == 'info' %}bg-blue-100 border-blue-400 text-blue-700{% else %}bg-gray-100 border-gray-400 text-gray-700{% endif %} px-4 py-3 rounded mb-4 border">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                
+                <div>
+                    <label for="username" class="block text-sm font-medium text-cinza-escuro mb-2">
+                        <i class="fas fa-user mr-2"></i>Usuário
+                    </label>
+                    <input type="text" 
+                           id="username" 
+                           name="username" 
+                           required
+                           class="w-full px-4 py-3 border-2 border-cinza-claro rounded-lg focus:outline-none focus:border-rosa transition-colors"
+                           placeholder="Digite seu usuário">
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium text-cinza-escuro mb-2">
+                        <i class="fas fa-lock mr-2"></i>Senha
+                    </label>
+                    <input type="password" 
+                           id="password" 
+                           name="password" 
+                           required
+                           class="w-full px-4 py-3 border-2 border-cinza-claro rounded-lg focus:outline-none focus:border-rosa transition-colors"
+                           placeholder="Digite sua senha">
+                </div>
+
+                <button type="submit" 
+                        class="w-full bg-rosa hover:bg-rosa-escuro text-branco py-3 rounded-lg font-semibold transition-colors">
+                    <i class="fas fa-sign-in-alt mr-2"></i>Entrar
+                </button>
+            </form>
+
+            <!-- Link para voltar à loja -->
+            <div class="mt-6 text-center">
+                <a href="{% url 'loja' %}" class="text-rosa hover:text-rosa-escuro transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i>Voltar para a Loja
+                </a>
+            </div>
+            
+            <!-- Informação sobre a URL correta -->
+            <div class="mt-4 text-center text-sm text-cinza-escuro">
+                <p><strong>URL correta:</strong> <code>http://127.0.0.1:8000/painel/</code></p>
+            </div>
+        </div>
+
+        <!-- Informações de Acesso -->
+        <div class="mt-8 bg-branco rounded-lg p-6 shadow-lg">
+            <h3 class="text-lg font-semibold text-preto mb-4 text-center">Informações de Acesso</h3>
+            <div class="space-y-2 text-sm text-cinza-escuro">
+                <p><strong>Usuário:</strong> admin</p>
+                <p><strong>Senha:</strong> 123</p>
+                <p class="text-xs text-rosa mt-2">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    Use as credenciais do superusuário do Django.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

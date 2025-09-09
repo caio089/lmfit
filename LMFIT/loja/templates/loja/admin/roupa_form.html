@@ -1,0 +1,211 @@
+{% extends 'loja/admin/base.html' %}
+{% load static %}
+
+{% block title %}
+    {% if action == 'add' %}Adicionar Roupa{% else %}Editar Roupa{% endif %} - Administração LMFIT
+{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-preto mb-2">
+            {% if action == 'add' %}Adicionar Nova Roupa{% else %}Editar Roupa{% endif %}
+        </h1>
+        <p class="text-cinza-escuro">
+            {% if action == 'add' %}Preencha os dados para adicionar uma nova roupa ao catálogo{% else %}Edite as informações da roupa{% endif %}
+        </p>
+    </div>
+
+    <!-- Formulário -->
+    <div class="bg-branco rounded-xl shadow-lg p-8">
+        <form method="post" enctype="multipart/form-data" class="space-y-6">
+            {% csrf_token %}
+            
+            <!-- Informações Básicas -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="nome" class="block text-sm font-medium text-cinza-escuro mb-2">
+                        Nome da Roupa *
+                    </label>
+                    <input type="text" 
+                           id="nome" 
+                           name="nome" 
+                           value="{% if roupa %}{{ roupa.nome }}{% endif %}"
+                           required
+                           class="w-full px-4 py-3 border-2 border-cinza-claro rounded-lg focus:outline-none focus:border-rosa transition-colors"
+                           placeholder="Ex: Top Fitness Rosa">
+                </div>
+
+                <div>
+                    <label for="categoria" class="block text-sm font-medium text-cinza-escuro mb-2">
+                        Categoria *
+                    </label>
+                    <select id="categoria" 
+                            name="categoria" 
+                            required
+                            class="w-full px-4 py-3 border-2 border-cinza-claro rounded-lg focus:outline-none focus:border-rosa transition-colors">
+                        <option value="">Selecione uma categoria</option>
+                        <option value="tops" {% if roupa and roupa.categoria == 'tops' %}selected{% endif %}>Tops</option>
+                        <option value="leggings" {% if roupa and roupa.categoria == 'leggings' %}selected{% endif %}>Leggings</option>
+                        <option value="conjuntos" {% if roupa and roupa.categoria == 'conjuntos' %}selected{% endif %}>Conjuntos</option>
+                        <option value="blusas" {% if roupa and roupa.categoria == 'blusas' %}selected{% endif %}>Blusas</option>
+                        <option value="calcinha-sem-costura" {% if roupa and roupa.categoria == 'calcinha-sem-costura' %}selected{% endif %}>Calcinha Sem Costura</option>
+                        <option value="meias" {% if roupa and roupa.categoria == 'meias' %}selected{% endif %}>Meias</option>
+                        <option value="acessorios" {% if roupa and roupa.categoria == 'acessorios' %}selected{% endif %}>Acessórios</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <label for="descricao" class="block text-sm font-medium text-cinza-escuro mb-2">
+                    Descrição *
+                </label>
+                <textarea id="descricao" 
+                          name="descricao" 
+                          rows="4"
+                          required
+                          class="w-full px-4 py-3 border-2 border-cinza-claro rounded-lg focus:outline-none focus:border-rosa transition-colors"
+                          placeholder="Descreva a roupa, suas características e benefícios...">{% if roupa %}{{ roupa.descricao }}{% endif %}</textarea>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="preco" class="block text-sm font-medium text-cinza-escuro mb-2">
+                        Preço (R$) *
+                    </label>
+                    <input type="number" 
+                           id="preco" 
+                           name="preco" 
+                           value="{% if roupa %}{{ roupa.preco }}{% endif %}"
+                           step="0.01"
+                           min="0"
+                           required
+                           class="w-full px-4 py-3 border-2 border-cinza-claro rounded-lg focus:outline-none focus:border-rosa transition-colors"
+                           placeholder="Ex: 89.90">
+                </div>
+
+                <div>
+                    <label for="tamanhos_disponiveis" class="block text-sm font-medium text-cinza-escuro mb-2">
+                        Tamanhos Disponíveis *
+                    </label>
+                    <input type="text" 
+                           id="tamanhos_disponiveis" 
+                           name="tamanhos_disponiveis" 
+                           value="{% if roupa %}{{ roupa.tamanhos_disponiveis }}{% else %}P,M,G{% endif %}"
+                           required
+                           class="w-full px-4 py-3 border-2 border-cinza-claro rounded-lg focus:outline-none focus:border-rosa transition-colors"
+                           placeholder="Ex: P,M,G,GG">
+                    <p class="text-xs text-cinza-escuro mt-1">Separe os tamanhos por vírgula (ex: P,M,G,GG)</p>
+                </div>
+            </div>
+
+            <!-- Fotos -->
+            <div>
+                <h3 class="text-lg font-semibold text-preto mb-4">Fotos da Roupa</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Foto Principal -->
+                    <div>
+                        <label for="foto_principal" class="block text-sm font-medium text-cinza-escuro mb-2">
+                            Foto Principal *
+                        </label>
+                        <input type="file" 
+                               id="foto_principal" 
+                               name="foto_principal" 
+                               accept="image/*"
+                               {% if action == 'add' %}required{% endif %}
+                               class="w-full px-4 py-3 border-2 border-cinza-claro rounded-lg focus:outline-none focus:border-rosa transition-colors">
+                        {% if roupa and roupa.foto_principal %}
+                            <div class="mt-2">
+                                <img src="{{ roupa.foto_principal.url }}" 
+                                     alt="Foto atual" 
+                                     class="w-full h-32 object-cover rounded-lg">
+                                <p class="text-xs text-cinza-escuro mt-1">Foto atual (deixe em branco para manter)</p>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Foto 2 -->
+                    <div>
+                        <label for="foto_2" class="block text-sm font-medium text-cinza-escuro mb-2">
+                            Foto 2
+                        </label>
+                        <input type="file" 
+                               id="foto_2" 
+                               name="foto_2" 
+                               accept="image/*"
+                               class="w-full px-4 py-3 border-2 border-cinza-claro rounded-lg focus:outline-none focus:border-rosa transition-colors">
+                        {% if roupa and roupa.foto_2 %}
+                            <div class="mt-2">
+                                <img src="{{ roupa.foto_2.url }}" 
+                                     alt="Foto atual" 
+                                     class="w-full h-32 object-cover rounded-lg">
+                                <p class="text-xs text-cinza-escuro mt-1">Foto atual (deixe em branco para manter)</p>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Foto 3 -->
+                    <div>
+                        <label for="foto_3" class="block text-sm font-medium text-cinza-escuro mb-2">
+                            Foto 3
+                        </label>
+                        <input type="file" 
+                               id="foto_3" 
+                               name="foto_3" 
+                               accept="image/*"
+                               class="w-full px-4 py-3 border-2 border-cinza-claro rounded-lg focus:outline-none focus:border-rosa transition-colors">
+                        {% if roupa and roupa.foto_3 %}
+                            <div class="mt-2">
+                                <img src="{{ roupa.foto_3.url }}" 
+                                     alt="Foto atual" 
+                                     class="w-full h-32 object-cover rounded-lg">
+                                <p class="text-xs text-cinza-escuro mt-1">Foto atual (deixe em branco para manter)</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status -->
+            <div class="flex items-center">
+                <input type="checkbox" 
+                       id="ativo" 
+                       name="ativo" 
+                       {% if not roupa or roupa.ativo %}checked{% endif %}
+                       class="w-4 h-4 text-rosa border-cinza-claro rounded focus:ring-rosa focus:ring-2">
+                <label for="ativo" class="ml-2 text-sm font-medium text-cinza-escuro">
+                    Roupa ativa (aparece na loja)
+                </label>
+            </div>
+
+            <!-- Botões -->
+            <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-cinza-claro">
+                <button type="submit" 
+                        class="flex-1 bg-rosa hover:bg-rosa-escuro text-branco py-3 px-6 rounded-lg font-semibold transition-colors">
+                    <i class="fas fa-save mr-2"></i>
+                    {% if action == 'add' %}Adicionar Roupa{% else %}Salvar Alterações{% endif %}
+                </button>
+                <a href="{% url 'admin_roupas_list' %}" 
+                   class="flex-1 bg-cinza-claro hover:bg-cinza-escuro text-preto py-3 px-6 rounded-lg font-semibold text-center transition-colors">
+                    <i class="fas fa-times mr-2"></i>Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Dicas -->
+    <div class="mt-8 bg-blue-50 border border-blue-200 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-blue-800 mb-3">
+            <i class="fas fa-lightbulb mr-2"></i>Dicas para Melhores Resultados
+        </h3>
+        <ul class="space-y-2 text-sm text-blue-700">
+            <li>• Use fotos de alta qualidade e boa iluminação</li>
+            <li>• A foto principal deve mostrar a roupa completa</li>
+            <li>• Adicione fotos de detalhes e diferentes ângulos</li>
+            <li>• Escreva descrições detalhadas e atrativas</li>
+            <li>• Defina preços competitivos e realistas</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

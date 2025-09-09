@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Administração LMFIT{% endblock %}</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        'preto': '#000000',
+                        'branco': '#FFFFFF',
+                        'cinza-claro': '#F5F5F5',
+                        'cinza-escuro': '#1F1F1F',
+                        'rosa': '#a86972',
+                        'rosa-claro': '#c49ba1',
+                        'rosa-escuro': '#8a5a61',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-cinza-claro font-poppins">
+    <!-- Header -->
+    <header class="bg-branco shadow-lg">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <img src="{% static 'LMFIT.jpg' %}" alt="LMFIT Logo" class="w-10 h-10 rounded-full object-cover border-2 border-rosa mr-3">
+                    <h1 class="text-2xl font-bold text-preto">LMFIT</h1>
+                    <span class="text-rosa ml-2 text-sm font-medium">ADMIN</span>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <span class="text-cinza-escuro">Olá, {{ request.user.username|default:"Admin" }}</span>
+                    <a href="{% url 'admin_logout' %}" class="bg-rosa hover:bg-rosa-escuro text-branco px-4 py-2 rounded-lg transition-colors">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Sair
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-preto">
+        <div class="container mx-auto px-4">
+            <div class="flex space-x-8 py-4">
+                <a href="{% url 'admin_dashboard' %}" class="text-branco hover:text-rosa transition-colors font-medium">
+                    <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
+                </a>
+                <a href="{% url 'admin_roupas_list' %}" class="text-branco hover:text-rosa transition-colors font-medium">
+                    <i class="fas fa-tshirt mr-2"></i>Roupas
+                </a>
+                <a href="{% url 'loja' %}" class="text-branco hover:text-rosa transition-colors font-medium" target="_blank">
+                    <i class="fas fa-external-link-alt mr-2"></i>Ver Loja
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Messages -->
+    {% if messages %}
+        <div class="container mx-auto px-4 py-4">
+            {% for message in messages %}
+                <div class="{% if message.tags == 'error' %}bg-red-100 border-red-400 text-red-700{% elif message.tags == 'success' %}bg-green-100 border-green-400 text-green-700{% elif message.tags == 'info' %}bg-blue-100 border-blue-400 text-blue-700{% else %}bg-gray-100 border-gray-400 text-gray-700{% endif %} px-4 py-3 rounded mb-4 border">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-preto text-branco py-8 mt-16">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 LMFIT - Área Administrativa. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
