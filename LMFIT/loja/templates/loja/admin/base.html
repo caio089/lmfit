@@ -183,8 +183,13 @@
             });
         });
 
-        // Proteção adicional contra debug
+        // Proteção adicional contra debug (apenas em desktop)
         (function() {
+            // Não aplicar proteção em dispositivos móveis
+            if (window.innerWidth <= 768) {
+                return;
+            }
+            
             let devtools = {open: false, orientation: null};
             const threshold = 160;
             setInterval(function() {
