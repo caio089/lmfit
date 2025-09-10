@@ -102,24 +102,108 @@
                 </a>
             </div>
             
-            <!-- Informação sobre a URL correta -->
-            <div class="mt-4 text-center text-sm text-cinza-escuro">
-                <p><strong>URL correta:</strong> <code>http://127.0.0.1:8000/painel/</code></p>
-            </div>
-        </div>
-
-        <!-- Informações de Acesso -->
-        <div class="mt-8 bg-branco rounded-lg p-6 shadow-lg">
-            <h3 class="text-lg font-semibold text-preto mb-4 text-center">Informações de Acesso</h3>
-            <div class="space-y-2 text-sm text-cinza-escuro">
-                <p><strong>Usuário:</strong> admin</p>
-                <p><strong>Senha:</strong> 123</p>
-                <p class="text-xs text-rosa mt-2">
-                    <i class="fas fa-info-circle mr-1"></i>
-                    Use as credenciais do superusuário do Django.
-                </p>
-            </div>
         </div>
     </div>
+
+    <!-- Scripts de Segurança -->
+    <script>
+        // Proteção contra inspeção de elementos
+        document.addEventListener('DOMContentLoaded', function() {
+            // Desabilitar clique direito
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+
+            // Desabilitar F12, Ctrl+Shift+I, Ctrl+U
+            document.addEventListener('keydown', function(e) {
+                // F12
+                if (e.keyCode === 123) {
+                    e.preventDefault();
+                    return false;
+                }
+                // Ctrl+Shift+I
+                if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+                    e.preventDefault();
+                    return false;
+                }
+                // Ctrl+U
+                if (e.ctrlKey && e.keyCode === 85) {
+                    e.preventDefault();
+                    return false;
+                }
+                // Ctrl+S
+                if (e.ctrlKey && e.keyCode === 83) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            // Proteger contra seleção de texto
+            document.addEventListener('selectstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+
+            // Proteger contra arrastar
+            document.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+
+            // Detectar tentativas de abrir DevTools
+            let devtools = {open: false, orientation: null};
+            const threshold = 160;
+            setInterval(function() {
+                if (window.outerHeight - window.innerHeight > threshold || 
+                    window.outerWidth - window.innerWidth > threshold) {
+                    if (!devtools.open) {
+                        devtools.open = true;
+                        console.clear();
+                        console.log('%c⚠️ ACESSO NEGADO ⚠️', 'color: red; font-size: 50px; font-weight: bold;');
+                        console.log('%cEsta área é restrita!', 'color: red; font-size: 20px;');
+                        // Opcional: redirecionar ou fechar a aba
+                        // window.location.href = 'about:blank';
+                    }
+                } else {
+                    devtools.open = false;
+                }
+            }, 500);
+
+            // Limpar console periodicamente
+            setInterval(function() {
+                console.clear();
+            }, 1000);
+
+            // Proteger contra cópia
+            document.addEventListener('copy', function(e) {
+                e.preventDefault();
+                return false;
+            });
+
+            // Proteger contra impressão
+            window.addEventListener('beforeprint', function(e) {
+                e.preventDefault();
+                return false;
+            });
+        });
+
+        // Proteção adicional contra debug
+        (function() {
+            let devtools = {open: false, orientation: null};
+            const threshold = 160;
+            setInterval(function() {
+                if (window.outerHeight - window.innerHeight > threshold || 
+                    window.outerWidth - window.innerWidth > threshold) {
+                    if (!devtools.open) {
+                        devtools.open = true;
+                        document.body.innerHTML = '<div style="display: flex; justify-content: center; align-items: center; height: 100vh; background: #000; color: #fff; font-size: 24px; font-family: Arial;">⚠️ ACESSO NEGADO - ÁREA RESTRITA ⚠️</div>';
+                    }
+                } else {
+                    devtools.open = false;
+                }
+            }, 500);
+        })();
+    </script>
 </body>
 </html>
