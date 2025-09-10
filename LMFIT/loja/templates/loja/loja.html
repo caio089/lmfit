@@ -498,28 +498,6 @@
     <!-- JavaScript -->
     <script src="{% static 'loja/js/scripts.js' %}?v=20250109"></script>
     
-    <script>
-        // Funções para trabalhar com os cards dinâmicos
-        function addToCartFromCard(button) {
-            const card = button.closest('.product-card');
-            const nome = card.dataset.name;
-            const preco = parseFloat(card.dataset.price);
-            const sizeSelect = card.querySelector('select');
-            const tamanho = sizeSelect ? sizeSelect.value : 'M';
-            
-            addToCartWithSize(nome, preco, sizeSelect.id);
-        }
-        
-        function buyOnWhatsAppFromCard(button) {
-            const card = button.closest('.product-card');
-            const nome = card.dataset.name;
-            const preco = parseFloat(card.dataset.price);
-            const sizeSelect = card.querySelector('select');
-            const tamanho = sizeSelect ? sizeSelect.value : 'M';
-            
-            buyOnWhatsAppWithSize(nome, preco, sizeSelect.id);
-        }
-        
-    </script>
+
 </body>
 </html>

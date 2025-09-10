@@ -11,6 +11,10 @@ SECRET_KEY = os.getenv("SECRET_KEY", "unsafe-secret-key")  # nunca usar em produ
 DEBUG = os.getenv("DEBUG", "False") == "True"
 ALLOWED_HOSTS = ["*"]  # depois pode restringir para o domínio do Render
 
+# Configuração para Render
+if os.getenv("RENDER"):
+    ALLOWED_HOSTS = ["*"]
+
 # -------------------------------------------------
 # Aplicativos
 # -------------------------------------------------

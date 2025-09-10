@@ -522,3 +522,60 @@ document.addEventListener('DOMContentLoaded', function() {
   // Funções do carrinho agora são globais (definidas acima)
 
 }); // Fechar DOMContentLoaded
+
+  // Funções para trabalhar com os cards dinâmicos
+  function addToCartFromCard(button) {
+    const card = button.closest('.product-card');
+    const nome = card.dataset.name;
+    const preco = parseFloat(card.dataset.price);
+    const sizeSelect = card.querySelector('select');
+    const tamanho = sizeSelect ? sizeSelect.value : 'M';
+    
+    addToCartWithSize(nome, preco, sizeSelect.id);
+}
+
+function buyOnWhatsAppFromCard(button) {
+    const card = button.closest('.product-card');
+    const nome = card.dataset.name;
+    const preco = parseFloat(card.dataset.price);
+    const sizeSelect = card.querySelector('select');
+    const tamanho = sizeSelect ? sizeSelect.value : 'M';
+    
+    buyOnWhatsAppWithSize(nome, preco, sizeSelect.id);
+}
+
+// Função para mudar imagem de fundo no mobile
+function setMobileBackground() {
+    const heroSection = document.getElementById('home');
+    const mobileImageUrl = '{% static "mobile.jpg" %}';
+    
+    if (window.innerWidth <= 768) {
+        // Mobile: usar mobile.jpg
+        heroSection.style.background = 'linear-gradient(135deg, rgba(0,0,0,0.4), rgba(168,105,114,0.2)), url(' + mobileImageUrl + ')';
+        heroSection.style.backgroundSize = 'cover';
+        heroSection.style.backgroundPosition = 'center center';
+        heroSection.style.backgroundAttachment = 'scroll';
+        heroSection.style.backgroundRepeat = 'no-repeat';
+        console.log('Mobile background set:', mobileImageUrl);
+    } else {
+        // Desktop: usar imagem original do Unsplash
+        heroSection.style.background = 'linear-gradient(135deg, rgba(0,0,0,0.7), rgba(168,105,114,0.3)), url("https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")';
+        heroSection.style.backgroundSize = 'cover';
+        heroSection.style.backgroundPosition = 'center';
+        heroSection.style.backgroundAttachment = 'fixed';
+        heroSection.style.backgroundRepeat = 'no-repeat';
+        console.log('Desktop background set: Unsplash image');
+    }
+}
+
+// Executar quando a página carregar
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Page loaded, setting background...');
+    setMobileBackground();
+});
+
+// Executar quando a janela for redimensionada
+window.addEventListener('resize', function() {
+    console.log('Window resized, setting background...');
+    setMobileBackground();
+});
