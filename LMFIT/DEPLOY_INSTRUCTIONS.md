@@ -26,6 +26,12 @@ Adicione estas variáveis no Web Service:
 - `DATABASE_URL`: (será preenchida automaticamente pelo banco PostgreSQL)
 - `SECRET_KEY`: (gere uma chave secreta forte)
 - `DEBUG`: `False`
+- `RENDER`: `True`
+
+### 4. Ordem de Criação
+**IMPORTANTE**: Crie primeiro o banco PostgreSQL, depois o Web Service:
+1. Primeiro: Crie o banco PostgreSQL
+2. Depois: Crie o Web Service e conecte ao banco
 
 ## 🔧 Configuração Automática
 

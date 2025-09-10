@@ -66,10 +66,29 @@ WSGI_APPLICATION = 'LMFIT.wsgi.application'
 # -------------------------------------------------
 DATABASES = {
     "default": dj_database_url.config(
-        default=os.getenv("DATABASE_URL", f"sqlite:///{BASE_DIR / 'db.sqlite3'}"),
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
         conn_max_age=600,
     )
 }
+
+# Configuração específica para Render
+if os.getenv("RENDER"):
+    database_url = os.getenv("DATABASE_URL")
+    if database_url and database_url.strip():
+        DATABASES = {
+            "default": dj_database_url.config(
+                default=database_url,
+                conn_max_age=600,
+            )
+        }
+    else:
+        # Fallback para SQLite se DATABASE_URL não estiver disponível
+        DATABASES = {
+            "default": {
+                "ENGINE": "django.db.backends.sqlite3",
+                "NAME": BASE_DIR / "db.sqlite3",
+            }
+        }
 
 # -------------------------------------------------
 # Validação de senha
