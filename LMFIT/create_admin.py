@@ -22,6 +22,6 @@ if created:
     print('👤 Usuário: admin')
     print('🔑 Senha: admin123')
 else:
-    print('eℹ️ Usuário administrador já existe!')
+    print('eo scripit para mudar senha de ovoℹ️ Usuário administrador já existe!')
     print('👤 Usuário: admin')
     print('🔑 Senha: admin123')

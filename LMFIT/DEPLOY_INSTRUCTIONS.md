@@ -2,6 +2,9 @@
 
 ## 📋 Configuração do Banco de Dados
 
+### ⚠️ PROBLEMA: Dados são perdidos a cada deploy
+**SOLUÇÃO:** Configure um banco PostgreSQL persistente
+
 ### 1. Criar Banco PostgreSQL no Render
 1. Acesse o [Render Dashboard](https://dashboard.render.com)
 2. Clique em "New +" → "PostgreSQL"
@@ -11,6 +14,7 @@
    - **User**: `lmfit_user`
    - **Region**: Escolha a mais próxima
    - **Plan**: Free (ou pago se preferir)
+4. **AGUARDE** o banco ser criado completamente
 
 ### 2. Configurar Web Service
 1. Clique em "New +" → "Web Service"
