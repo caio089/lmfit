@@ -23,7 +23,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # seus apps
-    'LMFIT',
     'loja',
 ]
 
