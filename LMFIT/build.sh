@@ -15,9 +15,9 @@ python manage.py collectstatic --noinput
 echo "🗄️ Aplicando migrações do banco de dados..."
 python manage.py migrate
 
-# Executar migração de dados
-echo "🔄 Executando migração de dados..."
-python migrate_data.py
+# Executar correção de dados
+echo "🔄 Executando correção de dados..."
+python fix_missing_data.py
 
 # Criar superusuário se não existir
 echo "👤 Configurando superusuário..."

@@ -73,6 +73,7 @@ DATABASES = {
 
 # Configuração específica para Render
 if os.getenv("RENDER"):
+    # No Render, sempre usar PostgreSQL se DATABASE_URL estiver disponível
     database_url = os.getenv("DATABASE_URL")
     if database_url and database_url.strip():
         DATABASES = {
@@ -81,7 +82,9 @@ if os.getenv("RENDER"):
                 conn_max_age=600,
             )
         }
+        print(f"✅ Usando PostgreSQL no Render: {database_url[:50]}...")
     else:
+        print("⚠️ DATABASE_URL não encontrado no Render, usando SQLite")
         # Fallback para SQLite se DATABASE_URL não estiver disponível
         DATABASES = {
             "default": {
@@ -89,6 +92,8 @@ if os.getenv("RENDER"):
                 "NAME": BASE_DIR / "db.sqlite3",
             }
         }
+else:
+    print("🏠 Usando SQLite local")
 
 # -------------------------------------------------
 # Validação de senha
