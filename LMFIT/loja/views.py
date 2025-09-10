@@ -87,16 +87,13 @@ def admin_roupa_add(request):
                 ativo=request.POST.get('ativo') == 'on'
             )
             
-            # Salvar para obter ID
-            roupa.save()
-            
-            # Processar fotos
+            # Processar fotos - armazenar temporariamente para conversão
             if 'foto_principal' in request.FILES:
-                roupa.foto_principal = request.FILES['foto_principal']
+                roupa._foto_principal_file = request.FILES['foto_principal']
             if 'foto_2' in request.FILES:
-                roupa.foto_2 = request.FILES['foto_2']
+                roupa._foto_2_file = request.FILES['foto_2']
             if 'foto_3' in request.FILES:
-                roupa.foto_3 = request.FILES['foto_3']
+                roupa._foto_3_file = request.FILES['foto_3']
             
             roupa.save()
             messages.success(request, f'Roupa "{roupa.nome}" adicionada com sucesso!')
@@ -121,13 +118,13 @@ def admin_roupa_edit(request, roupa_id):
             roupa.tamanhos_disponiveis = request.POST.get('tamanhos_disponiveis')
             roupa.ativo = request.POST.get('ativo') == 'on'
             
-            # Processar fotos
+            # Processar fotos - armazenar temporariamente para conversão
             if 'foto_principal' in request.FILES:
-                roupa.foto_principal = request.FILES['foto_principal']
+                roupa._foto_principal_file = request.FILES['foto_principal']
             if 'foto_2' in request.FILES:
-                roupa.foto_2 = request.FILES['foto_2']
+                roupa._foto_2_file = request.FILES['foto_2']
             if 'foto_3' in request.FILES:
-                roupa.foto_3 = request.FILES['foto_3']
+                roupa._foto_3_file = request.FILES['foto_3']
             
             roupa.save()
             messages.success(request, f'Roupa "{roupa.nome}" atualizada com sucesso!')
