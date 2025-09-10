@@ -25,7 +25,7 @@
                     <!-- Foto Principal -->
                     <div class="h-48 bg-gray-100 relative">
                         {% if roupa.foto_principal %}
-                            <img src="{{ roupa.foto_principal.url }}" 
+                            <img src="{{ roupa.get_foto_principal_url }}" 
                                  alt="{{ roupa.nome }}" 
                                  class="w-full h-full object-cover">
                         {% else %}
