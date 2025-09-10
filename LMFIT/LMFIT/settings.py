@@ -89,9 +89,6 @@ USE_TZ = True
 # Arquivos estáticos e mídia
 # -------------------------------------------------
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / "loja" / "static",
-]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
