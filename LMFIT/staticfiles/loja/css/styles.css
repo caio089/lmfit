@@ -126,7 +126,7 @@ body {
     
     /* Ajustar imagens de produtos */
     .product-main-image {
-        height: 200px;
+        max-height: 400px;
         object-fit: cover;
     }
     

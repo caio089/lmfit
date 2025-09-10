@@ -180,6 +180,50 @@
                         <p class="text-xs sm:text-sm md:text-base text-cinza-escuro">Complementos para seu look</p>
                     </div>
                 </div>
+                
+                <!-- Macacão -->
+                <div class="bg-branco rounded-xl sm:rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('macacao')">
+                    <div class="h-32 sm:h-48 md:h-56 lg:h-64 bg-gradient-to-br from-preto to-cinza-escuro flex items-center justify-center">
+                        <i class="fas fa-user-tie text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-branco"></i>
+                    </div>
+                    <div class="p-3 sm:p-4 md:p-6 text-center">
+                        <h3 class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-preto mb-1 sm:mb-2 font-badoni">MACACÃO</h3>
+                        <p class="text-xs sm:text-sm md:text-base text-cinza-escuro">Elegância e praticidade</p>
+                    </div>
+                </div>
+                
+                <!-- Macaquinho -->
+                <div class="bg-branco rounded-xl sm:rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('macaquinho')">
+                    <div class="h-32 sm:h-48 md:h-56 lg:h-64 bg-gradient-to-br from-rosa-claro to-rosa flex items-center justify-center">
+                        <i class="fas fa-user-tie text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-branco"></i>
+                    </div>
+                    <div class="p-3 sm:p-4 md:p-6 text-center">
+                        <h3 class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-preto mb-1 sm:mb-2 font-badoni">MACAQUINHO</h3>
+                        <p class="text-xs sm:text-sm md:text-base text-cinza-escuro">Elegância e conforto</p>
+                    </div>
+                </div>
+                
+                <!-- Short -->
+                <div class="bg-branco rounded-xl sm:rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('short')">
+                    <div class="h-32 sm:h-48 md:h-56 lg:h-64 bg-gradient-to-br from-cinza-escuro to-preto flex items-center justify-center">
+                        <i class="fas fa-running text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-branco"></i>
+                    </div>
+                    <div class="p-3 sm:p-4 md:p-6 text-center">
+                        <h3 class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-preto mb-1 sm:mb-2 font-badoni">SHORT</h3>
+                        <p class="text-xs sm:text-sm md:text-base text-cinza-escuro">Liberdade e movimento</p>
+                    </div>
+                </div>
+                
+                <!-- Regata -->
+                <div class="bg-branco rounded-xl sm:rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('regata')">
+                    <div class="h-32 sm:h-48 md:h-56 lg:h-64 bg-gradient-to-br from-rosa-escuro to-rosa flex items-center justify-center">
+                        <i class="fas fa-tshirt text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-branco"></i>
+                    </div>
+                    <div class="p-3 sm:p-4 md:p-6 text-center">
+                        <h3 class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-preto mb-1 sm:mb-2 font-badoni">REGATA</h3>
+                        <p class="text-xs sm:text-sm md:text-base text-cinza-escuro">Frescor e estilo</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -208,6 +252,10 @@
                             <option value="tops">Tops</option>
                             <option value="acessorios">Acessórios</option>
                             <option value="leggings">Leggings</option>
+                            <option value="macacao">Macacão</option>
+                            <option value="macaquinho">Macaquinho</option>
+                            <option value="short">Short</option>
+                            <option value="regata">Regata</option>
                         </select>
                         <select id="price-filter" class="px-3 sm:px-4 py-2 sm:py-3 border-2 border-rosa rounded-lg focus:outline-none focus:border-rosa-escuro transition-colors bg-branco shadow-md font-medium text-sm sm:text-base">
                             <option value="">Todos os Preços</option>

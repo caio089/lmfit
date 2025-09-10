@@ -9,6 +9,10 @@ class Roupa(models.Model):
         ('conjuntos', 'Conjuntos'),
         ('blusas', 'Blusas'),
         ('acessorios', 'Acessórios'),
+        ('macacao', 'Macacão'),
+        ('macaquinho', 'Macaquinho'),
+        ('short', 'Short'),
+        ('regata', 'Regata'),
     ]
     
     TAMANHO_CHOICES = [
