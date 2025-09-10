@@ -15,13 +15,17 @@ python manage.py collectstatic --noinput
 echo "🗄️ Aplicando migrações do banco de dados..."
 python manage.py migrate
 
+# Executar migração de dados
+echo "🔄 Executando migração de dados..."
+python migrate_data.py
+
 # Criar superusuário se não existir
 echo "👤 Configurando superusuário..."
 python manage.py shell -c "
 from django.contrib.auth.models import User
 if not User.objects.filter(username='admin').exists():
-    User.objects.create_superuser('admin', 'admin@lmfit.com', 'admin123')
-    print('✅ Superusuário criado: admin/admin123')
+    User.objects.create_superuser('admin', 'luaracarvalho10@icloud.com', 'luara10')
+    print('✅ Superusuário criado: admin/luara10')
 else:
     print('ℹ️ Superusuário já existe')
 "

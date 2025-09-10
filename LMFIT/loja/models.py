@@ -8,7 +8,7 @@ class Roupa(models.Model):
         ('leggings', 'Leggings'),
         ('conjuntos', 'Conjuntos'),
         ('blusas', 'Blusas'),
-        ('calcinha-sem-costura', 'Calcinha Sem Costura'),
+        ('acessorios', 'Acessórios'),
     ]
     
     TAMANHO_CHOICES = [
