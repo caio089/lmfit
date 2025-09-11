@@ -87,13 +87,13 @@ def admin_roupa_add(request):
                 ativo=request.POST.get('ativo') == 'on'
             )
             
-            # Processar fotos - armazenar temporariamente para conversão
+            # Processar fotos - upload direto para Cloudinary
             if 'foto_principal' in request.FILES:
-                roupa._foto_principal_file = request.FILES['foto_principal']
+                roupa.foto_principal = request.FILES['foto_principal']
             if 'foto_2' in request.FILES:
-                roupa._foto_2_file = request.FILES['foto_2']
+                roupa.foto_2 = request.FILES['foto_2']
             if 'foto_3' in request.FILES:
-                roupa._foto_3_file = request.FILES['foto_3']
+                roupa.foto_3 = request.FILES['foto_3']
             
             roupa.save()
             messages.success(request, f'Roupa "{roupa.nome}" adicionada com sucesso!')
@@ -118,13 +118,13 @@ def admin_roupa_edit(request, roupa_id):
             roupa.tamanhos_disponiveis = request.POST.get('tamanhos_disponiveis')
             roupa.ativo = request.POST.get('ativo') == 'on'
             
-            # Processar fotos - armazenar temporariamente para conversão
-            if 'foto_principal' in request.FILES:
-                roupa._foto_principal_file = request.FILES['foto_principal']
-            if 'foto_2' in request.FILES:
-                roupa._foto_2_file = request.FILES['foto_2']
-            if 'foto_3' in request.FILES:
-                roupa._foto_3_file = request.FILES['foto_3']
+            # Processar fotos - upload direto para Cloudinary (só se uma nova foto for enviada)
+            if 'foto_principal' in request.FILES and request.FILES['foto_principal']:
+                roupa.foto_principal = request.FILES['foto_principal']
+            if 'foto_2' in request.FILES and request.FILES['foto_2']:
+                roupa.foto_2 = request.FILES['foto_2']
+            if 'foto_3' in request.FILES and request.FILES['foto_3']:
+                roupa.foto_3 = request.FILES['foto_3']
             
             roupa.save()
             messages.success(request, f'Roupa "{roupa.nome}" atualizada com sucesso!')
