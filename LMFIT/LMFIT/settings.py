@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'LMFIT',
     'loja',
-    'catalogo',
 
 ]
 
