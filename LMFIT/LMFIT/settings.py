@@ -1,5 +1,9 @@
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+# Carregar variáveis de ambiente
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -96,11 +100,20 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # --------------------------
 # Arquivos de mídia (uploads de usuários)
 # --------------------------
+# Configuração do Cloudinary
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
-    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
-    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'dwilcfm1z'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY', 'fULjJTaWABDvFIgBHpwuiVsY1gU'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', 'J7qzlEUjQ4vwqyOtyX6PDxE9zsQL'),  # SUBSTITUA pela API_SECRET real
 }
+
+# Configurações adicionais do Cloudinary
+import cloudinary
+cloudinary.config(
+    cloud_name=CLOUDINARY_STORAGE['CLOUD_NAME'],
+    api_key=CLOUDINARY_STORAGE['API_KEY'],
+    api_secret=CLOUDINARY_STORAGE['API_SECRET']
+)
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 

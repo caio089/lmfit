@@ -10,3 +10,4 @@ tzdata==2025.2
 whitenoise==6.10.0
 django-cloudinary-storage
 cloudinary
+python-dotenv
