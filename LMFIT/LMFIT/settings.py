@@ -112,9 +112,25 @@ import cloudinary
 cloudinary.config(
     cloud_name=CLOUDINARY_STORAGE['CLOUD_NAME'],
     api_key=CLOUDINARY_STORAGE['API_KEY'],
-    api_secret=CLOUDINARY_STORAGE['API_SECRET']
+    api_secret=CLOUDINARY_STORAGE['API_SECRET'],
+    secure=True
 )
+
+# Configuração otimizada para uploads mais rápidos
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# Configurações de upload do Cloudinary
+CLOUDINARY_STORAGE.update({
+    'STATIC_IMAGES_EXTENSIONS': ['jpg', 'jpe', 'jpeg', 'jpc', 'jp2', 'j2k', 'wdp', 'jxr', 'hdp', 'png', 'gif', 'webp', 'bmp', 'tiff', 'tif', 'ico', 'svg', 'svgz'],
+    'STATIC_VIDEOS_EXTENSIONS': ['mp4', 'webm', 'ogv', 'mp3', 'wav', 'aac', 'oga', 'm4a'],
+    'STATIC_RAW_EXTENSIONS': ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'],
+    'EXCLUDE_DELETE_ORPHANED_MEDIA': True,
+    'STATICFILES_MANIFEST_ROOT': BASE_DIR / 'staticfiles',
+})
+
+# Configurações de timeout para uploads
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024  # 10MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024   # 10MB
 
 
 MEDIA_URL = '/media/'
