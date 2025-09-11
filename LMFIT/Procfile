@@ -1,1 +1,1 @@
-web: gunicorn LMFIT.LMFIT.wsgi
+web: gunicorn LMFIT.wsgi:application

@@ -128,11 +128,10 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Django
+# Django specific
 media/
 staticfiles/
-*.log
-.DS_Store
+*.sqlite3
 
 # IDE
 .vscode/
@@ -143,3 +142,10 @@ staticfiles/
 # OS
 .DS_Store
 Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp

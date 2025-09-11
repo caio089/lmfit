@@ -1,69 +1,86 @@
-# 🚀 Instruções de Deploy no Render
+# 🚀 INSTRUÇÕES DE DEPLOY - LMFIT
 
-## 📋 Configuração do Banco de Dados
+## 📋 Pré-requisitos
 
-### ⚠️ PROBLEMA: Dados são perdidos a cada deploy
-**SOLUÇÃO:** Configure um banco PostgreSQL persistente
+1. **Conta no Supabase** criada e configurada
+2. **Conta no Render** para deploy
+3. **Repositório Git** (GitHub/GitLab)
 
-### 1. Criar Banco PostgreSQL no Render
-1. Acesse o [Render Dashboard](https://dashboard.render.com)
-2. Clique em "New +" → "PostgreSQL"
-3. Configure:
-   - **Name**: `lmfit-db`
-   - **Database**: `lmfit`
-   - **User**: `lmfit_user`
-   - **Region**: Escolha a mais próxima
-   - **Plan**: Free (ou pago se preferir)
-4. **AGUARDE** o banco ser criado completamente
+## 🔧 Configuração do Supabase
 
-### 2. Configurar Web Service
-1. Clique em "New +" → "Web Service"
-2. Conecte ao seu repositório GitHub
-3. Configure:
-   - **Name**: `lmfit-web`
-   - **Environment**: `Python 3`
-   - **Build Command**: `pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate`
-   - **Start Command**: `gunicorn LMFIT.LMFIT.wsgi`
+### 1. Criar Projeto no Supabase
+- Acesse: https://supabase.com
+- Crie um novo projeto
+- Anote as credenciais
+
+### 2. Executar Script SQL
+- Vá em "SQL Editor" no Supabase
+- Execute o script `script_supabase_correto.sql`
+- Isso criará todas as tabelas necessárias
+
+### 3. Configurar Storage
+- Vá em "Storage" no Supabase
+- Crie um bucket chamado "roupas"
+- Configure as políticas de acesso
+
+## 🌐 Deploy no Render
+
+### 1. Conectar Repositório
+- Acesse: https://render.com
+- Conecte seu repositório Git
+- Selecione o branch "main"
+
+### 2. Configurar Serviço
+- **Tipo**: Web Service
+- **Build Command**: `pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --noinput`
+- **Start Command**: `gunicorn LMFIT.wsgi:application`
 
 ### 3. Variáveis de Ambiente
-Adicione estas variáveis no Web Service:
-- `DATABASE_URL`: (será preenchida automaticamente pelo banco PostgreSQL)
-- `SECRET_KEY`: (gere uma chave secreta forte)
-- `DEBUG`: `False`
-- `RENDER`: `True`
+Configure as seguintes variáveis no Render:
 
-### 4. Ordem de Criação
-**IMPORTANTE**: Crie primeiro o banco PostgreSQL, depois o Web Service:
-1. Primeiro: Crie o banco PostgreSQL
-2. Depois: Crie o Web Service e conecte ao banco
+```
+DEBUG=False
+SECRET_KEY=django-insecure-=@)s%(c6rhxjh22p1njhbcyi+r$1brb0w^ouz#!1%0*u*c-9wn
+SUPABASE_URL=sua_url_do_supabase
+SUPABASE_KEY=sua_key_anonima
+SUPABASE_SERVICE_KEY=sua_service_key
+SUPABASE_STORAGE_BUCKET=roupas
+SUPABASE_DB_HOST=seu_host_do_supabase
+SUPABASE_DB_NAME=postgres
+SUPABASE_DB_USER=postgres
+SUPABASE_DB_PASSWORD=sua_senha_do_supabase
+SUPABASE_DB_PORT=5432
+```
 
-## 🔧 Configuração Automática
+### 4. Deploy
+- Clique em "Deploy"
+- Aguarde o build completar
+- Acesse a URL fornecida
 
-O projeto já está configurado para:
-- ✅ Usar PostgreSQL no Render
-- ✅ Aplicar migrações automaticamente
-- ✅ Coletar arquivos estáticos
-- ✅ Criar superusuário automaticamente
+## ✅ Verificação Pós-Deploy
 
-## 📱 Acesso ao Admin
+1. **Site Principal**: Acesse a URL do Render
+2. **Painel Admin**: URL + `/painel/`
+3. **Login**: admin / admin123
+4. **Teste Upload**: Adicione uma roupa com foto
 
-Após o deploy:
-- **URL**: `https://seu-app.onrender.com/admin/`
-- **Usuário**: `admin`
-- **Senha**: `admin123`
+## 🔍 Troubleshooting
 
-## 🎯 Resultado
+### Erro de Conexão com Supabase
+- Verifique se as variáveis de ambiente estão corretas
+- Confirme se o projeto Supabase está ativo
 
-Após seguir estas instruções:
-- ✅ As roupas adicionadas no painel **NÃO** serão perdidas
-- ✅ O banco de dados será **persistente**
-- ✅ Cada deploy manterá os dados existentes
-- ✅ Apenas o código será atualizado
+### Erro de Migração
+- Execute: `python manage.py migrate` localmente
+- Verifique se o script SQL foi executado no Supabase
 
-## 🔄 Deploy Futuro
+### Erro de Static Files
+- Execute: `python manage.py collectstatic --noinput`
+- Verifique se o WhiteNoise está configurado
 
-Para futuros deploys:
-1. Faça push para o GitHub
-2. O Render fará o deploy automaticamente
-3. As roupas continuarão no banco de dados
-4. Apenas o código será atualizado
+## 📞 Suporte
+
+Se encontrar problemas, verifique:
+1. Logs do Render
+2. Status do Supabase
+3. Configurações de variáveis de ambiente

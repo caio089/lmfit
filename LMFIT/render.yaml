@@ -1,24 +1,30 @@
 services:
   - type: web
-    name: lmfit-web
+    name: lmfit
     env: python
     plan: free
-    buildCommand: chmod +x build.sh && ./build.sh
-    startCommand: gunicorn LMFIT.LMFIT.wsgi
+    buildCommand: "pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --noinput"
+    startCommand: "gunicorn LMFIT.wsgi:application"
     envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: lmfit-db
-          property: connectionString
-      - key: SECRET_KEY
-        generateValue: true
       - key: DEBUG
         value: False
-      - key: RENDER
-        value: True
-
-  - type: pserv
-    name: lmfit-db
-    env: postgresql
-    plan: free
-    ipAllowList: []
+      - key: SECRET_KEY
+        value: django-insecure-=@)s%(c6rhxjh22p1njhbcyi+r$1brb0w^ouz#!1%0*u*c-9wn
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      - key: SUPABASE_STORAGE_BUCKET
+        value: roupas
+      - key: SUPABASE_DB_HOST
+        sync: false
+      - key: SUPABASE_DB_NAME
+        value: postgres
+      - key: SUPABASE_DB_USER
+        value: postgres
+      - key: SUPABASE_DB_PASSWORD
+        sync: false
+      - key: SUPABASE_DB_PORT
+        value: "5432"

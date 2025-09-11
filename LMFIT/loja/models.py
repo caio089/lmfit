@@ -1,7 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from cloudinary_storage.storage import MediaCloudinaryStorage
-from cloudinary.models import CloudinaryField
 
 class Roupa(models.Model):
     CATEGORIA_CHOICES = [
@@ -28,9 +26,12 @@ class Roupa(models.Model):
     preco = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Preço")
     categoria = models.CharField(max_length=50, choices=CATEGORIA_CHOICES, verbose_name="Categoria")
     tamanhos_disponiveis = models.CharField(max_length=20, default="P,M,G", verbose_name="Tamanhos Disponíveis")
-    foto_principal = CloudinaryField(verbose_name="Foto Principal")
-    foto_2 = CloudinaryField(blank=True, null=True, verbose_name="Foto 2")
-    foto_3 = CloudinaryField(blank=True, null=True, verbose_name="Foto 3")
+    foto_principal = models.URLField(max_length=500, verbose_name="URL da Foto Principal")
+    foto_principal_storage_path = models.CharField(max_length=200, blank=True, null=True, verbose_name="Caminho no Storage")
+    foto_2 = models.URLField(max_length=500, blank=True, null=True, verbose_name="URL da Foto 2")
+    foto_2_storage_path = models.CharField(max_length=200, blank=True, null=True, verbose_name="Caminho no Storage 2")
+    foto_3 = models.URLField(max_length=500, blank=True, null=True, verbose_name="URL da Foto 3")
+    foto_3_storage_path = models.CharField(max_length=200, blank=True, null=True, verbose_name="Caminho no Storage 3")
     ativo = models.BooleanField(default=True, verbose_name="Ativo")
     data_criacao = models.DateTimeField(auto_now_add=True, verbose_name="Data de Criação")
     data_atualizacao = models.DateTimeField(auto_now=True, verbose_name="Data de Atualização")
@@ -48,22 +49,17 @@ class Roupa(models.Model):
         return [t.strip() for t in self.tamanhos_disponiveis.split(',')]
     
     def get_foto_principal_url(self):
-        """Retorna URL da foto principal do Cloudinary"""
-        if self.foto_principal:
-            return self.foto_principal.url
-        return None
+        """Retorna URL da foto principal"""
+        return self.foto_principal if self.foto_principal else None
     
     def get_foto_2_url(self):
-        """Retorna URL da foto 2 do Cloudinary"""
-        if self.foto_2:
-            return self.foto_2.url
-        return None
+        """Retorna URL da foto 2"""
+        return self.foto_2 if self.foto_2 else None
     
     def get_foto_3_url(self):
-        """Retorna URL da foto 3 do Cloudinary"""
-        if self.foto_3:
-            return self.foto_3.url
-        return None
+        """Retorna URL da foto 3"""
+        return self.foto_3 if self.foto_3 else None
+    
 
 class AdminUser(models.Model):
     """Modelo simples para autenticação do admin"""

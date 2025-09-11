@@ -8,6 +8,6 @@ psycopg2-binary==2.9.10
 sqlparse==0.5.3
 tzdata==2025.2
 whitenoise==6.10.0
-django-cloudinary-storage
-cloudinary
 python-dotenv
+supabase==2.3.4
+

@@ -276,7 +276,7 @@
                     <div class="relative bg-gray-100">
                         <!-- Foto Principal -->
                                 {% if roupa.foto_principal %}
-                                    <img src="{{ roupa.get_foto_principal_url }}" 
+                                    <img src="{{ roupa.foto_principal }}" 
                                          alt="{{ roupa.nome }}" 
                              class="w-full h-auto object-cover product-main-image cursor-pointer"
                              onclick="openImageModal(this.src)">
@@ -289,19 +289,19 @@
                         <!-- Miniaturas das Fotos -->
                         <div class="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 right-2 sm:right-4 flex space-x-1 sm:space-x-2 justify-center">
                                     {% if roupa.foto_principal %}
-                                        <img src="{{ roupa.get_foto_principal_url }}" 
+                                        <img src="{{ roupa.foto_principal }}" 
                                              alt="{{ roupa.nome }} - Foto 1" 
                                  class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
                                  onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
                                     {% endif %}
                                     {% if roupa.foto_2 %}
-                                        <img src="{{ roupa.get_foto_2_url }}" 
+                                        <img src="{{ roupa.foto_2 }}" 
                                              alt="{{ roupa.nome }} - Foto 2" 
                                  class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
                                  onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">
                                     {% endif %}
                                     {% if roupa.foto_3 %}
-                                        <img src="{{ roupa.get_foto_3_url }}" 
+                                        <img src="{{ roupa.foto_3 }}" 
                                              alt="{{ roupa.nome }} - Foto 3" 
                                  class="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-cover rounded border-2 border-white cursor-pointer hover:border-rosa transition-colors"
                                  onclick="changeMainImage(this.src, this.parentElement.parentElement.querySelector('.product-main-image'))">

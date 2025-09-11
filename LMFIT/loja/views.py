@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from .models import Roupa, AdminUser
+from .supabase_utils import upload_image_to_supabase, delete_image_from_supabase
 import json
 
 def loja(request):
@@ -87,13 +88,40 @@ def admin_roupa_add(request):
                 ativo=request.POST.get('ativo') == 'on'
             )
             
-            # Processar fotos - upload direto para Cloudinary
-            if 'foto_principal' in request.FILES:
-                roupa.foto_principal = request.FILES['foto_principal']
-            if 'foto_2' in request.FILES:
-                roupa.foto_2 = request.FILES['foto_2']
-            if 'foto_3' in request.FILES:
-                roupa.foto_3 = request.FILES['foto_3']
+            # Processar fotos - upload para Supabase Storage
+            if 'foto_principal' in request.FILES and request.FILES['foto_principal']:
+                upload_result = upload_image_to_supabase(
+                    request.FILES['foto_principal'], 
+                    folder_name="roupas"
+                )
+                if upload_result['success']:
+                    roupa.foto_principal = upload_result['public_url']
+                    roupa.foto_principal_storage_path = upload_result['storage_path']
+                else:
+                    messages.error(request, f'Erro ao fazer upload da foto principal: {upload_result["error"]}')
+                    return render(request, 'loja/admin/roupa_form.html', {'action': 'add'})
+            
+            if 'foto_2' in request.FILES and request.FILES['foto_2']:
+                upload_result = upload_image_to_supabase(
+                    request.FILES['foto_2'], 
+                    folder_name="roupas"
+                )
+                if upload_result['success']:
+                    roupa.foto_2 = upload_result['public_url']
+                    roupa.foto_2_storage_path = upload_result['storage_path']
+                else:
+                    messages.warning(request, f'Erro ao fazer upload da foto 2: {upload_result["error"]}')
+            
+            if 'foto_3' in request.FILES and request.FILES['foto_3']:
+                upload_result = upload_image_to_supabase(
+                    request.FILES['foto_3'], 
+                    folder_name="roupas"
+                )
+                if upload_result['success']:
+                    roupa.foto_3 = upload_result['public_url']
+                    roupa.foto_3_storage_path = upload_result['storage_path']
+                else:
+                    messages.warning(request, f'Erro ao fazer upload da foto 3: {upload_result["error"]}')
             
             roupa.save()
             messages.success(request, f'Roupa "{roupa.nome}" adicionada com sucesso!')
@@ -118,13 +146,52 @@ def admin_roupa_edit(request, roupa_id):
             roupa.tamanhos_disponiveis = request.POST.get('tamanhos_disponiveis')
             roupa.ativo = request.POST.get('ativo') == 'on'
             
-            # Processar fotos - upload direto para Cloudinary (só se uma nova foto for enviada)
+            # Processar fotos - upload para Supabase Storage (só se uma nova foto for enviada)
             if 'foto_principal' in request.FILES and request.FILES['foto_principal']:
-                roupa.foto_principal = request.FILES['foto_principal']
+                # Deletar foto antiga se existir
+                if roupa.foto_principal_storage_path:
+                    delete_image_from_supabase(roupa.foto_principal_storage_path)
+                
+                upload_result = upload_image_to_supabase(
+                    request.FILES['foto_principal'], 
+                    folder_name="roupas"
+                )
+                if upload_result['success']:
+                    roupa.foto_principal = upload_result['public_url']
+                    roupa.foto_principal_storage_path = upload_result['storage_path']
+                else:
+                    messages.error(request, f'Erro ao fazer upload da foto principal: {upload_result["error"]}')
+                    return render(request, 'loja/admin/roupa_form.html', {'roupa': roupa, 'action': 'edit'})
+            
             if 'foto_2' in request.FILES and request.FILES['foto_2']:
-                roupa.foto_2 = request.FILES['foto_2']
+                # Deletar foto antiga se existir
+                if roupa.foto_2_storage_path:
+                    delete_image_from_supabase(roupa.foto_2_storage_path)
+                
+                upload_result = upload_image_to_supabase(
+                    request.FILES['foto_2'], 
+                    folder_name="roupas"
+                )
+                if upload_result['success']:
+                    roupa.foto_2 = upload_result['public_url']
+                    roupa.foto_2_storage_path = upload_result['storage_path']
+                else:
+                    messages.warning(request, f'Erro ao fazer upload da foto 2: {upload_result["error"]}')
+            
             if 'foto_3' in request.FILES and request.FILES['foto_3']:
-                roupa.foto_3 = request.FILES['foto_3']
+                # Deletar foto antiga se existir
+                if roupa.foto_3_storage_path:
+                    delete_image_from_supabase(roupa.foto_3_storage_path)
+                
+                upload_result = upload_image_to_supabase(
+                    request.FILES['foto_3'], 
+                    folder_name="roupas"
+                )
+                if upload_result['success']:
+                    roupa.foto_3 = upload_result['public_url']
+                    roupa.foto_3_storage_path = upload_result['storage_path']
+                else:
+                    messages.warning(request, f'Erro ao fazer upload da foto 3: {upload_result["error"]}')
             
             roupa.save()
             messages.success(request, f'Roupa "{roupa.nome}" atualizada com sucesso!')
@@ -142,6 +209,15 @@ def admin_roupa_delete(request, roupa_id):
     try:
         roupa = get_object_or_404(Roupa, id=roupa_id)
         nome_roupa = roupa.nome
+        
+        # Deletar imagens do Supabase Storage antes de deletar a roupa
+        if roupa.foto_principal_storage_path:
+            delete_image_from_supabase(roupa.foto_principal_storage_path)
+        if roupa.foto_2_storage_path:
+            delete_image_from_supabase(roupa.foto_2_storage_path)
+        if roupa.foto_3_storage_path:
+            delete_image_from_supabase(roupa.foto_3_storage_path)
+        
         roupa.delete()
         messages.success(request, f'Roupa "{nome_roupa}" excluída com sucesso!')
     except Exception as e:
