@@ -99,7 +99,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dwilcfm1z',
     'API_KEY': 'fULjJTaWABDvFIgBHpwuiVsY1gU',
-    'API_SECRET': 'fULjJTaWABDvFIgBHpwuiVsY1gU',
+    'API_SECRET': 'fULjJTaWABDvFIgBHpwuiVsY1gU',  # CORRIGIR: Esta deve ser a API_SECRET real
 }
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
