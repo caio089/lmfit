@@ -53,13 +53,13 @@ TEMPLATES = [
 WSGI_APPLICATION = "LMFIT.wsgi.application"
 
 # -------------------------------------------------
-# Banco de Dados (Supabase via DATABASE_URL)
+# Banco de Dados (Supabase via DATABASE_URL + SSL)
 # -------------------------------------------------
 DATABASES = {
     "default": dj_database_url.config(
         default=os.getenv("DATABASE_URL"),
         conn_max_age=600,
-        ssl_require=True,
+        ssl_require=True,  # FORÇA SSL
     )
 }
 
@@ -118,9 +118,7 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "handlers": {
-        "console": {
-            "class": "logging.StreamHandler",
-        },
+        "console": {"class": "logging.StreamHandler"},
     },
     "root": {
         "handlers": ["console"],
