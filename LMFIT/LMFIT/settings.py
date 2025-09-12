@@ -16,7 +16,7 @@ def load_env_file():
 load_env_file()
 
 # Base dir
-BASE_DIR = Path(_file_).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Segurança
 SECRET_KEY = os.getenv("SECRET_KEY", "unsafe-secret-key")
