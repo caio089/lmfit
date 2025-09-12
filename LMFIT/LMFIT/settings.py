@@ -2,18 +2,28 @@ from pathlib import Path
 import os
 import dj_database_url
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+# Carregar variáveis do .env (quando em dev)
+def load_env_file():
+    env_path = Path(_file_).resolve().parent.parent / ".env"
+    if env_path.exists():
+        with open(env_path, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith("#") and "=" in line:
+                    key, value = line.split("=", 1)
+                    os.environ[key.strip()] = value.strip()
 
-# -------------------------------------------------
+load_env_file()
+
+# Base dir
+BASE_DIR = Path(_file_).resolve().parent.parent
+
 # Segurança
-# -------------------------------------------------
-SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-dev")
+SECRET_KEY = os.getenv("SECRET_KEY", "unsafe-secret-key")
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "lmfit.onrender.com", ".onrender.com"]
 
-# -------------------------------------------------
 # Apps
-# -------------------------------------------------
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -21,9 +31,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # seus apps
     "loja",
 ]
 
+# Middleware
 MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -52,90 +64,63 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "LMFIT.wsgi.application"
 
-# -------------------------------------------------
-# Banco de Dados (Supabase via DATABASE_URL + SSL)
-# -------------------------------------------------
+# Banco de dados (Supabase via DATABASE_URL)
 DATABASES = {
     "default": dj_database_url.config(
         default=os.getenv("DATABASE_URL"),
         conn_max_age=600,
-        ssl_require=True,  # FORÇA SSL
+        ssl_require=True,
     )
 }
 
-# -------------------------------------------------
-# Validação de Senha
-# -------------------------------------------------
+# Validação de senha
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
 ]
 
-# -------------------------------------------------
-# Localização
-# -------------------------------------------------
+# Internacionalização
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
-# -------------------------------------------------
-# Arquivos Estáticos
-# -------------------------------------------------
+# Arquivos estáticos
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 if not DEBUG:
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+else:
+    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
-# -------------------------------------------------
-# Arquivos de Mídia
-# -------------------------------------------------
+# Arquivos de mídia
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-# -------------------------------------------------
-# Supabase (API/Storage)
-# -------------------------------------------------
+# Supabase (para API/storage)
 SUPABASE_URL = os.getenv("SUPABASE_URL", "")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY", "")
 SUPABASE_SERVICE_KEY = os.getenv("SUPABASE_SERVICE_KEY", "")
 SUPABASE_STORAGE_BUCKET = os.getenv("SUPABASE_STORAGE_BUCKET", "roupas")
 
-# -------------------------------------------------
 # Login
-# -------------------------------------------------
 LOGIN_URL = "/login/"
 LOGIN_REDIRECT_URL = "/painel/"
 LOGOUT_REDIRECT_URL = "/login/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# -------------------------------------------------
 # Logging
-# -------------------------------------------------
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "handlers": {
-        "console": {"class": "logging.StreamHandler"},
-    },
-    "root": {
-        "handlers": ["console"],
-        "level": "INFO",
-    },
-    "loggers": {
-        "django": {
-            "handlers": ["console"],
-            "level": "INFO",
-            "propagate": False,
-        },
-    },
+    "handlers": {"console": {"class": "logging.StreamHandler"}},
+    "root": {"handlers": ["console"], "level": "INFO"},
+    "loggers": {"django": {"handlers": ["console"], "level": "INFO", "propagate": False}},
 }
 
-# -------------------------------------------------
-# Segurança extra (produção)
-# -------------------------------------------------
+# Segurança extra em produção
 if not DEBUG:
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
