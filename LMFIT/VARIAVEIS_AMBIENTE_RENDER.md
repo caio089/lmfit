@@ -11,21 +11,21 @@
 
 ```bash
 # Configurações básicas
-DEBUG=False
-SECRET_KEY=sua-chave-secreta-super-forte-aqui
+DEBUG=False ok
+SECRET_KEY=sua-chave-secreta-super-forte-aqui ok
 
 # Supabase - SUBSTITUA pelos seus valores reais
-SUPABASE_URL=https://seu-projeto.supabase.co
-SUPABASE_KEY=sua-anon-key-aqui
-SUPABASE_SERVICE_KEY=sua-service-role-key-aqui
-SUPABASE_STORAGE_BUCKET=roupas
+SUPABASE_URL=https://seu-projeto.supabase.co ok
+SUPABASE_KEY=sua-anon-key-aqui ok
+SUPABASE_SERVICE_KEY=sua-service-role-key-aqui ok
+SUPABASE_STORAGE_BUCKET=roupas ok
 
 # Banco de dados Supabase
-SUPABASE_DB_HOST=db.seu-projeto.supabase.co
-SUPABASE_DB_NAME=postgres
-SUPABASE_DB_USER=postgres
-SUPABASE_DB_PASSWORD=sua-senha-do-banco
-SUPABASE_DB_PORT=5432
+SUPABASE_DB_HOST=db.seu-projeto.supabase.co ok
+SUPABASE_DB_NAME=postgres ok
+SUPABASE_DB_USER=postgres ok
+SUPABASE_DB_PASSWORD=sua-senha-do-banco ok
+SUPABASE_DB_PORT=5432 ok
 ```
 
 ### 3. Como obter os valores do Supabase:
