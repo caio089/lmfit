@@ -3,8 +3,8 @@ services:
     name: lmfit
     env: python
     plan: free
-    buildCommand: "pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --noinput && python manage.py setup_admin"
-    startCommand: "gunicorn LMFIT.wsgi:application"
+    buildCommand: "pip install -r requirements.txt && python manage.py migrate --settings=LMFIT.production_settings && python manage.py collectstatic --noinput --settings=LMFIT.production_settings && python manage.py setup_admin --settings=LMFIT.production_settings"
+    startCommand: "gunicorn LMFIT.wsgi:application --settings=LMFIT.production_settings"
     envVars:
       - key: DEBUG
         value: False
