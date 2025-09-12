@@ -145,3 +145,20 @@ if not DEBUG:
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
+import os
+import dj_database_url
+
+# Pegar variáveis do Supabase
+db_host = os.getenv("SUPABASE_DB_HOST").strip()
+db_name = os.getenv("SUPABASE_DB_NAME").strip()
+db_user = os.getenv("SUPABASE_DB_USER").strip()
+db_password = os.getenv("SUPABASE_DB_PASSWORD").strip()
+db_port = os.getenv("SUPABASE_DB_PORT", "5432").strip()
+
+# Montar a DATABASE_URL
+DATABASE_URL = f"postgres://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
+
+# Configuração Django
+DATABASES = {
+    "default": dj_database_url.parse(DATABASE_URL, conn_max_age=600)
+}
