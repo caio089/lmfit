@@ -53,10 +53,10 @@ WSGI_APPLICATION = "LMFIT.wsgi.application"
 
 # Banco de dados (pega do Render via DATABASE_URL)
 DATABASES = {
-    'default': dj_database_url.parse(
-        os.environ.get('DATABASE_URL'),
+    'default': dj_database_url.config(
+        default=os.getenv("DATABASE_URL"),
         conn_max_age=600,
-        ssl_require=True  # garante SSL correto
+        ssl_require=True,  # FORÇA SSL
     )
 }
 

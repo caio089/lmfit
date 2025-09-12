@@ -34,7 +34,7 @@ def get_supabase_client():
             
         except ImportError as e:
             print(f"❌ Supabase não instalado: {e}")
-            print("💡 Execute: pip install supabase==2.3.4")
+            print("💡 Execute: pip install supabase==2.0.2")
             return None
         except Exception as e:
             print(f"❌ Erro ao inicializar Supabase: {e}")
