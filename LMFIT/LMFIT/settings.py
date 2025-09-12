@@ -53,12 +53,14 @@ WSGI_APPLICATION = "LMFIT.wsgi.application"
 
 # Banco de dados (pega do Render via DATABASE_URL)
 DATABASES = {
-    "default": dj_database_url.config(
-        default=os.getenv("DATABASE_URL"),
+    'default': dj_database_url.parse(
+        os.environ.get('DATABASE_URL'),
         conn_max_age=600,
-        ssl_require=True,
+        ssl_require=True  # garante SSL correto
     )
 }
+
+
 
 # Validação de senha
 AUTH_PASSWORD_VALIDATORS = [
@@ -115,3 +117,11 @@ if not DEBUG:
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
+
+DATABASES = {
+    'default': dj_database_url.parse(
+        os.environ.get('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True  # garante SSL correto
+    )
+}
