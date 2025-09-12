@@ -4,7 +4,7 @@ import dj_database_url
 
 # Carregar variáveis do .env (quando em dev)
 def load_env_file():
-    env_path = Path(_file_).resolve().parent.parent / ".env"
+    env_path = Path(__file__).resolve().parent.parent / ".env"
     if env_path.exists():
         with open(env_path, "r", encoding="utf-8") as f:
             for line in f:
