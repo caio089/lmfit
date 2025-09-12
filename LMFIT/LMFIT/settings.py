@@ -52,13 +52,23 @@ TEMPLATES = [
 WSGI_APPLICATION = "LMFIT.wsgi.application"
 
 # Banco de dados (pega do Render via DATABASE_URL)
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv("DATABASE_URL"),
-        conn_max_age=600,
-        ssl_require=True,  # FORÇA SSL
-    )
-}
+if os.getenv("DATABASE_URL") and not os.getenv("DATABASE_URL").startswith("sqlite"):
+    # Produção - usar PostgreSQL do Supabase
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=os.getenv("DATABASE_URL"),
+            conn_max_age=600,
+            ssl_require=True,  # FORÇA SSL
+        )
+    }
+else:
+    # Desenvolvimento local - usar SQLite
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 
@@ -118,10 +128,3 @@ if not DEBUG:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
 
-DATABASES = {
-    'default': dj_database_url.parse(
-        os.environ.get('DATABASE_URL'),
-        conn_max_age=600,
-        ssl_require=True  # garante SSL correto
-    )
-}

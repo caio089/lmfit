@@ -27,10 +27,15 @@ def get_supabase_client():
             # Importar e criar cliente
             from supabase import create_client
             
+            print(f"🔗 Conectando ao Supabase: {settings.SUPABASE_URL}")
+            print(f"🔑 Usando bucket: {settings.SUPABASE_STORAGE_BUCKET}")
+            
             _supabase_client = create_client(
                 settings.SUPABASE_URL,
                 settings.SUPABASE_SERVICE_KEY
             )
+            
+            print("✅ Cliente Supabase inicializado com sucesso!")
             
         except ImportError as e:
             print(f"❌ Supabase não instalado: {e}")
@@ -97,11 +102,11 @@ def upload_image_to_supabase(image_file, folder_name="general"):
                 'storage_path': None
             }
         
-        # Na versão 2.x, verificar se houve erro de forma diferente
-        if hasattr(result, 'error') and result.error:
+        # Verificar se houve erro no upload
+        if isinstance(result, dict) and 'error' in result:
             return {
                 'success': False,
-                'error': f"Erro no upload: {result.error}",
+                'error': f"Erro no upload: {result['error']}",
                 'public_url': None,
                 'storage_path': None
             }
@@ -147,11 +152,11 @@ def delete_image_from_supabase(storage_path):
             
         result = supabase.storage.from_(settings.SUPABASE_STORAGE_BUCKET).remove([storage_path])
         
-        # Na versão 2.x, verificar se houve erro de forma diferente
-        if hasattr(result, 'error') and result.error:
+        # Verificar se houve erro na deleção
+        if isinstance(result, dict) and 'error' in result:
             return {
                 'success': False,
-                'error': f"Erro ao deletar: {result.error}"
+                'error': f"Erro ao deletar: {result['error']}"
             }
         
         return {'success': True, 'error': None}
