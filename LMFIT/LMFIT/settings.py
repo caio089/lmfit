@@ -2,19 +2,6 @@ from pathlib import Path
 import os
 import dj_database_url
 
-# Carregar variáveis do .env (quando em dev)
-def load_env_file():
-    env_path = Path(__file__).resolve().parent.parent / ".env"
-    if env_path.exists():
-        with open(env_path, "r", encoding="utf-8") as f:
-            for line in f:
-                line = line.strip()
-                if line and not line.startswith("#") and "=" in line:
-                    key, value = line.split("=", 1)
-                    os.environ[key.strip()] = value.strip()
-
-load_env_file()
-
 # Base dir
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -64,7 +51,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "LMFIT.wsgi.application"
 
-# Banco de dados (Supabase via DATABASE_URL)
+# Banco de dados (pega do Render via DATABASE_URL)
 DATABASES = {
     "default": dj_database_url.config(
         default=os.getenv("DATABASE_URL"),
