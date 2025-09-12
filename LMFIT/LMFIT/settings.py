@@ -23,7 +23,7 @@ SECRET_KEY = 'django-insecure-=@)s%(c6rhxjh22p1njhbcyi+r$1brb0w^ouz#!1%0*u*c-9wn
 
 # Configurações básicas
 DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'lmfit.onrender.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'lmfit.onrender.com', '.onrender.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -109,3 +109,12 @@ LOGIN_REDIRECT_URL = '/painel/'
 LOGOUT_REDIRECT_URL = '/login/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Configurações de segurança para produção
+if not DEBUG:
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = 'DENY'
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True

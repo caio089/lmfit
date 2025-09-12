@@ -10,9 +10,26 @@ body {
 }
 
 /* Mobile: Imagem mobile.jpg para melhor visualização */
+@media (max-width: 1024px) {
+    .hero-bg {
+        /* Fallback para caso a variável CSS não funcione */
+        background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(168,105,114,0.2)), url('../mobile.jpg');
+        /* Usar variável CSS se disponível */
+        background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(168,105,114,0.2)), var(--mobile-bg-image);
+        background-size: cover;
+        background-position: center center;
+        background-attachment: scroll;
+        min-height: 100vh;
+    }
+}
+
+/* Mobile: Ajuste para tablets e celulares */
 @media (max-width: 768px) {
     .hero-bg {
-        background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(168,105,114,0.2)), url('/static/loja/mobile.jpg');
+        /* Fallback para caso a variável CSS não funcione */
+        background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(168,105,114,0.2)), url('../mobile.jpg');
+        /* Usar variável CSS se disponível */
+        background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(168,105,114,0.2)), var(--mobile-bg-image);
         background-size: cover;
         background-position: center center;
         background-attachment: scroll;
@@ -23,7 +40,10 @@ body {
 /* Mobile pequeno: Ajuste adicional para telas muito pequenas */
 @media (max-width: 480px) {
     .hero-bg {
-        background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(168,105,114,0.1)), url('/static/loja/mobile.jpg');
+        /* Fallback para caso a variável CSS não funcione */
+        background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(168,105,114,0.1)), url('../mobile.jpg');
+        /* Usar variável CSS se disponível */
+        background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(168,105,114,0.1)), var(--mobile-bg-image);
         background-size: cover;
         background-position: center center;
     }

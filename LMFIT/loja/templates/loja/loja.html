@@ -38,7 +38,12 @@
             }
         }
     </script>
-        <link rel="stylesheet" href="{% static 'loja/css/styles.css' %}">
+    <style>
+        :root {
+            --mobile-bg-image: url('{% static "loja/mobile.jpg" %}');
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'loja/css/styles.css' %}">
     
 </head>
 <body class="bg-branco text-preto font-poppins">
