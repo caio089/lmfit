@@ -1,6 +1,10 @@
 from pathlib import Path
 import os
 import dj_database_url
+from dotenv import load_dotenv
+
+# Carregar variáveis do arquivo .env
+load_dotenv()
 
 # Base dir
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -52,7 +56,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "LMFIT.wsgi.application"
 
 # Banco de dados (pega do Render via DATABASE_URL)
-if os.getenv("DATABASE_URL") and not os.getenv("DATABASE_URL").startswith("sqlite"):
+if os.getenv("DATABASE_URL") and not os.getenv("DATABASE_URL").startswith("sqlite") and not DEBUG:
     # Produção - usar PostgreSQL do Supabase
     DATABASES = {
         'default': dj_database_url.config(

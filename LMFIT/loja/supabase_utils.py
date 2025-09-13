@@ -43,6 +43,8 @@ def get_supabase_client():
             return None
         except Exception as e:
             print(f"❌ Erro ao inicializar Supabase: {e}")
+            print(f"❌ DEBUG: SUPABASE_URL = {getattr(settings, 'SUPABASE_URL', 'NÃO DEFINIDA')}")
+            print(f"❌ DEBUG: SUPABASE_SERVICE_KEY = {getattr(settings, 'SUPABASE_SERVICE_KEY', 'NÃO DEFINIDA')}")
             import traceback
             traceback.print_exc()
             return None
@@ -62,9 +64,10 @@ def upload_image_to_supabase(image_file, folder_name="general"):
     try:
         supabase = get_supabase_client()
         if not supabase:
+            print("❌ DEBUG: Cliente Supabase retornou None")
             return {
                 'success': False,
-                'error': 'Cliente Supabase não disponível',
+                'error': 'Cliente Supabase não disponível - verifique as configurações',
                 'public_url': None,
                 'storage_path': None
             }
