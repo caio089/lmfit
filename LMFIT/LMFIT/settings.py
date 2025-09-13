@@ -57,7 +57,7 @@ if os.getenv("DATABASE_URL") and not os.getenv("DATABASE_URL").startswith("sqlit
     DATABASES = {
         'default': dj_database_url.config(
             default=os.getenv("DATABASE_URL"),
-            conn_max_age=600,
+            conn_max_age=60,
             ssl_require=True,  # FORÇA SSL
         )
     }
