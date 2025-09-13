@@ -13,8 +13,8 @@ ALLOWED_HOSTS = ["lmfit.onrender.com", ".onrender.com"]
 
 # Banco de dados usando DATABASE_URL do Render/Supabase
 DATABASES = {
-    "default": dj_database_url.parse(
-        os.environ.get("DATABASE_URL"),
+    "default": dj_database_url.config(
+        default=os.environ.get("DATABASE_URL"),
         conn_max_age=600,  # mantém conexões persistentes
         ssl_require=True   # exige SSL
     )
