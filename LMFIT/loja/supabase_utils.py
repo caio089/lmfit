@@ -77,19 +77,44 @@ def upload_image_to_supabase(image_file, folder_name="general"):
         unique_filename = f"{uuid.uuid4()}{file_extension}"
         storage_path = f"{folder_name}/{unique_filename}"
         
-        # Otimizar imagem se necessário
-        image = Image.open(image_file)
-        
-        # Redimensionar se muito grande (max 1920x1080)
-        max_size = (1920, 1080)
-        if image.size[0] > max_size[0] or image.size[1] > max_size[1]:
-            image.thumbnail(max_size, Image.Resampling.LANCZOS)
-        
-        # Converter para bytes
-        img_byte_arr = io.BytesIO()
-        image_format = image.format if image.format else 'JPEG'
-        image.save(img_byte_arr, format=image_format, quality=85)
-        img_byte_arr = img_byte_arr.getvalue()
+        # Processar imagem
+        try:
+            # Para arquivos do Django, usar diretamente
+            if hasattr(image_file, 'read'):
+                # Arquivo Django - ler dados
+                image_file.seek(0)
+                image_data = image_file.read()
+            else:
+                # Outros tipos de arquivo
+                image_data = image_file
+            
+            # Abrir imagem
+            image = Image.open(io.BytesIO(image_data))
+            
+            # Converter para RGB se necessário
+            if image.mode in ('RGBA', 'LA', 'P'):
+                image = image.convert('RGB')
+            
+            # Redimensionar se muito grande (max 1920x1080)
+            max_size = (1920, 1080)
+            if image.size[0] > max_size[0] or image.size[1] > max_size[1]:
+                image.thumbnail(max_size, Image.Resampling.LANCZOS)
+            
+            # Converter para bytes
+            img_byte_arr = io.BytesIO()
+            image.save(img_byte_arr, format='JPEG', quality=85)
+            img_byte_arr = img_byte_arr.getvalue()
+            
+        except Exception as img_error:
+            print(f"❌ DEBUG: Erro ao processar imagem: {img_error}")
+            print(f"❌ DEBUG: Tipo do arquivo: {type(image_file)}")
+            print(f"❌ DEBUG: Nome do arquivo: {getattr(image_file, 'name', 'N/A')}")
+            return {
+                'success': False,
+                'error': f'Erro ao processar imagem: {str(img_error)}',
+                'public_url': None,
+                'storage_path': None
+            }
         
         # Fazer upload para Supabase Storage
         try:
