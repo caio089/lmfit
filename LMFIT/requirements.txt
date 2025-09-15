@@ -10,4 +10,5 @@ tzdata==2025.2
 whitenoise==6.10.0
 python-dotenv==1.0.0
 supabase==2.3.4
+gotrue==2.10.0
 

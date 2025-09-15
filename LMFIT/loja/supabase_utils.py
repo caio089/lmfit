@@ -19,15 +19,16 @@ def get_supabase_client():
             SUPABASE_URL = "https://ubasgcbrwjdbhtxandrm.supabase.co"
             SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InViYXNnY2Jyd2pkYmh0eGFuZHJtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc3NjY2OTAsImV4cCI6MjA3MzM0MjY5MH0.jOWVQq_Yrl0LkFLj2IK2B0l1aHv2Pl5dxgne944eq5o"
             
-            print(f"🔍 USANDO VALORES FIXOS DO SUPABASE:")
+            print(f"🔍 INICIALIZANDO SUPABASE:")
             print(f"   SUPABASE_URL: {SUPABASE_URL}")
             print(f"   SUPABASE_KEY: DEFINIDA")
             
-            # Importar e criar cliente
+            # Importar e criar cliente sem argumentos extras
             from supabase import create_client
             
             print(f"🔗 Conectando ao Supabase...")
             
+            # Inicializar cliente sem options ou proxy
             _supabase_client = create_client(
                 SUPABASE_URL,
                 SUPABASE_KEY
@@ -37,7 +38,7 @@ def get_supabase_client():
             
         except ImportError as e:
             print(f"❌ Supabase não instalado: {e}")
-            print("💡 Execute: pip install supabase==2.0.2")
+            print("💡 Execute: pip install supabase==2.3.4 gotrue==2.10.0")
             return None
         except Exception as e:
             print(f"❌ Erro ao inicializar Supabase: {e}")
