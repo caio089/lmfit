@@ -73,7 +73,10 @@ def upload_image_to_supabase(image_file, folder_name="general"):
             }
         
         # Gerar nome único para o arquivo
-        file_extension = os.path.splitext(image_file.name)[1].lower()
+        if hasattr(image_file, 'name') and image_file.name:
+            file_extension = os.path.splitext(image_file.name)[1].lower()
+        else:
+            file_extension = '.jpg'  # Default para BytesIO
         unique_filename = f"{uuid.uuid4()}{file_extension}"
         storage_path = f"{folder_name}/{unique_filename}"
         
@@ -84,34 +87,43 @@ def upload_image_to_supabase(image_file, folder_name="general"):
                 # Arquivo Django - ler dados
                 image_file.seek(0)
                 image_data = image_file.read()
+            elif hasattr(image_file, 'getvalue'):
+                # BytesIO object
+                image_data = image_file.getvalue()
             else:
                 # Outros tipos de arquivo
                 image_data = image_file
             
-            # Abrir imagem
-            image = Image.open(io.BytesIO(image_data))
+            # Verificar se é uma imagem válida
+            try:
+                image = Image.open(io.BytesIO(image_data))
+                
+                # Converter para RGB se necessário
+                if image.mode in ('RGBA', 'LA', 'P'):
+                    image = image.convert('RGB')
+                
+                # Redimensionar se muito grande (max 1920x1080)
+                max_size = (1920, 1080)
+                if image.size[0] > max_size[0] or image.size[1] > max_size[1]:
+                    image.thumbnail(max_size, Image.Resampling.LANCZOS)
+                
+                # Converter para bytes
+                img_byte_arr = io.BytesIO()
+                image.save(img_byte_arr, format='JPEG', quality=85)
+                img_byte_arr = img_byte_arr.getvalue()
+                
+            except Exception as img_error:
+                # Se não conseguir processar como imagem, usar dados originais
+                print(f"⚠️  Não foi possível processar como imagem, usando dados originais: {img_error}")
+                img_byte_arr = image_data
             
-            # Converter para RGB se necessário
-            if image.mode in ('RGBA', 'LA', 'P'):
-                image = image.convert('RGB')
-            
-            # Redimensionar se muito grande (max 1920x1080)
-            max_size = (1920, 1080)
-            if image.size[0] > max_size[0] or image.size[1] > max_size[1]:
-                image.thumbnail(max_size, Image.Resampling.LANCZOS)
-            
-            # Converter para bytes
-            img_byte_arr = io.BytesIO()
-            image.save(img_byte_arr, format='JPEG', quality=85)
-            img_byte_arr = img_byte_arr.getvalue()
-            
-        except Exception as img_error:
-            print(f"❌ DEBUG: Erro ao processar imagem: {img_error}")
+        except Exception as general_error:
+            print(f"❌ DEBUG: Erro geral ao processar arquivo: {general_error}")
             print(f"❌ DEBUG: Tipo do arquivo: {type(image_file)}")
             print(f"❌ DEBUG: Nome do arquivo: {getattr(image_file, 'name', 'N/A')}")
             return {
                 'success': False,
-                'error': f'Erro ao processar imagem: {str(img_error)}',
+                'error': f'Erro ao processar arquivo: {str(general_error)}',
                 'public_url': None,
                 'storage_path': None
             }
