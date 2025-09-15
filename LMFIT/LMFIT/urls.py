@@ -8,7 +8,11 @@ urlpatterns = [
     path('', include('loja.urls')),  # URLs do seu app principal
 ]
 
-# Servir arquivos estáticos e de mídia no Render quando DEBUG=False
+# Servir arquivos estáticos e de mídia
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    # Em produção, usar WhiteNoise para servir arquivos estáticos
+    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+    urlpatterns += staticfiles_urlpatterns()

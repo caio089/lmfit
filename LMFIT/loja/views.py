@@ -10,9 +10,13 @@ from .supabase_utils import upload_image_to_supabase, delete_image_from_supabase
 import json
 
 def loja(request):
-    # Buscar todas as roupas ativas
-    roupas = Roupa.objects.filter(ativo=True).order_by('-data_criacao')
-    return render(request, "loja/loja.html", {'roupas': roupas})
+    try:
+        # Buscar todas as roupas ativas
+        roupas = Roupa.objects.filter(ativo=True).order_by('-data_criacao')
+        return render(request, "loja/loja.html", {'roupas': roupas})
+    except Exception as e:
+        # Em caso de erro, retornar lista vazia
+        return render(request, "loja/loja.html", {'roupas': []})
 
 # ========== SISTEMA DE ADMINISTRAÇÃO ==========
 

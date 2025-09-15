@@ -55,14 +55,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "LMFIT.wsgi.application"
 
-# Banco de dados (pega do Render via DATABASE_URL)
-if os.getenv("DATABASE_URL") and not os.getenv("DATABASE_URL").startswith("sqlite") and not DEBUG:
+# Banco de dados
+if os.getenv("RENDER") == "TRUE" or (os.getenv("DATABASE_URL") and not os.getenv("DATABASE_URL").startswith("sqlite")):
     # Produção - usar PostgreSQL do Supabase
     DATABASES = {
         'default': dj_database_url.config(
             default=os.getenv("DATABASE_URL"),
-            conn_max_age=60,
-            ssl_require=True,  # FORÇA SSL
+            conn_max_age=600,
+            ssl_require=True,
         )
     }
 else:
