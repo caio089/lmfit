@@ -15,24 +15,35 @@ def get_supabase_client():
     global _supabase_client
     if _supabase_client is None:
         try:
+            # Ler variáveis diretamente do ambiente
+            supabase_url = os.getenv("SUPABASE_URL")
+            supabase_key = os.getenv("SUPABASE_KEY")  # Usar chave anon para uploads
+            supabase_service_key = os.getenv("SUPABASE_SERVICE_KEY")
+            
+            print(f"🔍 DEBUG VARIÁVEIS DE AMBIENTE:")
+            print(f"   SUPABASE_URL: {supabase_url[:50]}..." if supabase_url else "   SUPABASE_URL: None")
+            print(f"   SUPABASE_KEY: {'DEFINIDA' if supabase_key else 'None'}")
+            print(f"   SUPABASE_SERVICE_KEY: {'DEFINIDA' if supabase_service_key else 'None'}")
+            
             # Verificar se as variáveis estão definidas
-            if not hasattr(settings, 'SUPABASE_URL') or not settings.SUPABASE_URL:
-                print("❌ SUPABASE_URL não definida no settings.py")
+            if not supabase_url:
+                print("❌ SUPABASE_URL não definida no ambiente")
                 return None
                 
-            if not hasattr(settings, 'SUPABASE_SERVICE_KEY') or not settings.SUPABASE_SERVICE_KEY:
-                print("❌ SUPABASE_SERVICE_KEY não definida no settings.py")
+            if not supabase_key:
+                print("❌ SUPABASE_KEY não definida no ambiente")
                 return None
             
             # Importar e criar cliente
             from supabase import create_client
             
-            print(f"🔗 Conectando ao Supabase: {settings.SUPABASE_URL}")
-            print(f"🔑 Usando bucket: {settings.SUPABASE_STORAGE_BUCKET}")
+            print(f"🔗 Conectando ao Supabase: {supabase_url}")
+            print(f"🔑 Usando chave: {'ANON' if supabase_key else 'SERVICE'}")
             
+            # Usar chave anon para uploads (mais seguro)
             _supabase_client = create_client(
-                settings.SUPABASE_URL,
-                settings.SUPABASE_SERVICE_KEY
+                supabase_url,
+                supabase_key  # Usar chave anon em vez de service key
             )
             
             print("✅ Cliente Supabase inicializado com sucesso!")
@@ -43,8 +54,8 @@ def get_supabase_client():
             return None
         except Exception as e:
             print(f"❌ Erro ao inicializar Supabase: {e}")
-            print(f"❌ DEBUG: SUPABASE_URL = {getattr(settings, 'SUPABASE_URL', 'NÃO DEFINIDA')}")
-            print(f"❌ DEBUG: SUPABASE_SERVICE_KEY = {getattr(settings, 'SUPABASE_SERVICE_KEY', 'NÃO DEFINIDA')}")
+            print(f"❌ DEBUG: SUPABASE_URL = {os.getenv('SUPABASE_URL', 'NÃO DEFINIDA')}")
+            print(f"❌ DEBUG: SUPABASE_KEY = {os.getenv('SUPABASE_KEY', 'NÃO DEFINIDA')}")
             import traceback
             traceback.print_exc()
             return None
