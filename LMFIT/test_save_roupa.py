@@ -35,3 +35,4 @@ except Exception as e:
     print(f"❌ Erro ao salvar roupa: {e}")
     import traceback
     traceback.print_exc()
+

@@ -30,3 +30,4 @@ test_file = DjangoFile(jpeg_header, "test.jpg")
 print("=== TESTANDO UPLOAD COM IMAGEM JPEG ===")
 result = upload_image_to_supabase(test_file, "test")
 print(f"Resultado: {result}")
+
