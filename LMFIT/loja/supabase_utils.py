@@ -15,35 +15,22 @@ def get_supabase_client():
     global _supabase_client
     if _supabase_client is None:
         try:
-            # Ler variáveis diretamente do ambiente
-            supabase_url = os.getenv("SUPABASE_URL")
-            supabase_key = os.getenv("SUPABASE_KEY")  # Usar chave anon para uploads
-            supabase_service_key = os.getenv("SUPABASE_SERVICE_KEY")
+            # Valores fixos do Supabase (sua conta)
+            SUPABASE_URL = "https://ubasgcbrwjdbhtxandrm.supabase.co"
+            SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InViYXNnY2Jyd2pkYmh0eGFuZHJtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc3NjY2OTAsImV4cCI6MjA3MzM0MjY5MH0.jOWVQq_Yrl0LkFLj2IK2B0l1aHv2Pl5dxgne944eq5o"
             
-            print(f"🔍 DEBUG VARIÁVEIS DE AMBIENTE:")
-            print(f"   SUPABASE_URL: {supabase_url[:50]}..." if supabase_url else "   SUPABASE_URL: None")
-            print(f"   SUPABASE_KEY: {'DEFINIDA' if supabase_key else 'None'}")
-            print(f"   SUPABASE_SERVICE_KEY: {'DEFINIDA' if supabase_service_key else 'None'}")
-            
-            # Verificar se as variáveis estão definidas
-            if not supabase_url:
-                print("❌ SUPABASE_URL não definida no ambiente")
-                return None
-                
-            if not supabase_key:
-                print("❌ SUPABASE_KEY não definida no ambiente")
-                return None
+            print(f"🔍 USANDO VALORES FIXOS DO SUPABASE:")
+            print(f"   SUPABASE_URL: {SUPABASE_URL}")
+            print(f"   SUPABASE_KEY: DEFINIDA")
             
             # Importar e criar cliente
             from supabase import create_client
             
-            print(f"🔗 Conectando ao Supabase: {supabase_url}")
-            print(f"🔑 Usando chave: {'ANON' if supabase_key else 'SERVICE'}")
+            print(f"🔗 Conectando ao Supabase...")
             
-            # Usar chave anon para uploads (mais seguro)
             _supabase_client = create_client(
-                supabase_url,
-                supabase_key  # Usar chave anon em vez de service key
+                SUPABASE_URL,
+                SUPABASE_KEY
             )
             
             print("✅ Cliente Supabase inicializado com sucesso!")
@@ -54,8 +41,6 @@ def get_supabase_client():
             return None
         except Exception as e:
             print(f"❌ Erro ao inicializar Supabase: {e}")
-            print(f"❌ DEBUG: SUPABASE_URL = {os.getenv('SUPABASE_URL', 'NÃO DEFINIDA')}")
-            print(f"❌ DEBUG: SUPABASE_KEY = {os.getenv('SUPABASE_KEY', 'NÃO DEFINIDA')}")
             import traceback
             traceback.print_exc()
             return None
@@ -141,7 +126,7 @@ def upload_image_to_supabase(image_file, folder_name="general"):
         
         # Fazer upload para Supabase Storage
         try:
-            result = supabase.storage.from_(settings.SUPABASE_STORAGE_BUCKET).upload(
+            result = supabase.storage.from_("roupas").upload(
                 storage_path,
                 img_byte_arr
             )
@@ -163,7 +148,7 @@ def upload_image_to_supabase(image_file, folder_name="general"):
             }
         
         # Gerar URL pública
-        public_url = supabase.storage.from_(settings.SUPABASE_STORAGE_BUCKET).get_public_url(storage_path)
+        public_url = supabase.storage.from_("roupas").get_public_url(storage_path)
         
         return {
             'success': True,
@@ -201,7 +186,7 @@ def delete_image_from_supabase(storage_path):
                 'error': 'Cliente Supabase não disponível'
             }
             
-        result = supabase.storage.from_(settings.SUPABASE_STORAGE_BUCKET).remove([storage_path])
+        result = supabase.storage.from_("roupas").remove([storage_path])
         
         # Verificar se houve erro na deleção
         if isinstance(result, dict) and 'error' in result:
