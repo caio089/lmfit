@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from .models import Roupa, AdminUser
-from .supabase_utils import upload_image_to_supabase, delete_image_from_supabase
+from .supabase_direct import upload_image_to_supabase, delete_image_from_supabase
 import json
 
 def ensure_admin_user():
