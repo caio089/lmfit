@@ -34,6 +34,7 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
+    "loja.middleware.EnsureAdminUserMiddleware",  # Garantir que admin existe
 ]
 
 ROOT_URLCONF = "LMFIT.urls"

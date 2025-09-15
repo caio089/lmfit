@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
@@ -9,7 +10,24 @@ from .models import Roupa, AdminUser
 from .supabase_utils import upload_image_to_supabase, delete_image_from_supabase
 import json
 
+def ensure_admin_user():
+    """Garante que o usuário admin existe"""
+    try:
+        User = get_user_model()
+        if not User.objects.filter(username='admin').exists():
+            User.objects.create_superuser(
+                username='admin',
+                email='admin@lmfit.com',
+                password='luara10'
+            )
+            print("✅ Usuário admin criado automaticamente")
+    except Exception as e:
+        print(f"❌ Erro ao criar usuário admin: {e}")
+
 def loja(request):
+    # Garantir que o usuário admin existe
+    ensure_admin_user()
+    
     try:
         # Buscar todas as roupas ativas
         roupas = Roupa.objects.filter(ativo=True).order_by('-data_criacao')
@@ -22,6 +40,9 @@ def loja(request):
 
 def admin_login(request):
     """Página de login para administradores"""
+    # Garantir que o usuário admin existe
+    ensure_admin_user()
+    
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
