@@ -23,16 +23,12 @@ Sistema de e-commerce para roupas fitness femininas com painel administrativo in
 
 ```env
 DEBUG=False
-SECRET_KEY=django-insecure-=@)s%(c6rhxjh22p1njhbcyi+r$1brb0w^ouz#!1%0*u*c-9wn
+SECRET_KEY=sua_chave_secreta_aqui
 SUPABASE_URL=sua_url_do_supabase
 SUPABASE_KEY=sua_key_anonima
 SUPABASE_SERVICE_KEY=sua_service_key
 SUPABASE_STORAGE_BUCKET=roupas
-SUPABASE_DB_HOST=seu_host_do_supabase
-SUPABASE_DB_NAME=postgres
-SUPABASE_DB_USER=postgres
-SUPABASE_DB_PASSWORD=sua_senha_do_supabase
-SUPABASE_DB_PORT=5432
+DATABASE_URL=sua_url_completa_do_banco
 ```
 
 ### Comandos de Deploy:

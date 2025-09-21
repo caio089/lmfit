@@ -304,7 +304,20 @@
                     
                     <div class="p-4 sm:p-5 md:p-6">
                                 <h3 class="text-base sm:text-lg md:text-xl font-bold text-preto mb-2 sm:mb-3 font-badoni">{{ roupa.nome }}</h3>
-                                <p class="text-sm sm:text-base text-cinza-escuro mb-4 sm:mb-5 product-description">{{ roupa.descricao }}</p>
+                                <div class="text-sm sm:text-base text-cinza-escuro mb-4 sm:mb-5 product-description-container">
+                                    <p class="product-description" data-full-text="{{ roupa.descricao }}" data-expanded="false">
+                                        {% if roupa.descricao|length > 100 %}
+                                            {{ roupa.descricao|truncatechars:100 }}
+                                        {% else %}
+                                            {{ roupa.descricao }}
+                                        {% endif %}
+                                    </p>
+                                    {% if roupa.descricao|length > 100 %}
+                                        <button class="text-rosa hover:text-rosa-escuro font-semibold text-xs sm:text-sm mt-1 read-more-btn" onclick="toggleDescription(this, '{{ roupa.descricao|escapejs }}')">
+                                            <i class="fas fa-chevron-down mr-1"></i>Ler mais
+                                        </button>
+                                    {% endif %}
+                                </div>
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-3 sm:mb-4 gap-2 sm:gap-0">
                                     <span class="text-lg sm:text-xl md:text-2xl font-bold text-rosa">R$ {{ roupa.preco|floatformat:2 }}</span>
                                     <select id="size-{{ roupa.id }}" class="border border-cinza-claro rounded px-2 sm:px-3 py-1 text-xs sm:text-sm">
@@ -529,8 +542,45 @@
     </div>
     
     <!-- JavaScript -->
-    <script src="{% static 'loja/js/scripts.js' %}?v=20250109"></script>
+    <script src="{% static 'loja/js/scripts.js' %}?v=20250110"></script>
     <script src="{% static 'loja/js/animations.js' %}?v=20250109"></script>
+    
+    <!-- Função para ler mais/ler menos -->
+    <script>
+        function toggleDescription(button, fullText) {
+            console.log('toggleDescription chamada');
+            
+            const container = button.closest('.product-description-container');
+            if (!container) {
+                console.error('Container não encontrado');
+                return;
+            }
+            
+            const description = container.querySelector('.product-description');
+            if (!description) {
+                console.error('Descrição não encontrada');
+                return;
+            }
+            
+            const isExpanded = description.getAttribute('data-expanded') === 'true';
+            console.log('Estado atual:', isExpanded ? 'expandido' : 'contraído');
+            
+            if (isExpanded) {
+                // Contratar
+                const truncatedText = fullText.length > 100 ? fullText.substring(0, 100) + '...' : fullText;
+                description.textContent = truncatedText;
+                description.setAttribute('data-expanded', 'false');
+                button.innerHTML = '<i class="fas fa-chevron-down mr-1"></i>Ler mais';
+                console.log('Contraindo descrição');
+            } else {
+                // Expandir
+                description.textContent = fullText;
+                description.setAttribute('data-expanded', 'true');
+                button.innerHTML = '<i class="fas fa-chevron-up mr-1"></i>Ler menos';
+                console.log('Expandindo descrição');
+            }
+        }
+    </script>
     
 
 </body>

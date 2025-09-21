@@ -1,1 +1,1 @@
-web: gunicorn LMFIT.wsgi:application
+web: gunicorn LMFIT.wsgi:application --settings=LMFIT.production_settings

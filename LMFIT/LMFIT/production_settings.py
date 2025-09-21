@@ -27,9 +27,9 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 SECRET_KEY = os.environ.get("SECRET_KEY", "fallback-secret-key")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Configurações de sessão
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+# Configurações de sessão (comentadas para evitar problemas no Render)
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_HTTPONLY = True
 CSRF_COOKIE_HTTPONLY = True
 

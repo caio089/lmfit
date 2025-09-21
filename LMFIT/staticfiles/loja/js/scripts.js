@@ -67,7 +67,17 @@ window.buyOnWhatsAppWithSize = function(productName, price, sizeSelectId) {
     const sizeSelect = document.getElementById(sizeSelectId);
     if (sizeSelect) {
         const selectedSize = sizeSelect.value;
-        buyOnWhatsApp(productName, price, selectedSize);
+        const card = sizeSelect.closest('.product-card');
+        
+        // Buscar imagem principal
+        const mainImage = card ? card.querySelector('.product-main-image') : null;
+        const productImage = mainImage ? mainImage.src : null;
+        
+        // Buscar descrição
+        const descriptionElement = card ? card.querySelector('.product-description') : null;
+        const productDescription = descriptionElement ? descriptionElement.textContent.trim() : null;
+        
+        buyOnWhatsApp(productName, price, selectedSize, productImage, productDescription);
     } else {
         console.error('Seletor de tamanho não encontrado:', sizeSelectId);
     }
@@ -112,7 +122,7 @@ window.removeFromCart = function(index) {
 };
 
 // Funções do carrinho que precisam ser globais
-window.addToCart = function(productName, price, size) {
+window.addToCart = function(productName, price, size, image = null, description = null) {
     cart = JSON.parse(localStorage.getItem('cart')) || [];
     const existingItem = cart.find(item => item.name === productName && item.size === size);
     
@@ -123,7 +133,9 @@ window.addToCart = function(productName, price, size) {
             name: productName,
             price: price,
             size: size,
-            quantity: 1
+            quantity: 1,
+            image: image || '',
+            description: description || ''
         });
     }
     
@@ -132,8 +144,23 @@ window.addToCart = function(productName, price, size) {
     showCartNotification();
 };
 
-window.buyOnWhatsApp = function(productName, price, size) {
-    const message = `Olá! Gostei do produto *${productName}*, tamanho *${size}*, valor *R$ ${price.toFixed(2).replace('.', ',')}*. Gostaria de finalizar a compra.`;
+window.buyOnWhatsApp = function(productName, price, size, productImage = null, productDescription = null) {
+    let message = `🛍️ *COMPRA VIA SITE LMFIT* 🛍️\n\n`;
+    message += `📦 *Produto:* ${productName}\n`;
+    message += `📏 *Tamanho:* ${size}\n`;
+    message += `💰 *Valor:* R$ ${price.toFixed(2).replace('.', ',')}\n`;
+    
+    if (productDescription) {
+        message += `📝 *Descrição:* ${productDescription}\n`;
+    }
+    
+    if (productImage) {
+        message += `🖼️ *Foto:* ${productImage}\n`;
+    }
+    
+    message += `\n✨ *Gostaria de finalizar esta compra!*\n`;
+    message += `\n📱 *Enviado via site LMFIT*`;
+    
     const whatsappNumber = "5589994729022"; // (89) 99472-9022
     const url = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
@@ -146,16 +173,31 @@ window.finalizarCompraWhatsApp = function() {
         return;
     }
     
-    let message = 'Olá! Gostaria de finalizar a compra dos seguintes itens:\n\n';
+    let message = `🛍️ *COMPRA VIA SITE LMFIT* 🛍️\n\n`;
+    message += `📋 *PEDIDO COMPLETO:*\n\n`;
     let total = 0;
     
     cart.forEach((item, index) => {
         const itemTotal = item.price * item.quantity;
         total += itemTotal;
-        message += `${index + 1}. *${item.name}* - Tamanho: *${item.size}* - Quantidade: *${item.quantity}* - R$ ${itemTotal.toFixed(2).replace('.', ',')}\n`;
+        message += `${index + 1}. *${item.name}*\n`;
+        message += `   📏 Tamanho: *${item.size}*\n`;
+        message += `   🔢 Quantidade: *${item.quantity}*\n`;
+        message += `   💰 Valor unitário: R$ ${item.price.toFixed(2).replace('.', ',')}\n`;
+        message += `   💵 Subtotal: R$ ${itemTotal.toFixed(2).replace('.', ',')}\n`;
+        if (item.image) {
+            message += `   🖼️ Foto: ${item.image}\n`;
+        }
+        if (item.description) {
+            message += `   📝 Descrição: ${item.description}\n`;
+        }
+        message += `\n`;
     });
     
-    message += `\n*Total: R$ ${total.toFixed(2).replace('.', ',')}*`;
+    message += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+    message += `💰 *VALOR TOTAL: R$ ${total.toFixed(2).replace('.', ',')}*\n\n`;
+    message += `✨ *Gostaria de finalizar esta compra!*\n`;
+    message += `\n📱 *Enviado via site LMFIT*`;
     
     // Forçar o número correto do WhatsApp
     const whatsappNumber = "5589994729022"; // (89) 99472-9022
@@ -185,12 +227,15 @@ window.updateCartDisplay = function() {
     cartItems.innerHTML = '';
     cart.forEach((item, index) => {
         const itemElement = document.createElement('div');
-        itemElement.className = 'flex items-center justify-between p-3 bg-cinza-claro rounded-lg';
+        itemElement.className = 'flex items-center justify-between p-3 bg-cinza-claro rounded-lg mb-2';
         itemElement.innerHTML = `
-            <div class="flex-1">
-                <h4 class="font-semibold text-preto">${item.name}</h4>
-                <p class="text-sm text-cinza-escuro">Tamanho: ${item.size}</p>
-                <p class="text-rosa font-bold">R$ ${item.price.toFixed(2).replace('.', ',')}</p>
+            <div class="flex items-center space-x-3 flex-1">
+                ${item.image ? `<img src="${item.image}" alt="${item.name}" class="w-12 h-12 object-cover rounded-lg">` : '<div class="w-12 h-12 bg-cinza-claro rounded-lg flex items-center justify-center"><i class="fas fa-image text-cinza-escuro"></i></div>'}
+                <div class="flex-1">
+                    <h4 class="font-semibold text-preto">${item.name}</h4>
+                    <p class="text-sm text-cinza-escuro">Tamanho: ${item.size}</p>
+                    <p class="text-rosa font-bold">R$ ${item.price.toFixed(2).replace('.', ',')}</p>
+                </div>
             </div>
             <div class="flex items-center space-x-2">
                 <button onclick="updateQuantity(${index}, -1)" class="bg-rosa text-branco w-8 h-8 rounded-full flex items-center justify-center hover:bg-rosa-escuro">
@@ -521,6 +566,8 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Funções do carrinho agora são globais (definidas acima)
 
+  // Função para alternar descrição (ler mais/ler menos) - definida no template
+
 }); // Fechar DOMContentLoaded
 
   // Funções para trabalhar com os cards dinâmicos
@@ -531,7 +578,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const sizeSelect = card.querySelector('select');
     const tamanho = sizeSelect ? sizeSelect.value : 'M';
     
-    addToCartWithSize(nome, preco, sizeSelect.id);
+    // Buscar imagem principal
+    const mainImage = card.querySelector('.product-main-image');
+    const productImage = mainImage ? mainImage.src : null;
+    
+    // Buscar descrição
+    const descriptionElement = card.querySelector('.product-description');
+    const productDescription = descriptionElement ? descriptionElement.textContent.trim() : null;
+    
+    addToCart(nome, preco, tamanho, productImage, productDescription);
 }
 
 function buyOnWhatsAppFromCard(button) {
@@ -541,8 +596,18 @@ function buyOnWhatsAppFromCard(button) {
     const sizeSelect = card.querySelector('select');
     const tamanho = sizeSelect ? sizeSelect.value : 'M';
     
-    buyOnWhatsAppWithSize(nome, preco, sizeSelect.id);
+    // Buscar imagem principal
+    const mainImage = card.querySelector('.product-main-image');
+    const productImage = mainImage ? mainImage.src : null;
+    
+    // Buscar descrição
+    const descriptionElement = card.querySelector('.product-description');
+    const productDescription = descriptionElement ? descriptionElement.textContent.trim() : null;
+    
+    buyOnWhatsApp(nome, preco, tamanho, productImage, productDescription);
 }
+
+// Função para alternar descrição (ler mais/ler menos) - será definida no DOMContentLoaded
 
 // Função para mudar imagem de fundo no mobile
 function setMobileBackground() {

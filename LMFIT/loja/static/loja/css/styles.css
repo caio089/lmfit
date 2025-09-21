@@ -315,3 +315,50 @@ body {
         height: 250px;
     }
 }
+
+/* Estilos para botão "Ler mais" */
+.read-more-btn {
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 0.25rem;
+}
+
+.read-more-btn:hover {
+    transform: translateY(-1px);
+}
+
+.read-more-btn i {
+    transition: transform 0.3s ease;
+}
+
+.read-more-btn:hover i {
+    transform: translateY(-1px);
+}
+
+/* Animação suave para expansão da descrição */
+.product-description {
+    transition: all 0.3s ease;
+    line-height: 1.5;
+}
+
+.product-description-container {
+    position: relative;
+}
+
+/* Melhorar aparência do botão em diferentes tamanhos */
+@media (max-width: 640px) {
+    .read-more-btn {
+        font-size: 0.75rem;
+    }
+}
+
+@media (min-width: 641px) {
+    .read-more-btn {
+        font-size: 0.875rem;
+    }
+}

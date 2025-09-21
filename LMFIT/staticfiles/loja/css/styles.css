@@ -1,18 +1,107 @@
 body {
     font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
 }
+
+/* Animações de entrada */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Classes de animação */
+.animate-fadeInUp {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.animate-fadeInLeft {
+    animation: fadeInLeft 0.8s ease-out;
+}
+
+.animate-fadeInRight {
+    animation: fadeInRight 0.8s ease-out;
+}
+
+.animate-scaleIn {
+    animation: scaleIn 0.6s ease-out;
+}
+
+/* Delay para animações sequenciais */
+.animate-delay-100 { animation-delay: 0.1s; }
+.animate-delay-200 { animation-delay: 0.2s; }
+.animate-delay-300 { animation-delay: 0.3s; }
+.animate-delay-400 { animation-delay: 0.4s; }
+.animate-delay-500 { animation-delay: 0.5s; }
 
 .hero-bg {
     background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(168,105,114,0.3)), url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
+    background-attachment: scroll;
+    position: relative;
+    z-index: 0;
 }
 
 /* Mobile: Imagem mobile.jpg para melhor visualização */
+@media (max-width: 1024px) {
+    .hero-bg {
+        /* Fallback para caso a variável CSS não funcione */
+        background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(168,105,114,0.2)), url('../mobile.jpg');
+        /* Usar variável CSS se disponível */
+        background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(168,105,114,0.2)), var(--mobile-bg-image);
+        background-size: cover;
+        background-position: center center;
+        background-attachment: scroll;
+        min-height: 100vh;
+    }
+}
+
+/* Mobile: Ajuste para tablets e celulares */
 @media (max-width: 768px) {
     .hero-bg {
-        background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(168,105,114,0.2)), url('/static/loja/mobile.jpg');
+        /* Fallback para caso a variável CSS não funcione */
+        background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(168,105,114,0.2)), url('../mobile.jpg');
+        /* Usar variável CSS se disponível */
+        background: linear-gradient(135deg, rgba(0,0,0,0.4), rgba(168,105,114,0.2)), var(--mobile-bg-image);
         background-size: cover;
         background-position: center center;
         background-attachment: scroll;
@@ -23,7 +112,10 @@ body {
 /* Mobile pequeno: Ajuste adicional para telas muito pequenas */
 @media (max-width: 480px) {
     .hero-bg {
-        background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(168,105,114,0.1)), url('/static/loja/mobile.jpg');
+        /* Fallback para caso a variável CSS não funcione */
+        background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(168,105,114,0.1)), url('../mobile.jpg');
+        /* Usar variável CSS se disponível */
+        background: linear-gradient(135deg, rgba(0,0,0,0.3), rgba(168,105,114,0.1)), var(--mobile-bg-image);
         background-size: cover;
         background-position: center center;
     }
@@ -88,6 +180,67 @@ body {
     overflow: hidden;
 }
 
+/* Categorias simplificadas */
+#categorias {
+    position: relative;
+    z-index: 1;
+    background-color: #F5F5F5;
+}
+
+/* Textos limpos sem efeitos de sombra */
+
+/* Filtros responsivos melhorados */
+.filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter-item {
+    flex: 1;
+    min-width: 140px;
+}
+
+/* Cards de produtos melhorados */
+.product-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.4;
+    min-height: 4.2em; /* 3 linhas * 1.4 line-height */
+}
+
+/* Botão de ação principal melhorado */
+.cta-button {
+    background: linear-gradient(135deg, #a86972, #8a5a61);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.cta-button:hover::before {
+    left: 100%;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(168, 105, 114, 0.3);
+}
+
 /* Melhorias de responsividade para mobile */
 @media (max-width: 640px) {
     .hero-logo {
@@ -113,9 +266,17 @@ body {
         margin-bottom: 1rem;
     }
     
-    /* Ajustar grid de categorias para mobile */
-    .grid-cols-2 {
-        gap: 0.75rem;
+    /* Categorias responsivas */
+    
+    /* Filtros lado a lado no mobile */
+    .filters-container {
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+    
+    .filter-item {
+        flex: 1;
+        min-width: 120px;
     }
     
     /* Melhorar botões no mobile */
@@ -134,6 +295,13 @@ body {
     input, select, textarea {
         font-size: 16px; /* Evita zoom no iOS */
     }
+    
+    /* Texto da descrição mais legível */
+    .product-description {
+        -webkit-line-clamp: 2;
+        min-height: 2.8em;
+        font-size: 0.875rem;
+    }
 }
 
 /* Melhorias para tablets */
@@ -145,5 +313,52 @@ body {
     
     .product-main-image {
         height: 250px;
+    }
+}
+
+/* Estilos para botão "Ler mais" */
+.read-more-btn {
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-top: 0.25rem;
+}
+
+.read-more-btn:hover {
+    transform: translateY(-1px);
+}
+
+.read-more-btn i {
+    transition: transform 0.3s ease;
+}
+
+.read-more-btn:hover i {
+    transform: translateY(-1px);
+}
+
+/* Animação suave para expansão da descrição */
+.product-description {
+    transition: all 0.3s ease;
+    line-height: 1.5;
+}
+
+.product-description-container {
+    position: relative;
+}
+
+/* Melhorar aparência do botão em diferentes tamanhos */
+@media (max-width: 640px) {
+    .read-more-btn {
+        font-size: 0.75rem;
+    }
+}
+
+@media (min-width: 641px) {
+    .read-more-btn {
+        font-size: 0.875rem;
     }
 }
