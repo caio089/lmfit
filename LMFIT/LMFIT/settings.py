@@ -103,23 +103,27 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 # Supabase (para API/storage)
-# Valores padrão para desenvolvimento local
-DEFAULT_SUPABASE_URL = "https://ubasgcbrwjdbhtxandrm.supabase.co"
-DEFAULT_SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InViYXNnY2Jyd2pkYmh0eGFuZHJtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc3NjY2OTAsImV4cCI6MjA3MzM0MjY5MH0.jOWVQq_Yrl0LkFLj2IK2B0l1aHv2Pl5dxgne944eq5o"
-DEFAULT_SUPABASE_SERVICE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InViYXNnY2Jyd2pkYmh0eGFuZHJtIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1Nzc2NjY5MCwiZXhwIjoyMDczMzQyNjkwfQ.ujQBq-ctCrkFtneCeZ-Li_FsE8eSg2muu0t6R74RvGw"
-
-# Carregar variáveis do ambiente ou usar valores padrão
-SUPABASE_URL = os.getenv("SUPABASE_URL", DEFAULT_SUPABASE_URL)
-SUPABASE_KEY = os.getenv("SUPABASE_KEY", DEFAULT_SUPABASE_KEY)
-SUPABASE_SERVICE_KEY = os.getenv("SUPABASE_SERVICE_KEY", DEFAULT_SUPABASE_SERVICE_KEY)
+# IMPORTANTE: Configure as variáveis de ambiente no Render ou arquivo .env
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")  # Chave anônima (anon key)
+SUPABASE_SERVICE_KEY = os.getenv("SUPABASE_SERVICE_KEY")  # Chave de serviço (service_role key)
 SUPABASE_STORAGE_BUCKET = os.getenv("SUPABASE_STORAGE_BUCKET", "roupas")
 
-# Debug das variáveis do Supabase
-print(f"🔍 DEBUG SUPABASE:")
-print(f"   SUPABASE_URL: {SUPABASE_URL[:50]}..." if SUPABASE_URL else "   SUPABASE_URL: NÃO DEFINIDA")
-print(f"   SUPABASE_KEY: {'DEFINIDA' if SUPABASE_KEY else 'NÃO DEFINIDA'}")
-print(f"   SUPABASE_SERVICE_KEY: {'DEFINIDA' if SUPABASE_SERVICE_KEY else 'NÃO DEFINIDA'}")
-print(f"   SUPABASE_STORAGE_BUCKET: {SUPABASE_STORAGE_BUCKET}")
+# Validação das variáveis obrigatórias
+if not SUPABASE_URL:
+    raise ValueError("SUPABASE_URL não está definida nas variáveis de ambiente")
+if not SUPABASE_KEY:
+    raise ValueError("SUPABASE_KEY não está definida nas variáveis de ambiente")
+if not SUPABASE_SERVICE_KEY:
+    raise ValueError("SUPABASE_SERVICE_KEY não está definida nas variáveis de ambiente")
+
+# Debug das variáveis do Supabase (apenas em desenvolvimento)
+if DEBUG:
+    print(f"🔍 DEBUG SUPABASE:")
+    print(f"   SUPABASE_URL: {SUPABASE_URL[:50]}..." if SUPABASE_URL else "   SUPABASE_URL: NÃO DEFINIDA")
+    print(f"   SUPABASE_KEY: {'DEFINIDA' if SUPABASE_KEY else 'NÃO DEFINIDA'}")
+    print(f"   SUPABASE_SERVICE_KEY: {'DEFINIDA' if SUPABASE_SERVICE_KEY else 'NÃO DEFINIDA'}")
+    print(f"   SUPABASE_STORAGE_BUCKET: {SUPABASE_STORAGE_BUCKET}")
 
 # Login
 LOGIN_URL = "/login/"

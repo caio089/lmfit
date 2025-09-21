@@ -7,11 +7,13 @@ import uuid
 import os
 from PIL import Image
 import io
+from django.conf import settings
 
-# Configurações fixas do Supabase
-SUPABASE_URL = "https://ubasgcbrwjdbhtxandrm.supabase.co"
-SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InViYXNnY2Jyd2pkYmh0eGFuZHJtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc3NjY2OTAsImV4cCI6MjA3MzM0MjY5MH0.jOWVQq_Yrl0LkFLj2IK2B0l1aHv2Pl5dxgne944eq5o"
-BUCKET_NAME = "roupas"
+# Configurações do Supabase via settings.py
+SUPABASE_URL = settings.SUPABASE_URL
+SUPABASE_ANON_KEY = settings.SUPABASE_KEY
+SUPABASE_SERVICE_KEY = settings.SUPABASE_SERVICE_KEY
+BUCKET_NAME = settings.SUPABASE_STORAGE_BUCKET
 
 def upload_image_to_supabase(image_file, folder_name="roupas"):
     """
@@ -58,7 +60,7 @@ def upload_image_to_supabase(image_file, folder_name="roupas"):
         upload_url = f"{SUPABASE_URL}/storage/v1/object/{BUCKET_NAME}/{storage_path}"
         
         headers = {
-            'Authorization': f'Bearer {SUPABASE_ANON_KEY}',
+            'Authorization': f'Bearer {SUPABASE_SERVICE_KEY}',
             'Content-Type': 'image/jpeg',
             'Cache-Control': 'max-age=3600'
         }
@@ -114,7 +116,7 @@ def delete_image_from_supabase(storage_path):
         delete_url = f"{SUPABASE_URL}/storage/v1/object/{BUCKET_NAME}/{storage_path}"
         
         headers = {
-            'Authorization': f'Bearer {SUPABASE_ANON_KEY}'
+            'Authorization': f'Bearer {SUPABASE_SERVICE_KEY}'
         }
         
         print(f"🗑️  Deletando: {delete_url}")
@@ -148,7 +150,7 @@ def test_supabase_connection():
         # Testar listagem de buckets
         list_url = f"{SUPABASE_URL}/storage/v1/bucket"
         headers = {
-            'Authorization': f'Bearer {SUPABASE_ANON_KEY}'
+            'Authorization': f'Bearer {SUPABASE_SERVICE_KEY}'
         }
         
         response = requests.get(list_url, headers=headers, timeout=10)

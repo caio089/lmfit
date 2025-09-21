@@ -100,134 +100,112 @@
     <section id="home" class="hero-bg min-h-screen flex items-center justify-center text-center text-branco relative pt-16 sm:pt-20">
         <div class="container mx-auto px-3 sm:px-4">
             <div class="max-w-4xl mx-auto">
-                <div class="flex flex-col sm:flex-row items-center justify-center mb-4 sm:mb-6">
-                    <img src="{% static 'LMFIT.jpg' %}" alt="LMFIT Logo" class="hero-logo mr-0 sm:mr-4 mb-4 sm:mb-0 w-16 h-16 sm:w-20 sm:h-20">
-                    <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight font-badoni">
+                <div class="flex flex-col sm:flex-row items-center justify-center mb-6 sm:mb-8 animate-fadeInUp">
+                    <img src="{% static 'LMFIT.jpg' %}" alt="LMFIT Logo" class="hero-logo mr-0 sm:mr-4 mb-4 sm:mb-0 w-20 h-20 sm:w-24 sm:h-24 animate-scaleIn">
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight font-badoni animate-fadeInUp animate-delay-200">
                         LMFIT
-                        <span class="text-rosa block">FITWEAR</span>
+                        <span class="text-rosa block animate-fadeInUp animate-delay-300">FITWEAR</span>
                     </h1>
                 </div>
-                <p class="text-sm sm:text-base md:text-lg lg:text-xl mb-4 sm:mb-6 md:mb-8 font-light font-badoni typing-effect px-2">
-                    Transforme sua rotina fitness com peças que combinam tecnologia, conforto e estilo único. 
+                <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl mb-6 sm:mb-8 md:mb-10 font-medium font-badoni px-2 animate-fadeInUp animate-delay-400 text-white">
+                    Transforme sua rotina fitness com peças que combinam <span class="text-rosa font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">tecnologia</span>, <span class="text-rosa font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">conforto</span> e <span class="text-rosa font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">estilo único</span>. 
                 </p>
-                <a href="#sobre" class="bg-rosa hover:bg-rosa-escuro text-branco px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 rounded-full text-xs sm:text-sm md:text-base lg:text-lg font-semibold btn-hover font-badoni inline-block">
-                    DESCUBRA LMFIT
-                </a>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fadeInUp animate-delay-500">
+                    <a href="#produtos" class="cta-button text-branco px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 rounded-full text-sm sm:text-base md:text-lg lg:text-xl font-semibold font-badoni inline-block">
+                        <i class="fas fa-shopping-bag mr-2"></i>VER PRODUTOS
+                    </a>
+                    <a href="#sobre" class="bg-preto border-2 border-preto hover:bg-branco hover:text-preto text-branco px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 rounded-full text-sm sm:text-base md:text-lg lg:text-xl font-semibold font-badoni inline-block transition-all duration-300">
+                        <i class="fas fa-info-circle mr-2"></i>SOBRE NÓS
+                    </a>
+                </div>
             </div>
         </div>
         
         <!-- Scroll Indicator -->
-        <div class="absolute bottom-2 sm:bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div class="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
             <i class="fas fa-chevron-down text-lg sm:text-xl md:text-2xl text-branco"></i>
         </div>
     </section>
     
     <!-- Seção de Categorias -->
-    <section id="categorias" class="py-12 sm:py-16 lg:py-20 bg-cinza-claro">
-        <div class="container mx-auto px-3 sm:px-4">
-            <div class="text-center mb-8 sm:mb-12 lg:mb-16">
-                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-preto mb-2 sm:mb-4 font-badoni">CATEGORIAS</h2>
-                <p class="text-base sm:text-lg lg:text-xl text-cinza-escuro font-badoni px-2">Encontre a peça perfeita para cada momento</p>
+    <section id="categorias" class="py-12 sm:py-16 bg-cinza-claro">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-8 sm:mb-12">
+                <h2 class="text-2xl sm:text-3xl font-bold text-preto mb-3 font-badoni">CATEGORIAS</h2>
+                <p class="text-base text-cinza-escuro">Encontre a peça perfeita para cada momento</p>
             </div>
             
-            <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3 md:gap-4 lg:gap-6">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
                 <!-- Tops -->
-                <div class="bg-branco rounded-xl sm:rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('tops')">
-                    <div class="h-32 sm:h-48 md:h-56 lg:h-64 bg-gradient-to-br from-rosa to-rosa-claro flex items-center justify-center">
-                        <i class="fas fa-tshirt text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-branco"></i>
+                <div class="bg-branco rounded-lg p-4 text-center cursor-pointer hover:shadow-lg transition-shadow duration-300" onclick="filterByCategory('tops')">
+                    <div class="w-12 h-12 bg-rosa rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-tshirt text-branco text-lg"></i>
                     </div>
-                    <div class="p-3 sm:p-4 md:p-6 text-center">
-                        <h3 class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-preto mb-1 sm:mb-2 font-badoni">TOPS</h3>
-                        <p class="text-xs sm:text-sm md:text-base text-cinza-escuro">Conforto e estilo para seus treinos</p>
-                    </div>
+                    <h3 class="text-sm font-semibold text-preto">TOPS</h3>
                 </div>
                 
                 <!-- Leggings -->
-                <div class="bg-branco rounded-xl sm:rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('leggings')">
-                    <div class="h-32 sm:h-48 md:h-56 lg:h-64 bg-gradient-to-br from-preto to-cinza-escuro flex items-center justify-center">
-                        <i class="fas fa-running text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-branco"></i>
+                <div class="bg-branco rounded-lg p-4 text-center cursor-pointer hover:shadow-lg transition-shadow duration-300" onclick="filterByCategory('leggings')">
+                    <div class="w-12 h-12 bg-preto rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-running text-branco text-lg"></i>
                     </div>
-                    <div class="p-3 sm:p-4 md:p-6 text-center">
-                        <h3 class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-preto mb-1 sm:mb-2 font-badoni">LEGGINGS</h3>
-                        <p class="text-xs sm:text-sm md:text-base text-cinza-escuro">Liberdade de movimento garantida</p>
-                    </div>
+                    <h3 class="text-sm font-semibold text-preto">LEGGINGS</h3>
                 </div>
                 
                 <!-- Conjuntos -->
-                <div class="bg-branco rounded-xl sm:rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('conjuntos')">
-                    <div class="h-32 sm:h-48 md:h-56 lg:h-64 bg-gradient-to-br from-rosa-escuro to-rosa flex items-center justify-center">
-                        <i class="fas fa-user text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-branco"></i>
+                <div class="bg-branco rounded-lg p-4 text-center cursor-pointer hover:shadow-lg transition-shadow duration-300" onclick="filterByCategory('conjuntos')">
+                    <div class="w-12 h-12 bg-rosa-escuro rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-user text-branco text-lg"></i>
                     </div>
-                    <div class="p-3 sm:p-4 md:p-6 text-center">
-                        <h3 class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-preto mb-1 sm:mb-2 font-badoni">CONJUNTOS</h3>
-                        <p class="text-xs sm:text-sm md:text-base text-cinza-escuro">Looks completos e coordenados</p>
-                    </div>
+                    <h3 class="text-sm font-semibold text-preto">CONJUNTOS</h3>
                 </div>
                 
                 <!-- Blusas -->
-                <div class="bg-branco rounded-xl sm:rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('blusas')">
-                    <div class="h-32 sm:h-48 md:h-56 lg:h-64 bg-gradient-to-br from-rosa-claro to-rosa flex items-center justify-center">
-                        <i class="fas fa-tshirt text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-branco"></i>
+                <div class="bg-branco rounded-lg p-4 text-center cursor-pointer hover:shadow-lg transition-shadow duration-300" onclick="filterByCategory('blusas')">
+                    <div class="w-12 h-12 bg-rosa-claro rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-tshirt text-branco text-lg"></i>
                     </div>
-                    <div class="p-3 sm:p-4 md:p-6 text-center">
-                        <h3 class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-preto mb-1 sm:mb-2 font-badoni">BLUSAS</h3>
-                        <p class="text-xs sm:text-sm md:text-base text-cinza-escuro">Estilo e conforto para o dia a dia</p>
-                    </div>
+                    <h3 class="text-sm font-semibold text-preto">BLUSAS</h3>
                 </div>
                 
                 <!-- Acessórios -->
-                <div class="bg-branco rounded-xl sm:rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('acessorios')">
-                    <div class="h-32 sm:h-48 md:h-56 lg:h-64 bg-gradient-to-br from-rosa-escuro to-rosa flex items-center justify-center">
-                        <i class="fas fa-gem text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-branco"></i>
+                <div class="bg-branco rounded-lg p-4 text-center cursor-pointer hover:shadow-lg transition-shadow duration-300" onclick="filterByCategory('acessorios')">
+                    <div class="w-12 h-12 bg-rosa-escuro rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-gem text-branco text-lg"></i>
                     </div>
-                    <div class="p-3 sm:p-4 md:p-6 text-center">
-                        <h3 class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-preto mb-1 sm:mb-2 font-badoni">ACESSÓRIOS</h3>
-                        <p class="text-xs sm:text-sm md:text-base text-cinza-escuro">Complementos para seu look</p>
-                    </div>
+                    <h3 class="text-sm font-semibold text-preto">ACESSÓRIOS</h3>
                 </div>
                 
                 <!-- Macacão -->
-                <div class="bg-branco rounded-xl sm:rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('macacao')">
-                    <div class="h-32 sm:h-48 md:h-56 lg:h-64 bg-gradient-to-br from-preto to-cinza-escuro flex items-center justify-center">
-                        <i class="fas fa-user-tie text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-branco"></i>
+                <div class="bg-branco rounded-lg p-4 text-center cursor-pointer hover:shadow-lg transition-shadow duration-300" onclick="filterByCategory('macacao')">
+                    <div class="w-12 h-12 bg-cinza-escuro rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-user-tie text-branco text-lg"></i>
                     </div>
-                    <div class="p-3 sm:p-4 md:p-6 text-center">
-                        <h3 class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-preto mb-1 sm:mb-2 font-badoni">MACACÃO</h3>
-                        <p class="text-xs sm:text-sm md:text-base text-cinza-escuro">Elegância e praticidade</p>
-                    </div>
+                    <h3 class="text-sm font-semibold text-preto">MACACÃO</h3>
                 </div>
                 
                 <!-- Macaquinho -->
-                <div class="bg-branco rounded-xl sm:rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('macaquinho')">
-                    <div class="h-32 sm:h-48 md:h-56 lg:h-64 bg-gradient-to-br from-rosa-claro to-rosa flex items-center justify-center">
-                        <i class="fas fa-user-tie text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-branco"></i>
+                <div class="bg-branco rounded-lg p-4 text-center cursor-pointer hover:shadow-lg transition-shadow duration-300" onclick="filterByCategory('macaquinho')">
+                    <div class="w-12 h-12 bg-rosa-claro rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-user-tie text-branco text-lg"></i>
                     </div>
-                    <div class="p-3 sm:p-4 md:p-6 text-center">
-                        <h3 class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-preto mb-1 sm:mb-2 font-badoni">MACAQUINHO</h3>
-                        <p class="text-xs sm:text-sm md:text-base text-cinza-escuro">Elegância e conforto</p>
-                    </div>
+                    <h3 class="text-sm font-semibold text-preto">MACAQUINHO</h3>
                 </div>
                 
                 <!-- Short -->
-                <div class="bg-branco rounded-xl sm:rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('short')">
-                    <div class="h-32 sm:h-48 md:h-56 lg:h-64 bg-gradient-to-br from-cinza-escuro to-preto flex items-center justify-center">
-                        <i class="fas fa-running text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-branco"></i>
+                <div class="bg-branco rounded-lg p-4 text-center cursor-pointer hover:shadow-lg transition-shadow duration-300" onclick="filterByCategory('short')">
+                    <div class="w-12 h-12 bg-cinza-escuro rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-running text-branco text-lg"></i>
                     </div>
-                    <div class="p-3 sm:p-4 md:p-6 text-center">
-                        <h3 class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-preto mb-1 sm:mb-2 font-badoni">SHORT</h3>
-                        <p class="text-xs sm:text-sm md:text-base text-cinza-escuro">Liberdade e movimento</p>
-                    </div>
+                    <h3 class="text-sm font-semibold text-preto">SHORT</h3>
                 </div>
                 
                 <!-- Regata -->
-                <div class="bg-branco rounded-xl sm:rounded-2xl overflow-hidden shadow-lg card-hover cursor-pointer" onclick="filterByCategory('regata')">
-                    <div class="h-32 sm:h-48 md:h-56 lg:h-64 bg-gradient-to-br from-rosa-escuro to-rosa flex items-center justify-center">
-                        <i class="fas fa-tshirt text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-branco"></i>
+                <div class="bg-branco rounded-lg p-4 text-center cursor-pointer hover:shadow-lg transition-shadow duration-300" onclick="filterByCategory('regata')">
+                    <div class="w-12 h-12 bg-rosa-escuro rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-tshirt text-branco text-lg"></i>
                     </div>
-                    <div class="p-3 sm:p-4 md:p-6 text-center">
-                        <h3 class="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-preto mb-1 sm:mb-2 font-badoni">REGATA</h3>
-                        <p class="text-xs sm:text-sm md:text-base text-cinza-escuro">Frescor e estilo</p>
-                    </div>
+                    <h3 class="text-sm font-semibold text-preto">REGATA</h3>
                 </div>
             </div>
         </div>
@@ -242,15 +220,15 @@
             </div>
             
             <!-- Barra de Pesquisa e Filtro -->
-            <div class="bg-preto p-3 sm:p-4 md:p-6 rounded-lg sm:rounded-xl md:rounded-2xl mb-6 sm:mb-8 md:mb-12 shadow-lg">
-                <div class="flex flex-col gap-3 sm:gap-4 justify-center items-center">
-                    <div class="relative w-full max-w-md">
+            <div class="bg-preto p-4 sm:p-6 rounded-xl shadow-lg mb-8 sm:mb-12 animate-fadeInUp">
+                <div class="filters-container">
+                    <div class="filter-item relative">
                         <input type="text" id="search-input" placeholder="Pesquisar produtos..." 
-                               class="w-full px-3 sm:px-4 py-2 sm:py-3 pl-10 sm:pl-12 border-2 border-rosa rounded-lg focus:outline-none focus:border-rosa-escuro transition-colors bg-branco shadow-md text-sm sm:text-base">
-                        <i class="fas fa-search absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-rosa text-sm sm:text-base"></i>
+                               class="w-full px-4 py-3 pl-12 border-2 border-rosa rounded-lg focus:outline-none focus:border-rosa-escuro transition-colors bg-branco shadow-md text-sm sm:text-base">
+                        <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-rosa text-sm sm:text-base"></i>
                     </div>
-                    <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-                        <select id="category-filter" class="px-3 sm:px-4 py-2 sm:py-3 border-2 border-rosa rounded-lg focus:outline-none focus:border-rosa-escuro transition-colors bg-branco shadow-md font-medium text-sm sm:text-base">
+                    <div class="filter-item">
+                        <select id="category-filter" class="w-full px-4 py-3 border-2 border-rosa rounded-lg focus:outline-none focus:border-rosa-escuro transition-colors bg-branco shadow-md font-medium text-sm sm:text-base">
                             <option value="">Todas as Categorias</option>
                             <option value="blusas">Blusas</option>
                             <option value="conjuntos">Conjuntos</option>
@@ -262,7 +240,9 @@
                             <option value="short">Short</option>
                             <option value="regata">Regata</option>
                         </select>
-                        <select id="price-filter" class="px-3 sm:px-4 py-2 sm:py-3 border-2 border-rosa rounded-lg focus:outline-none focus:border-rosa-escuro transition-colors bg-branco shadow-md font-medium text-sm sm:text-base">
+                    </div>
+                    <div class="filter-item">
+                        <select id="price-filter" class="w-full px-4 py-3 border-2 border-rosa rounded-lg focus:outline-none focus:border-rosa-escuro transition-colors bg-branco shadow-md font-medium text-sm sm:text-base">
                             <option value="">Todos os Preços</option>
                             <option value="0-100">Até R$ 100</option>
                             <option value="100-150">R$ 100 - R$ 150</option>
@@ -276,7 +256,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-10">
                 {% if roupas %}
                     {% for roupa in roupas %}
-                        <div class="bg-branco rounded-xl sm:rounded-2xl overflow-hidden shadow-lg card-hover product-card" data-category="{{ roupa.categoria }}" data-price="{{ roupa.preco|floatformat:2 }}" data-name="{{ roupa.nome }}" data-roupa-id="{{ roupa.id }}">
+                        <div class="bg-branco rounded-xl sm:rounded-2xl overflow-hidden shadow-lg card-hover product-card animate-fadeInUp" data-category="{{ roupa.categoria }}" data-price="{{ roupa.preco|floatformat:2 }}" data-name="{{ roupa.nome }}" data-roupa-id="{{ roupa.id }}">
                     <!-- Área de Fotos -->
                     <div class="relative bg-gray-100">
                         <!-- Foto Principal -->
@@ -322,9 +302,9 @@
                                 {% endif %}
                     </div>
                     
-                    <div class="p-3 sm:p-4 md:p-6">
-                                <h3 class="text-base sm:text-lg md:text-xl font-bold text-preto mb-1 sm:mb-2 font-badoni">{{ roupa.nome }}</h3>
-                                <p class="text-xs sm:text-sm md:text-base text-cinza-escuro mb-3 sm:mb-4 line-clamp-2">{{ roupa.descricao|truncatechars:60 }}</p>
+                    <div class="p-4 sm:p-5 md:p-6">
+                                <h3 class="text-base sm:text-lg md:text-xl font-bold text-preto mb-2 sm:mb-3 font-badoni">{{ roupa.nome }}</h3>
+                                <p class="text-sm sm:text-base text-cinza-escuro mb-4 sm:mb-5 product-description">{{ roupa.descricao }}</p>
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-3 sm:mb-4 gap-2 sm:gap-0">
                                     <span class="text-lg sm:text-xl md:text-2xl font-bold text-rosa">R$ {{ roupa.preco|floatformat:2 }}</span>
                                     <select id="size-{{ roupa.id }}" class="border border-cinza-claro rounded px-2 sm:px-3 py-1 text-xs sm:text-sm">
@@ -360,41 +340,41 @@
     </section>
     
     <!-- Seção Sobre -->
-    <section id="sobre" class="py-12 sm:py-16 lg:py-20 bg-cinza-claro">
-        <div class="container mx-auto px-3 sm:px-4">
-            <div class="max-w-4xl mx-auto text-center">
-                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-preto mb-6 sm:mb-8 font-badoni">QUEM SOMOS</h2>
-                <p class="text-base sm:text-lg md:text-xl text-cinza-escuro leading-relaxed mb-6 sm:mb-8 px-2">
-                    A LMFIT nasceu da paixão por fitness e moda. Somos uma marca especializada em roupas fitness femininas 
-                    que combina tecnologia, conforto e estilo. Nossa missão é empoderar mulheres através de peças que 
+    <section id="sobre" class="py-16 sm:py-20 lg:py-24 bg-cinza-claro">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="max-w-5xl mx-auto text-center">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-preto mb-8 sm:mb-12 font-badoni">QUEM SOMOS</h2>
+                <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl text-preto leading-relaxed mb-8 sm:mb-10 px-2 font-medium">
+                    A <span class="text-rosa font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl">LMFIT</span> nasceu da paixão por fitness e moda. Somos uma marca especializada em roupas fitness femininas 
+                    que combina <span class="text-rosa font-semibold">tecnologia</span>, <span class="text-rosa font-semibold">conforto</span> e <span class="text-rosa font-semibold">estilo</span>. Nossa missão é empoderar mulheres através de peças que 
                     realçam sua beleza natural e potencializam sua performance nos treinos.
                 </p>
-                <p class="text-base sm:text-lg md:text-xl text-cinza-escuro leading-relaxed mb-6 sm:mb-8 px-2">
-                    Utilizamos tecidos de alta qualidade, tecnologia dry-fit e designs exclusivos para garantir que 
+                <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl text-preto leading-relaxed mb-8 sm:mb-10 px-2 font-medium">
+                    Utilizamos tecidos de alta qualidade, tecnologia <span class="text-rosa font-semibold">dry-fit</span> e designs exclusivos para garantir que 
                     cada peça seja perfeita para sua rotina fitness. Nossas roupas são desenvolvidas pensando no 
                     conforto, durabilidade e estilo que toda mulher ativa merece.
                 </p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 mt-8 sm:mt-12">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-12 mt-12 sm:mt-16">
                     <div class="text-center">
-                        <div class="bg-rosa text-branco w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                            <i class="fas fa-heart text-lg sm:text-xl md:text-2xl"></i>
+                        <div class="bg-rosa text-branco w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg">
+                            <i class="fas fa-heart text-xl sm:text-2xl md:text-3xl"></i>
                         </div>
-                        <h3 class="text-base sm:text-lg md:text-xl font-bold text-preto mb-1 sm:mb-2">PASSION</h3>
-                        <p class="text-sm sm:text-base text-cinza-escuro">Paixão por fitness e moda</p>
+                        <h3 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-preto mb-3 sm:mb-4">PASSION</h3>
+                        <p class="text-base sm:text-lg md:text-xl text-cinza-escuro font-medium">Paixão por fitness e moda</p>
                     </div>
                     <div class="text-center">
-                        <div class="bg-rosa text-branco w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                            <i class="fas fa-star text-lg sm:text-xl md:text-2xl"></i>
+                        <div class="bg-rosa text-branco w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg">
+                            <i class="fas fa-star text-xl sm:text-2xl md:text-3xl"></i>
                         </div>
-                        <h3 class="text-base sm:text-lg md:text-xl font-bold text-preto mb-1 sm:mb-2">QUALIDADE</h3>
-                        <p class="text-sm sm:text-base text-cinza-escuro">Materiais premium e durabilidade</p>
+                        <h3 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-preto mb-3 sm:mb-4">QUALIDADE</h3>
+                        <p class="text-base sm:text-lg md:text-xl text-cinza-escuro font-medium">Materiais premium e durabilidade</p>
                     </div>
                     <div class="text-center sm:col-span-2 md:col-span-1">
-                        <div class="bg-rosa text-branco w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                            <i class="fas fa-users text-lg sm:text-xl md:text-2xl"></i>
+                        <div class="bg-rosa text-branco w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg">
+                            <i class="fas fa-users text-xl sm:text-2xl md:text-3xl"></i>
                         </div>
-                        <h3 class="text-base sm:text-lg md:text-xl font-bold text-preto mb-1 sm:mb-2">COMUNIDADE</h3>
-                        <p class="text-sm sm:text-base text-cinza-escuro">Conectando mulheres ativas</p>
+                        <h3 class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-preto mb-3 sm:mb-4">COMUNIDADE</h3>
+                        <p class="text-base sm:text-lg md:text-xl text-cinza-escuro font-medium">Conectando mulheres ativas</p>
                     </div>
                 </div>
             </div>
@@ -550,6 +530,7 @@
     
     <!-- JavaScript -->
     <script src="{% static 'loja/js/scripts.js' %}?v=20250109"></script>
+    <script src="{% static 'loja/js/animations.js' %}?v=20250109"></script>
     
 
 </body>

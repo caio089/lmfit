@@ -1,77 +1,80 @@
 #!/usr/bin/env python
 """
-Script para verificar configurações antes do deploy
-Execute: python check_config.py
+Script para verificar configurações do Supabase
 """
-
 import os
 import sys
 import django
+from pathlib import Path
+
+# Adicionar o diretório do projeto ao path
+BASE_DIR = Path(__file__).resolve().parent
+sys.path.append(str(BASE_DIR))
 
 # Configurar Django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'LMFIT.settings')
 django.setup()
 
-def check_config():
-    print("🔍 Verificando configurações do projeto...")
+from django.conf import settings
+
+def check_supabase_config():
+    """Verifica as configurações do Supabase"""
+    print("🔍 VERIFICANDO CONFIGURAÇÕES DO SUPABASE")
+    print("=" * 50)
     
     # Verificar variáveis de ambiente
-    required_vars = [
-        'SUPABASE_URL',
-        'SUPABASE_KEY', 
-        'SUPABASE_SERVICE_KEY',
-        'SUPABASE_DB_HOST',
-        'SUPABASE_DB_PASSWORD'
-    ]
+    print("📋 Variáveis de ambiente:")
+    print(f"   SUPABASE_URL: {os.getenv('SUPABASE_URL', 'NÃO DEFINIDA')[:50]}...")
+    print(f"   SUPABASE_KEY: {'DEFINIDA' if os.getenv('SUPABASE_KEY') else 'NÃO DEFINIDA'}")
+    print(f"   SUPABASE_SERVICE_KEY: {'DEFINIDA' if os.getenv('SUPABASE_SERVICE_KEY') else 'NÃO DEFINIDA'}")
+    print(f"   DATABASE_URL: {'DEFINIDA' if os.getenv('DATABASE_URL') else 'NÃO DEFINIDA'}")
     
-    missing_vars = []
-    for var in required_vars:
-        if not os.getenv(var):
-            missing_vars.append(var)
+    print("\n⚙️ Configurações do Django:")
+    print(f"   SUPABASE_URL: {settings.SUPABASE_URL[:50]}...")
+    print(f"   SUPABASE_KEY: {'DEFINIDA' if settings.SUPABASE_KEY else 'NÃO DEFINIDA'}")
+    print(f"   SUPABASE_SERVICE_KEY: {'DEFINIDA' if settings.SUPABASE_SERVICE_KEY else 'NÃO DEFINIDA'}")
+    print(f"   SUPABASE_STORAGE_BUCKET: {settings.SUPABASE_STORAGE_BUCKET}")
     
-    if missing_vars:
-        print("❌ Variáveis de ambiente faltando:")
-        for var in missing_vars:
-            print(f"   - {var}")
-        print("\n💡 Configure essas variáveis no Render Dashboard")
-        return False
-    
-    print("✅ Todas as variáveis de ambiente estão configuradas")
-    
-    # Verificar configurações do Django
-    from django.conf import settings
-    
-    print(f"✅ DEBUG: {settings.DEBUG}")
-    print(f"✅ ALLOWED_HOSTS: {settings.ALLOWED_HOSTS}")
-    print(f"✅ SECRET_KEY: {'Configurada' if settings.SECRET_KEY else 'Não configurada'}")
-    
-    # Verificar banco de dados
+    # Testar upload
+    print("\n🧪 Testando upload...")
     try:
-        from django.db import connection
-        cursor = connection.cursor()
-        cursor.execute("SELECT 1")
-        print("✅ Conexão com banco de dados: OK")
-    except Exception as e:
-        print(f"❌ Erro na conexão com banco: {e}")
-        return False
-    
-    # Verificar Supabase
-    try:
-        from loja.supabase_utils import get_supabase_client
-        client = get_supabase_client()
-        if client:
-            print("✅ Conexão com Supabase: OK")
+        from loja.supabase_direct import upload_image_to_supabase
+        from django.core.files.uploadedfile import SimpleUploadedFile
+        from PIL import Image
+        import io
+        
+        # Criar imagem de teste
+        img = Image.new('RGB', (50, 50), color='green')
+        img_byte_arr = io.BytesIO()
+        img.save(img_byte_arr, format='JPEG')
+        img_byte_arr.seek(0)
+        
+        test_file = SimpleUploadedFile(
+            "test_config.jpg",
+            img_byte_arr.getvalue(),
+            content_type="image/jpeg"
+        )
+        
+        result = upload_image_to_supabase(test_file, "test")
+        
+        if result['success']:
+            print("✅ Upload funcionou!")
+            print(f"   URL: {result['public_url']}")
+            return True
         else:
-            print("❌ Erro na conexão com Supabase")
+            print(f"❌ Erro no upload: {result['error']}")
             return False
+            
     except Exception as e:
-        print(f"❌ Erro na conexão com Supabase: {e}")
+        print(f"❌ Erro no teste: {e}")
+        import traceback
+        traceback.print_exc()
         return False
-    
-    print("\n🎉 Todas as configurações estão corretas!")
-    print("🚀 Pronto para deploy no Render!")
-    
-    return True
 
-if __name__ == '__main__':
-    check_config()
+if __name__ == "__main__":
+    success = check_supabase_config()
+    if success:
+        print("\n🎉 Configuração OK!")
+    else:
+        print("\n💥 Problema na configuração!")
+        sys.exit(1)
